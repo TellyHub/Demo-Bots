@@ -29,7 +29,18 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 from helper_funcs.chat_base import TRChatBase
 from helper_funcs.display_progress import humanbytes
 from helper_funcs.help_uploadbot import DownLoadFile
-
+headers = {
+    "User-Agent":"Mozilla/5.0 (Windows NT 6.1; rv:80.0) Gecko/20100101 Firefox/80.0",
+    "Referer":"https://www.zee5.com",
+    "Accept":"*/*",
+    "Accept-Encoding":"gzip, deflate, br",
+    "Accept-Language":"en-US,en;q=0.9",
+    "Origin":"https://www.zee5.com",
+    "Connection":"keep-alive",
+    "sec-fetch-dest":"empty",
+    "sec-fetch-mode":"cors",
+    "sec-fetch-site":"same-site",
+}
 
 @pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
@@ -43,10 +54,43 @@ async def echo(bot, update):
     #     action="typing"
     # )
     logger.info(update.from_user)
-    url = update.text
+    u = update.text
     youtube_dl_username = None
     youtube_dl_password = None
     file_name = None
+    if "tvshows" or "originals" in u:
+         req1 = requests.get("https://useraction.zee5.com/tokennd").json()
+         rgx = re.findall("([0-9]?\w+)", u)[-3:]
+         li = { "url":"zee5vodnd.akamaized.net", "token":"https://gwapi.zee5.com/content/details/" }
+         req2 = requests.get("https://useraction.zee5.com/token/platform_tokens.php?platform_name=web_app").json()["token"]
+         headers["X-Access-Token"] = req2
+         req3 = requests.get("https://useraction.zee5.com/token").json()
+         r2 = requests.get(li["token"] + "-".join(rgx), 
+                                            headers=headers, 
+                                            params={"translation":"en", "country":"IN"}).json()
+         g2 = (r2["hls"][0].replace("drm", "hls"))
+         if "netst" in g2:
+                    url = (g2 + req3["video_token"])
+                    file_name = r2["title"]
+                    thumb = r2["image_url"]
+                    duration = r2["duration"]
+                    description = r2["description"]
+         else:
+                    url = ("https://" + li["url"] + g2 + req1["video_token"])
+                    file_name = r2["title"]
+                    thumb = r2["image_url"]
+                    duration = r2["duration"]
+                    description = r2["description"]
+    elif "movies" in u:
+         r1 = requests.get(li["token"] + "-".join(rgx),
+                                            headers=headers, 
+                                            params={"translation":"en", "country":"IN"}).json()
+         g1 = (r1["hls"][0].replace("drm", "hls") + req1["video_token"])
+         url = ("https://" + li["url"] + g1)
+         file_name = r1["title"]
+         thumb = r1["image_url"]
+         duration = r1["duration"]
+         description = r1["description"]
     if "|" in url:
         url_parts = url.split("|")
         if len(url_parts) == 2:
@@ -76,14 +120,14 @@ async def echo(bot, update):
             youtube_dl_password = youtube_dl_password.strip()
         logger.info(url)
         logger.info(file_name)
-    else:
-        for entity in update.entities:
-            if entity.type == "text_link":
-                url = entity.url
-            elif entity.type == "url":
-                o = entity.offset
-                l = entity.length
-                url = url[o:o + l]
+#    else:
+#        for entity in update.entities:
+#            if entity.type == "text_link":
+#                url = entity.url
+#            elif entity.type == "url":
+#                o = entity.offset
+#                l = entity.length
+#                url = url[o:o + l]
     if Config.HTTP_PROXY != "":
         command_to_exec = [
             "youtube-dl",
@@ -152,6 +196,7 @@ async def echo(bot, update):
         if "formats" in response_json:
             for formats in response_json["formats"]:
                 format_id = formats.get("format_id")
+                json_url = formats.get("url")
                 format_string = formats.get("format_note")
                 if format_string is None:
                     format_string = formats.get("format")
@@ -159,10 +204,10 @@ async def echo(bot, update):
                 approx_file_size = ""
                 if "filesize" in formats:
                     approx_file_size = humanbytes(formats["filesize"])
-                cb_string_video = "{}|{}|{}".format(
-                    "video", format_id, format_ext)
+                cb_string_video = "{}|{}|{}|{}".format(
+                    "video", format_id, json_url, format_ext)
                 cb_string_file = "{}|{}|{}".format(
-                    "file", format_id, format_ext)
+                    "file", format_id, json_url, format_ext)
                 if format_string is not None and not "audio only" in format_string:
                     ikeyboard = [
                         pyrogram.InlineKeyboardButton(
@@ -176,7 +221,7 @@ async def echo(bot, update):
                     ]
                     """if duration is not None:
                         cb_string_video_message = "{}|{}|{}".format(
-                            "vm", format_id, format_ext)
+                            "vm", format_id, json_url, format_ext)
                         ikeyboard.append(
                             pyrogram.InlineKeyboardButton(
                                 "VM",
@@ -217,11 +262,12 @@ async def echo(bot, update):
                 ])
         else:
             format_id = response_json["format_id"]
+            json_url = response_json["url"]
             format_ext = response_json["ext"]
-            cb_string_file = "{}|{}|{}".format(
-                "file", format_id, format_ext)
-            cb_string_video = "{}|{}|{}".format(
-                "video", format_id, format_ext)
+            cb_string_file = "{}|{}|{}|{}".format(
+                "file", format_id, json_url, format_ext)
+            cb_string_video = "{}|{}|{}|{}".format(
+                "video", format_id, json_url, format_ext)
             inline_keyboard.append([
                 pyrogram.InlineKeyboardButton(
                     "SVideo",
@@ -232,10 +278,10 @@ async def echo(bot, update):
                     callback_data=(cb_string_file).encode("UTF-8")
                 )
             ])
-            cb_string_file = "{}={}={}".format(
-                "file", format_id, format_ext)
-            cb_string_video = "{}={}={}".format(
-                "video", format_id, format_ext)
+            cb_string_file = "{}={}={}={}".format(
+                "file", format_id, json_url, format_ext)
+            cb_string_video = "{}={}={}={}".format(
+                "video", format_id, json_url, format_ext)
             inline_keyboard.append([
                 pyrogram.InlineKeyboardButton(
                     "video",
