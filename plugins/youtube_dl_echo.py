@@ -198,10 +198,10 @@ async def echo(bot, update):
         if "formats" in response_json:
             for formats in response_json["formats"]:
                 format_id = formats.get("format_id")
-                json_url = formats.get("url")
                 format_string = formats.get("format_note")
                 if format_string is None:
                     format_string = formats.get("format")
+                json_url = formats.get("url")
                 format_ext = formats.get("ext")
                 approx_file_size = ""
                 if "filesize" in formats:
