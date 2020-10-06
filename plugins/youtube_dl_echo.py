@@ -201,15 +201,14 @@ async def echo(bot, update):
                 format_string = formats.get("format_note")
                 if format_string is None:
                     format_string = formats.get("format")
-                json_url = formats.get("url")
                 format_ext = formats.get("ext")
                 approx_file_size = ""
                 if "filesize" in formats:
                     approx_file_size = humanbytes(formats["filesize"])
-                cb_string_video = "{}|{}|{}|{}".format(
-                    "video", format_id, json_url, format_ext)
-                cb_string_file = "{}|{}|{}|{}".format(
-                    "file", format_id, json_url, format_ext)
+                cb_string_video = "{}|{}|{}".format(
+                    "video", format_id, format_ext)
+                cb_string_file = "{}|{}|{}".format(
+                    "file", format_id, format_ext)
                 if format_string is not None and not "audio only" in format_string:
                     ikeyboard = [
                         pyrogram.InlineKeyboardButton(
@@ -222,8 +221,8 @@ async def echo(bot, update):
                         )
                     ]
                     """if duration is not None:
-                        cb_string_video_message = "{}|{}|{}|{}".format(
-                            "vm", format_id, json_url, format_ext)
+                        cb_string_video_message = "{}|{}|{}".format(
+                            "vm", format_id, format_ext)
                         ikeyboard.append(
                             pyrogram.InlineKeyboardButton(
                                 "VM",
@@ -266,10 +265,10 @@ async def echo(bot, update):
             format_id = response_json["format_id"]
             json_url = response_json["url"]
             format_ext = response_json["ext"]
-            cb_string_file = "{}|{}|{}|{}".format(
-                "file", format_id, json_url, format_ext)
-            cb_string_video = "{}|{}|{}|{}".format(
-                "video", format_id, json_url, format_ext)
+            cb_string_file = "{}|{}|{}".format(
+                "file", format_id, format_ext)
+            cb_string_video = "{}|{}|{}".format(
+                "video", format_id, format_ext)
             inline_keyboard.append([
                 pyrogram.InlineKeyboardButton(
                     "SVideo",
@@ -280,9 +279,9 @@ async def echo(bot, update):
                     callback_data=(cb_string_file).encode("UTF-8")
                 )
             ])
-            cb_string_file = "{}={}={}={}".format(
+            cb_string_file = "{}={}={}".format(
                 "file", format_id, json_url, format_ext)
-            cb_string_video = "{}={}={}={}".format(
+            cb_string_video = "{}={}={}".format(
                 "video", format_id, json_url, format_ext)
             inline_keyboard.append([
                 pyrogram.InlineKeyboardButton(
