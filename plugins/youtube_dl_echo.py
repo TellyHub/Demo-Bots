@@ -101,14 +101,14 @@ async def echo(bot, update):
             file_name = url_parts[1]
             youtube_dl_username = url_parts[2]
             youtube_dl_password = url_parts[3]
-        else:
-            for entity in update.entities:
-                if entity.type == "text_link":
-                    url = entity.url
-                elif entity.type == "url":
-                    o = entity.offset
-                    l = entity.length
-                    url = url[o:o + l]
+        #else:
+        #    for entity in update.entities:
+        #        if entity.type == "text_link":
+        #            url = entity.url
+        #        elif entity.type == "url":
+        #            o = entity.offset
+        #            l = entity.length
+        #            url = url[o:o + l]
         if url is not None:
             url = url.strip()
         if file_name is not None:
@@ -120,14 +120,14 @@ async def echo(bot, update):
             youtube_dl_password = youtube_dl_password.strip()
         logger.info(url)
         logger.info(file_name)
-#    else:
-#        for entity in update.entities:
-#            if entity.type == "text_link":
-#                url = entity.url
-#            elif entity.type == "url":
-#                o = entity.offset
-#                l = entity.length
-#                url = url[o:o + l]
+     #else:
+     #    for entity in update.entities:
+     #        if entity.type == "text_link":
+     #            url = entity.url
+     #        elif entity.type == "url":
+     #            o = entity.offset
+     #            l = entity.length
+     #            url = url[o:o + l]
     if Config.HTTP_PROXY != "":
         command_to_exec = [
             "youtube-dl",
