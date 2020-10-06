@@ -40,7 +40,7 @@ from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
 async def youtube_dl_call_back(bot, update):
     cb_data = update.data
     # youtube_dl extractors
-    tg_send_type, youtube_dl_format, youtube_dl_ext = cb_data.split("|")
+    tg_send_type, youtube_dl_format, pjson_url, youtube_dl_ext = cb_data.split("|")
     thumb_image_path = Config.DOWNLOAD_LOCATION + \
         "/" + str(update.from_user.id) + ".jpg"
     save_ytdl_json_path = Config.DOWNLOAD_LOCATION + \
@@ -55,7 +55,8 @@ async def youtube_dl_call_back(bot, update):
             revoke=True
         )
         return False
-    youtube_dl_url = update.message.reply_to_message.text
+    #youtube_dl_url = update.message.reply_to_message.text
+    youtube_dl_url = pjson_url
     custom_file_name = str(response_json.get("title")) + \
         "_" + youtube_dl_format + "." + youtube_dl_ext
     youtube_dl_username = None
@@ -70,14 +71,14 @@ async def youtube_dl_call_back(bot, update):
             custom_file_name = url_parts[1]
             youtube_dl_username = url_parts[2]
             youtube_dl_password = url_parts[3]
-        else:
-            for entity in update.message.reply_to_message.entities:
-                if entity.type == "text_link":
-                    youtube_dl_url = entity.url
-                elif entity.type == "url":
-                    o = entity.offset
-                    l = entity.length
-                    youtube_dl_url = youtube_dl_url[o:o + l]
+        #else:
+            #for entity in update.message.reply_to_message.entities:
+                #if entity.type == "text_link":
+                    #youtube_dl_url = entity.url
+                #elif entity.type == "url":
+                    #o = entity.offset
+                    #l = entity.length
+                    #youtube_dl_url = youtube_dl_url[o:o + l]
         if youtube_dl_url is not None:
             youtube_dl_url = youtube_dl_url.strip()
         if custom_file_name is not None:
@@ -89,14 +90,14 @@ async def youtube_dl_call_back(bot, update):
             youtube_dl_password = youtube_dl_password.strip()
         logger.info(youtube_dl_url)
         logger.info(custom_file_name)
-    else:
-        for entity in update.message.reply_to_message.entities:
-            if entity.type == "text_link":
-                youtube_dl_url = entity.url
-            elif entity.type == "url":
-                o = entity.offset
-                l = entity.length
-                youtube_dl_url = youtube_dl_url[o:o + l]
+    #else:
+        #for entity in update.message.reply_to_message.entities:
+            #if entity.type == "text_link":
+                #youtube_dl_url = entity.url
+            #elif entity.type == "url":
+                #o = entity.offset
+                #l = entity.length
+                #youtube_dl_url = youtube_dl_url[o:o + l]
     await bot.edit_message_text(
         text=Translation.DOWNLOAD_START,
         chat_id=update.message.chat.id,
