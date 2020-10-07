@@ -15,6 +15,8 @@ import os
 import shutil
 import time
 from datetime import datetime
+import requests
+import re
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
@@ -59,13 +61,46 @@ async def youtube_dl_call_back(bot, update):
       for formats in response_json["formats"]:
         format_id = formats.get("format_id")
         if format_id == youtube_dl_format:
-          youtube_dl_url = formats.get("url")
-    #youtube_dl_url = update.message.reply_to_message.text
+          youtube_dl_u = formats.get("url")
+    youtube_dl_url = update.message.reply_to_message.text
     #youtube_dl_url = pjson_url
     custom_file_name = str(response_json.get("title")) + \
         "_" + youtube_dl_format + "." + youtube_dl_ext
     youtube_dl_username = None
     youtube_dl_password = None
+    if "tvshows" or "originals" in youtube_dl_url:
+         req1 = requests.get("https://useraction.zee5.com/tokennd").json()
+         rgx = re.findall("([0-9]?\w+)", youtube_dl_url)[-3:]
+         li = { "url":"zee5vodnd.akamaized.net", "token":"https://gwapi.zee5.com/content/details/" }
+         req2 = requests.get("https://useraction.zee5.com/token/platform_tokens.php?platform_name=web_app").json()["token"]
+         headers["X-Access-Token"] = req2
+         req3 = requests.get("https://useraction.zee5.com/token").json()
+         r2 = requests.get(li["token"] + "-".join(rgx), 
+                                            headers=headers, 
+                                            params={"translation":"en", "country":"IN"}).json()
+         g2 = (r2["hls"][0].replace("drm", "hls"))
+         if "netst" in g2:
+                    youtube_dl_url = (g2 + req3["video_token"])
+                    file_name = r2["title"]
+                    thumb = r2["image_url"]
+                    duration = r2["duration"]
+                    description = r2["description"]
+         else:
+                    youtube_dl_url = ("https://" + li["url"] + g2 + req1["video_token"])
+                    file_name = r2["title"]
+                    thumb = r2["image_url"]
+                    duration = r2["duration"]
+                    description = r2["description"]
+    elif "movies" in u:
+         r1 = requests.get(li["token"] + "-".join(rgx),
+                                            headers=headers, 
+                                            params={"translation":"en", "country":"IN"}).json()
+         g1 = (r1["hls"][0].replace("drm", "hls") + req1["video_token"])
+         youtube_dl_url = ("https://" + li["url"] + g1)
+         file_name = r1["title"]
+         thumb = r1["image_url"]
+         duration = r1["duration"]
+         description = r1["description"]
     if "|" in youtube_dl_url:
         url_parts = youtube_dl_url.split("|")
         if len(url_parts) == 2:
