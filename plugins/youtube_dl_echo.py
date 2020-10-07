@@ -206,9 +206,9 @@ async def echo(bot, update):
                 if "filesize" in formats:
                     approx_file_size = humanbytes(formats["filesize"])
                 cb_string_video = "{}|{}|{}".format(
-                    format_id, json_url, format_ext)
+                    "video", format_id, format_ext)
                 cb_string_file = "{}|{}|{}".format(
-                    format_id, json_url, format_ext)
+                    "file", format_id, format_ext)
                 if format_string is not None and not "audio only" in format_string:
                     ikeyboard = [
                         pyrogram.InlineKeyboardButton(
