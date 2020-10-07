@@ -245,7 +245,7 @@ async def youtube_dl_call_back(bot, update):
       file_size = Config.TG_MAX_FILE_SIZE + 1
       try:
           file_size = os.stat(download_directory).st_size
-      except FileNotFoundError:
+      except FileNotFoundError as exc:
           download_directory = os.path.splitext(download_directory)[0] + "." + "mkv"
           # https://stackoverflow.com/a/678242/4723940
           file_size = os.stat(download_directory).st_size
@@ -403,8 +403,6 @@ async def youtube_dl_call_back(bot, update):
           try:
               shutil.rmtree(tmp_directory_for_each_user)
               os.remove(thumb_image_path)
-              os.remove(a_download_directory)
-              os.remove(v_download_directory)
           except:
               pass
           await bot.edit_message_text(
