@@ -39,9 +39,8 @@ from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
 
 async def youtube_dl_call_back(bot, update):
     cb_data = update.data
-    tg_send_type = None
     # youtube_dl extractors
-    youtube_dl_format, pjson_url, youtube_dl_ext = cb_data.split("|")
+    tg_send_type, youtube_dl_format, youtube_dl_ext = cb_data.split("|")
     thumb_image_path = Config.DOWNLOAD_LOCATION + \
         "/" + str(update.from_user.id) + ".jpg"
     save_ytdl_json_path = Config.DOWNLOAD_LOCATION + \
