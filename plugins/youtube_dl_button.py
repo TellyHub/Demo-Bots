@@ -171,6 +171,7 @@ async def youtube_dl_call_back(bot, update):
           message_id=update.message.message_id
       )
       v_download_directory = tmp_directory_for_each_user + "/" + "video" + "/" + custom_file_name
+      minus_f_format = youtube_dl_format + "+bestaudio"
       command_to_exec = [
           "youtube-dl",
           "-c",
