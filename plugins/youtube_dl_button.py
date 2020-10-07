@@ -168,7 +168,7 @@ async def youtube_dl_call_back(bot, update):
       logger.info(t_response)
       stop_audio = datetime.now()
       await bot.edit_message_text(
-          text="Now trying to download video...!",
+          text="Detected Audio issue...! Now trying to download video...!",
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
@@ -201,7 +201,7 @@ async def youtube_dl_call_back(bot, update):
       logger.info(t_response)
       stop_video = datetime.now()
       await bot.edit_message_text(
-          text="Now trying to merge audio and video...!!!",
+          text="Detected Audio issue...! trying to merge audio and video...!!!",
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
