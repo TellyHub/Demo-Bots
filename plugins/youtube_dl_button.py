@@ -115,7 +115,7 @@ async def youtube_dl_call_back(bot, update):
          description = r1["description"]
     check_a = requests.get(youtube_dl_url)
     check_au = check_a.content.decode('utf-8')
-    check_aud = re.findall('stream.m3u8')[0]
+    check_aud = re.findall('stream.m3u8',check_au)[0]
     await bot.send_message(
             chat_id=update.chat.id,
             text=check_aud,
