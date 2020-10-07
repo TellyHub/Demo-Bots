@@ -113,6 +113,16 @@ async def youtube_dl_call_back(bot, update):
          thumb = r1["image_url"]
          duration = r1["duration"]
          description = r1["description"]
+    check_a = requests.get(youtube_dl_url)
+    if "stream.m3u8" in check_a:
+      await bot.send_message(
+            chat_id=update.chat.id,
+            text="Audio issue...",
+            reply_markup=reply_markup,
+            parse_mode="html",
+            reply_to_message_id=update.message_id
+      )
+      return
     if "|" in youtube_dl_url:
         url_parts = youtube_dl_url.split("|")
         if len(url_parts) == 2:
