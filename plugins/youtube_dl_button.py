@@ -46,7 +46,7 @@ async def youtube_dl_call_back(bot, update):
     save_ytdl_json_path = Config.DOWNLOAD_LOCATION + \
         "/" + str(update.from_user.id) + ".json"
     try:
-        with open(save_ytdl_json_path, "r", encoding="utf8") as f:
+        with open(save_ytdl_json_path, "r", decoding="utf8") as f:
             response_json = json.load(f)
     except (FileNotFoundError) as e:
         await bot.delete_messages(
@@ -60,7 +60,7 @@ async def youtube_dl_call_back(bot, update):
         format_id = formats.get("format_id")
         if format_id == youtube_dl_format:
           dl_url = formats.get("url")
-          youtube_dl_url = dl_url.content.decode('utf-8')
+          youtube_dl_url = dl_url
     #youtube_dl_url = update.message.reply_to_message.text
     #youtube_dl_url = pjson_url
     custom_file_name = str(response_json.get("title")) + \
