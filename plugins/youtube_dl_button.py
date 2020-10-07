@@ -17,6 +17,7 @@ import time
 from datetime import datetime
 import requests
 import re
+import ffmpeg
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
