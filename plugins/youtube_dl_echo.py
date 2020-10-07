@@ -198,7 +198,6 @@ async def echo(bot, update):
         if "formats" in response_json:
             for formats in response_json["formats"]:
                 format_id = formats.get("format_id")
-                json_url = formats.get("url")
                 format_string = formats.get("format_note")
                 if format_string is None:
                     format_string = formats.get("format")
@@ -264,12 +263,11 @@ async def echo(bot, update):
                 ])
         else:
             format_id = response_json["format_id"]
-            json_url = response_json["url"]
             format_ext = response_json["ext"]
             cb_string_file = {}|{}|{}".format(
-                format_id, json_url, format_ext)
+                "file", format_id, format_ext)
             cb_string_video = "{}|{}|{}".format(
-                format_id, json_url, format_ext)
+                "video", format_id, format_ext)
             inline_keyboard.append([
                 pyrogram.InlineKeyboardButton(
                     "SVideo",
@@ -281,9 +279,9 @@ async def echo(bot, update):
                 )
             ])
             cb_string_file = "{}={}={}".format(
-                format_id, json_url, format_ext)
+                "file", format_id, format_ext)
             cb_string_video = "{}={}={}".format(
-                format_id, json_url, format_ext)
+                "video", format_id, format_ext)
             inline_keyboard.append([
                 pyrogram.InlineKeyboardButton(
                     "video",
