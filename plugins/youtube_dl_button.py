@@ -71,9 +71,10 @@ async def youtube_dl_call_back(bot, update):
         return False
     if "formats" in response_json:
       for formats in response_json["formats"]:
-        format_id = formats.get("format_id")
-        if format_id == youtube_dl_format:
-          youtube_dl_u = formats.get("url")
+        aformat_id = formats.get("format_id")
+        vcodec = formats.get("vcodec")
+        if vcodec == "none":
+          audio_format_id = aformat_id
     youtube_dl_url = update.message.reply_to_message.text
     #youtube_dl_url = pjson_url
     custom_file_name = str(response_json.get("title")) + \
@@ -118,7 +119,78 @@ async def youtube_dl_call_back(bot, update):
     try:
       check_aud = re.findall('stream.m3u8',check_au)[0]
       await bot.edit_message_text(
-          text="Detected Audio issue...!",
+          text="Detected Audio issue...! trying to download audio.",
+          chat_id=update.message.chat.id,
+          message_id=update.message.message_id
+      )
+      description = Translation.CUSTOM_CAPTION_UL_FILE
+      if "fulltitle" in response_json:
+          description = response_json["fulltitle"][0:1021]
+          # escape Markdown and special characters
+      tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
+      if not os.path.isdir(tmp_directory_for_each_user):
+          os.makedirs(tmp_directory_for_each_user)
+      a_download_directory = tmp_directory_for_each_user + "/" + "audio" + "/" + custom_file_name
+      command_to_exec = []
+      command_to_exec = [
+              "youtube-dl",
+              "-c",
+              "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+              "--embed-subs",
+              "-f", audio_format_id,
+              "--hls-prefer-ffmpeg", youtube_dl_url,
+              "-o", a_download_directory
+          ]
+      command_to_exec.append("--no-warnings")
+      # command_to_exec.append("--quiet")
+      logger.info(command_to_exec)
+      start_audio = datetime.now()
+      process = await asyncio.create_subprocess_exec(
+          *command_to_exec,
+          # stdout must a pipe to be accessible as process.stdout
+          stdout=asyncio.subprocess.PIPE,
+          stderr=asyncio.subprocess.PIPE,
+      )
+      # Wait for the subprocess to finish
+      stdout, stderr = await process.communicate()
+      e_response = stderr.decode().strip()
+      t_response = stdout.decode().strip()
+      logger.info(e_response)
+      logger.info(t_response)
+      stop_audio = datetime.now()
+      await bot.edit_message_text(
+          text="Now trying to download video...!",
+          chat_id=update.message.chat.id,
+          message_id=update.message.message_id
+      )
+      command_to_exec = [
+          "youtube-dl",
+          "-c",
+          "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+          "--embed-subs",
+          "-f", minus_f_format,
+          "--hls-prefer-ffmpeg", youtube_dl_url,
+          "-o", download_directory
+      ]
+      command_to_exec.append("--no-warnings")
+      # command_to_exec.append("--quiet")
+      logger.info(command_to_exec)
+      start_video = datetime.now()
+      process = await asyncio.create_subprocess_exec(
+          *command_to_exec,
+          # stdout must a pipe to be accessible as process.stdout
+          stdout=asyncio.subprocess.PIPE,
+          stderr=asyncio.subprocess.PIPE,
+      )
+      # Wait for the subprocess to finish
+      stdout, stderr = await process.communicate()
+      e_response = stderr.decode().strip()
+      t_response = stdout.decode().strip()
+      logger.info(e_response)
+      logger.info(t_response)
+      stop_video = datetime.now()
+      await bot.edit_message_text(
+          text="Now trying to merge audio and video...!!!",
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
