@@ -38,6 +38,18 @@ from hachoir.parser import createParser
 from PIL import Image
 from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
 
+headers = {
+    "User-Agent":"Mozilla/5.0 (Windows NT 6.1; rv:80.0) Gecko/20100101 Firefox/80.0",
+    "Referer":"https://www.zee5.com",
+    "Accept":"*/*",
+    "Accept-Encoding":"gzip, deflate, br",
+    "Accept-Language":"en-US,en;q=0.9",
+    "Origin":"https://www.zee5.com",
+    "Connection":"keep-alive",
+    "sec-fetch-dest":"empty",
+    "sec-fetch-mode":"cors",
+    "sec-fetch-site":"same-site",
+}
 
 async def youtube_dl_call_back(bot, update):
     cb_data = update.data
