@@ -117,11 +117,10 @@ async def youtube_dl_call_back(bot, update):
     check_au = check_a.content.decode('utf-8')
     check_aud = re.findall('stream.m3u8',check_au)[0]
     await bot.send_message(
-            chat_id=update.chat.id,
+            chat_id=update.message.chat.id,
             text=check_aud,
-            reply_markup=reply_markup,
             parse_mode="html",
-            reply_to_message_id=update.message_id
+            reply_to_message_id=update.message.message_id
     )
     return
     if "|" in youtube_dl_url:
