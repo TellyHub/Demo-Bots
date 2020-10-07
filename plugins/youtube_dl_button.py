@@ -59,8 +59,7 @@ async def youtube_dl_call_back(bot, update):
       for formats in response_json["formats"]:
         format_id = formats.get("format_id")
         if format_id == youtube_dl_format:
-          dl_url = formats.get("url")
-          youtube_dl_url = dl_url
+          youtube_dl_url = formats.get("url")
     #youtube_dl_url = update.message.reply_to_message.text
     #youtube_dl_url = pjson_url
     custom_file_name = str(response_json.get("title")) + \
