@@ -143,11 +143,13 @@ async def youtube_dl_call_back(bot, update):
               "youtube-dl",
               "-c",
               "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
-              "--embed-subs",
-              "-f", audio_format_id,
-              "--hls-prefer-ffmpeg", youtube_dl_url,
+              "--prefer-ffmpeg",
+              "--extract-audio",
+              "--audio-format", youtube_dl_ext,
+              "--audio-quality", audio_format_id,
+              youtube_dl_url,
               "-o", a_download_directory
-          ]
+      ]
       command_to_exec.append("--no-warnings")
       # command_to_exec.append("--quiet")
       logger.info(command_to_exec)
