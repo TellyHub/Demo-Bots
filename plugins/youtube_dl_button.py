@@ -134,10 +134,10 @@ async def youtube_dl_call_back(bot, update):
       if "fulltitle" in response_json:
           description = response_json["fulltitle"][0:1021]
           # escape Markdown and special characters
-      tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
+      tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/" + "audio"
       if not os.path.isdir(tmp_directory_for_each_user):
           os.makedirs(tmp_directory_for_each_user)
-      a_download_directory = tmp_directory_for_each_user + "/" + "audio" + "/" + custom_file_name
+      a_download_directory = tmp_directory_for_each_user + "/" + custom_file_name
       command_to_exec = []
       command_to_exec = [
               "youtube-dl",
@@ -150,10 +150,6 @@ async def youtube_dl_call_back(bot, update):
               youtube_dl_url,
               "-o", a_download_directory
       ]
-      afile_size = os.stat(a_download_directory).st_size
-      os.remove(a_download_directory)
-      return
-      command_to_exec.append("--no-warnings")
       # command_to_exec.append("--quiet")
       logger.info(command_to_exec)
       start_audio = datetime.now()
@@ -170,6 +166,9 @@ async def youtube_dl_call_back(bot, update):
       logger.info(e_response)
       logger.info(t_response)
       stop_audio = datetime.now()
+      afile_size = os.stat(a_download_directory).st_size
+      os.remove(a_download_directory)
+      return
       await bot.edit_message_text(
           text="Detected Audio issue...! Now trying to download video...!",
           chat_id=update.message.chat.id,
