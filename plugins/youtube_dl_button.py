@@ -146,10 +146,13 @@ async def youtube_dl_call_back(bot, update):
               "--prefer-ffmpeg",
               "--extract-audio",
               "--audio-format", "mp3",
-              "--audio-quality", audio_format_id,
+              "--audio-quality", "320k",
               youtube_dl_url,
               "-o", a_download_directory
       ]
+      afile_size = os.stat(a_download_directory).st_size
+      os.remove(a_download_directory)
+      return
       command_to_exec.append("--no-warnings")
       # command_to_exec.append("--quiet")
       logger.info(command_to_exec)
