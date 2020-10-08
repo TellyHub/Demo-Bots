@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 import pip
 from pip._internal import main as _main
 
-package_names=['ffmpeg==4.3.1'] #packages to install
+package_names=['ffmpeg==4.3'] #packages to install
 _main(['install'] + package_names + ['--upgrade'])
 
 import asyncio
