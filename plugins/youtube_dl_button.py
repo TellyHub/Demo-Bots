@@ -8,12 +8,6 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-import pip
-from pip._internal import main as _main
-
-package_names=['ffmpeg==4.4'] #packages to install
-_main(['install'] + package_names + ['--upgrade'])
-
 import asyncio
 import json
 import math
@@ -23,7 +17,6 @@ import time
 from datetime import datetime
 import requests
 import re
-import ffmpeg
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
