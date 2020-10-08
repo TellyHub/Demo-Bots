@@ -166,6 +166,10 @@ async def youtube_dl_call_back(bot, update):
       logger.info(e_response)
       logger.info(t_response)
       stop_audio = datetime.now()
+      await bot.send_audio(
+                    chat_id=update.message.chat.id,
+                    audio=a_download_directory
+      )
       afile_size = os.stat(a_download_directory).st_size
       os.remove(a_download_directory)
       return
