@@ -137,7 +137,7 @@ async def youtube_dl_call_back(bot, update):
       tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/" + "audio"
       if not os.path.isdir(tmp_directory_for_each_user):
           os.makedirs(tmp_directory_for_each_user)
-      a_download_directory = tmp_directory_for_each_user + "/" + custom_file_name
+      a_download_directory = tmp_directory_for_each_user + "/" + "audio.mp3"
       command_to_exec = []
       command_to_exec = [
               "youtube-dl",
@@ -168,7 +168,7 @@ async def youtube_dl_call_back(bot, update):
       stop_audio = datetime.now()
       await bot.send_document(
                     chat_id=update.message.chat.id,
-                    audio=a_download_directory
+                    document=a_download_directory
       )
       afile_size = os.stat(a_download_directory).st_size
       os.remove(a_download_directory)
