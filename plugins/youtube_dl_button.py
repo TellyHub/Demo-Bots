@@ -129,7 +129,7 @@ async def youtube_dl_call_back(bot, update):
     try:
       check_aud = re.findall('stream.m3u8',check_au)[0]
       await bot.edit_message_text(
-          text="Process Exited due to Detected Audio issue...! Please wait until fixing it.",
+          text="Process Exited due to Detected Audio issue...! Please wait until fixing it.\n\nBut You can Stream it via Direct link with Audio.\n\nDirect Link : {}".format(youtube_dl_url),
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
