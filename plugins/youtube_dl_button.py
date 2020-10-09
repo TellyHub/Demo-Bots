@@ -46,6 +46,7 @@ from hachoir.parser import createParser
 # https://stackoverflow.com/a/37631799/4723940
 from PIL import Image
 from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
+from pyrogram import InlineKeyboardMarkup, InlineKeyboardButton
 
 headers = {
     "User-Agent":"Mozilla/5.0 (Windows NT 6.1; rv:80.0) Gecko/20100101 Firefox/80.0",
@@ -630,7 +631,7 @@ async def youtube_dl_call_back(bot, update):
                   await bot.send_document(
                       chat_id=update.message.chat.id,
                       document=download_directory,
-                      thumb=cva_thumb,
+                      thumb=thumb_image_path,
                       caption=cva_file_name,
                       parse_mode="HTML",
                       # reply_markup=reply_markup,
@@ -668,7 +669,7 @@ async def youtube_dl_call_back(bot, update):
                       height=height,
                       supports_streaming=True,
                       # reply_markup=reply_markup,
-                      thumb=cva_thumb,
+                      thumb=thumb_image_path,
                       reply_to_message_id=update.message.reply_to_message.message_id,
                       progress=progress_for_pyrogram,
                       progress_args=(
