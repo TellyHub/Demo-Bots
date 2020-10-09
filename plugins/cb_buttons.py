@@ -30,6 +30,8 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 from helper_funcs.chat_base import TRChatBase
 from helper_funcs.display_progress import progress_for_pyrogram, humanbytes
 from plugins.youtube_dl_button import youtube_dl_call_back
+from plugins.help_text import help_user
+from plugins.help_text import free_req
 from plugins.dl_button import ddl_call_back
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -132,3 +134,11 @@ async def button(bot, update):
         await youtube_dl_call_back(bot, update)
     elif "=" in cb_data:
         await ddl_call_back(bot, update)
+    elif "help_back" in cb_data:
+        await update.message.delete()
+        await help_user(bot, update)
+    elif "close" in cb_data:
+        await update.message.delete()
+    elif "free_req" in cb_data:
+        await update.message.delete()
+        await free_req(bot, update)
