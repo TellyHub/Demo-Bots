@@ -228,7 +228,7 @@ async def echo(bot, update):
                     ]
                     """if duration is not None:
                         cb_string_video_message = "{}|{}|{}".format(
-                            format_id, json_url, format_ext)
+                            "vm", format_id, format_ext)
                         ikeyboard.append(
                             pyrogram.InlineKeyboardButton(
                                 "VM",
