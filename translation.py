@@ -1,21 +1,28 @@
 class Translation(object):
     START_TEXT = """<b>Hai...!</b>
+    
 <i>This is a Zee5 URL Upload Bot!</i>
-<i>Please send me any Zee5 Streaming URL Link, i can upload to Team Drive.</i>
+
+<i>Please send me any Zee5 Streaming (URL) Link, Then I will upload to Telegram as File/Video or Team Drive.</i>
+
 ℹ️Help <i>for more details...</i>
+
 © @Super_botz"""
     RENAME_403_ERR = "Sorry. You are not permitted to rename this file."
     ABS_TEXT = " Please don't be selfish."
     UPGRADE_TEXT = """<b>How to pay?</b>
+    
 <i>1️⃣ Send Rs.50/month via following UPI</i>
+
 <i>2️⃣ <u>Available UPI's are below:</u></i>
+
       ℹ️ Amazon Pay UPI ID : <code>cvatricks@apl</code>
       
       ℹ️ PhonePe UPI ID    : <code>cvatricks@ybl</code>
+      
 <i>3️⃣ Send payment completed Screenshot to @payment_validator_bot</i>"""
-    FORMAT_SELECTION = "Select the desired format: <a href='{}'>file size might be approximate</a> \nIf you want to set custom thumbnail, send photo before or quickly after tapping on any of the below buttons.\nYou can use /deletethumbnail to delete the auto-generated thumbnail."
-    SET_CUSTOM_USERNAME_PASSWORD = """If you want to download with custom filename, provide in the following format:
-URL | Filename.extention"""
+    FORMAT_SELECTION = "🎞 - Telegram Video\n\n📁 - Telegram File\n\n📥 - Team Drive\n\nIf you want to set custom thumbnail, send photo before or quickly after tapping on any of the below buttons.\n\nYou can use /deletethumbnail to delete the auto-generated thumbnail."
+    SET_CUSTOM_USERNAME_PASSWORD = " "
     NOYES_URL = "URL detected. Please use https://shrtz.me/PtsVnf6 and get me a fast URL so that I can upload to Telegram, without me slowing down for other users."
     DOWNLOAD_START = "📥 Downloading... ⏳"
     UPLOAD_START = "📤 Uploading... ⏳"
@@ -44,7 +51,7 @@ Expires on: 30 Days after Payment"""
 Send Zee5 URL.
    
    Eg.: 
-       <code>https://www.zee5.com/tvshows/details/chembarathi/0-6-1150</code>
+       <code>https://www.zee5.com/tvshows/details/sathya/0-6-1339/sathya-september-29-2020-trailer/0-1-323703</code>
    
 </i>
 --------
@@ -79,6 +86,7 @@ Free users only 1 request per 30 minutes.
 /upgrade or Try 1800 seconds later."""
     SLOW_URL_DECED = "Gosh that seems to be a very slow URL. Since you were screwing my home, I am in no mood to download this file. Meanwhile, why don't you try this:==> https://shrtz.me/PtsVnf6 and get me a fast URL so that I can upload to Telegram, without me slowing down for other users."
     TODO = """<b><u>Bugs and Upcoming Features..!</u></b>
+    
 <a href=https://comments.bot/thread/pDqZBzyEd>☑️ Place for Bugs and Feature Requests</a> 
 """
     AUTH_CHANNEL_TEXT = "You must Join Updates Channel to use me."
