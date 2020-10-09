@@ -128,10 +128,11 @@ async def youtube_dl_call_back(bot, update):
     try:
       check_aud = re.findall('stream.m3u8',check_au)[0]
       await bot.edit_message_text(
-          text="Detected Audio issue...! trying to download audio.",
+          text="Process Exited due to Detected Audio issue...! Please wait until fixing it.",
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
+      return
       description = Translation.CUSTOM_CAPTION_UL_FILE
       if "fulltitle" in response_json:
           description = response_json["fulltitle"][0:1021]
