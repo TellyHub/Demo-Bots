@@ -11,9 +11,8 @@ logger = logging.getLogger(__name__)
 import pip
 from pip._internal import main as _main
 
-package_names=['ffmpeg==4.3'] #packages to install
+package_names=['PyDrive', 'httplib2==0.15.0', 'google-api-python-client==1.7.11'] #packages to install
 _main(['install'] + package_names + ['--upgrade'])
-
 
 import asyncio
 import json
@@ -24,6 +23,9 @@ import time
 from datetime import datetime
 import requests
 import re
+import pydrive
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
@@ -101,26 +103,26 @@ async def youtube_dl_call_back(bot, update):
          g2 = (r2["hls"][0].replace("drm", "hls"))
          if "netst" in g2:
                     youtube_dl_url = (g2 + req3["video_token"])
-                    file_name = r2["title"]
-                    thumb = r2["image_url"]
-                    duration = r2["duration"]
-                    description = r2["description"]
+                    cva_file_name = r2["title"].replace(" ", "_")
+                    cva_thumb = r2["image_url"]
+                    cva_duration = r2["duration"]
+                    cva_description = r2["description"]
          else:
                     youtube_dl_url = ("https://" + li["url"] + g2 + req1["video_token"])
-                    file_name = r2["title"]
-                    thumb = r2["image_url"]
-                    duration = r2["duration"]
-                    description = r2["description"]
+                    cva_file_name = r2["title"].replace(" ", "_")
+                    cva_thumb = r2["image_url"]
+                    cva_duration = r2["duration"]
+                    cva_description = r2["description"]
     elif "movies" in u:
          r1 = requests.get(li["token"] + "-".join(rgx),
                                             headers=headers, 
                                             params={"translation":"en", "country":"IN"}).json()
          g1 = (r1["hls"][0].replace("drm", "hls") + req1["video_token"])
          youtube_dl_url = ("https://" + li["url"] + g1)
-         file_name = r1["title"]
-         thumb = r1["image_url"]
-         duration = r1["duration"]
-         description = r1["description"]
+         cva_file_name = r1["title"].replace(" ", "_")
+         cva_thumb = r1["image_url"]
+         cva_duration = r1["duration"]
+         cva_description = r1["description"]
     check_a = requests.get(youtube_dl_url)
     check_au = check_a.content.decode('utf-8')
     try:
@@ -174,10 +176,11 @@ async def youtube_dl_call_back(bot, update):
       os.remove(a_download_directory)
       return
       await bot.edit_message_text(
-          text="Detected Audio issue...! Now trying to download video...!",
+          text="Process Exited due to Detected Audio issue...! Please wait until fixing it.",
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
+      return
       v_download_directory = tmp_directory_for_each_user + "/" + "video" + "/" + custom_file_name
       minus_f_format = youtube_dl_format + "+bestaudio"
       command_to_exec = [
@@ -626,8 +629,8 @@ async def youtube_dl_call_back(bot, update):
                   await bot.send_document(
                       chat_id=update.message.chat.id,
                       document=download_directory,
-                      thumb=thumb_image_path,
-                      caption=description,
+                      thumb=cva_thumb,
+                      caption=cva_file_name,
                       parse_mode="HTML",
                       # reply_markup=reply_markup,
                       reply_to_message_id=update.message.reply_to_message.message_id,
@@ -657,14 +660,14 @@ async def youtube_dl_call_back(bot, update):
                   await bot.send_video(
                       chat_id=update.message.chat.id,
                       video=download_directory,
-                      caption=description,
+                      caption=cva_file_name,
                       parse_mode="HTML",
                       duration=duration,
                       width=width,
                       height=height,
                       supports_streaming=True,
                       # reply_markup=reply_markup,
-                      thumb=thumb_image_path,
+                      thumb=cva_thumb,
                       reply_to_message_id=update.message.reply_to_message.message_id,
                       progress=progress_for_pyrogram,
                       progress_args=(
@@ -673,6 +676,59 @@ async def youtube_dl_call_back(bot, update):
                           start_time
                       )
                   )
+              elif tg_send_type == "gdrive":
+                      gauth = GoogleAuth()
+                      # Try to load saved client credentials
+                      gauth.LoadCredentialsFile("mycreds.txt")
+                      if gauth.credentials is None:
+                          # Authenticate if they're not there
+                          await bot.edit_message_text(
+                              text="GDrive Authentication failed! Report to Support Group for fixing it.",
+                              chat_id=update.message.chat.id,
+                              message_id=update.message.message_id
+                          )
+                      elif gauth.access_token_expired:
+                          # Refresh them if expired
+                          gauth.Refresh()
+                          logging.getLogger('googleapicliet.discovery_cache').setLevel(logging.ERROR)
+                      else:
+                          # Initialize the saved creds
+                          gauth.Authorize()
+                      # Save the current credentials to a file
+                      gauth.SaveCredentialsFile("mycreds.txt")
+                      drive = GoogleDrive(gauth)
+                      #Starting Upload
+                      parent_folder_id = ("1_QRZa46ij7El6BxRo4XIlajWms0v-4qr")
+                      team_drive_id = ("1B6NjbN9XojZw9rjzsWhUFwLOgEk_DjeJ")
+                      g_title = ("{}.mp4".format(cva_file_name))
+                      start_upload = datetime.now()
+                      file1 = drive.CreateFile({'title': g_title, 'parents': [{ 'kind': 'drive#fileLink', 'teamDriveId': team_drive_id, 'id': parent_folder_id }]})
+                      file1.SetContentFile(download_directory)
+                      file1.Upload(param={'supportsTeamDrives': True})
+                      stop_upload = datetime.now()
+                      upload_time = (stop_upload -start_upload).seconds
+                      await bot.edit_message_text(
+                          text=cva_file_name.replace("_", " ") + " is Downloaded in {} seconds and uploaded in {} seconds.".format(time_taken_for_download, upload_time),
+                          chat_id=update.message.chat.id,
+                          message_id=update.message.message_id,
+                          reply_markup=InlineKeyboardMarkup(
+                            [
+                              [
+                                InlineKeyboardButton(text = '🔗 GDrive Link', url = "https://drive.google.com/file/d/{}/view?usp=sharing".format(file1['id'])),
+                                InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}.mp4".format(cva_file_name))
+                              ],
+                              [
+                                InlineKeyboardButton(text = '🤝 Join Team Drive', url = 'https://groups.google.com/g/edwin-leech-group')
+                              ]
+                            ]
+                          )
+                      )
+                      try:
+                        shutil.rmtree(tmp_directory_for_each_user)
+                        os.remove(thumb_image_path)
+                      except:
+                        pass
+                      return
               else:
                   logger.info("Did this happen? :\\")
               end_two = datetime.now()
