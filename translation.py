@@ -1,26 +1,28 @@
 class Translation(object):
-    START_TEXT = """Hello,
-This is a Telegram URL Upload Bot!
-
-<b>Please send me any direct download URL Link, i can upload to telegram as File/Video</b>
-
-/help for more details..
-
-Support Group : @InFoTelGroup
-© @SpEcHlDe , @TGBotsZ & @CWProjects"""
+    START_TEXT = """<b>Hai...!</b>
+<i>This is a Zee5 URL Upload Bot!</i>
+<i>Please send me any Zee5 Streaming URL Link, i can upload to Team Drive.</i>
+ℹ️Help <i>for more details...</i>
+© @Super_botz"""
     RENAME_403_ERR = "Sorry. You are not permitted to rename this file."
     ABS_TEXT = " Please don't be selfish."
-    UPGRADE_TEXT = "<b>👉 Create own Clone Bot.. </b>  /help for Details"
+    UPGRADE_TEXT = """<b>How to pay?</b>
+<i>1️⃣ Send Rs.50/month via following UPI</i>
+<i>2️⃣ <u>Available UPI's are below:</u></i>
+      ℹ️ Amazon Pay UPI ID : <code>cvatricks@apl</code>
+      
+      ℹ️ PhonePe UPI ID    : <code>cvatricks@ybl</code>
+<i>3️⃣ Send payment completed Screenshot to @payment_validator_bot</i>"""
     FORMAT_SELECTION = "Select the desired format: <a href='{}'>file size might be approximate</a> \nIf you want to set custom thumbnail, send photo before or quickly after tapping on any of the below buttons.\nYou can use /deletethumbnail to delete the auto-generated thumbnail."
-    SET_CUSTOM_USERNAME_PASSWORD = """If you want to download premium videos, provide in the following format:
-URL | filename | username | password"""
-    NOYES_URL = "@robot URL detected. Please use https://shrtz.me/PtsVnf6 and get me a fast URL so that I can upload to Telegram, without me slowing down for other users."
-    DOWNLOAD_START = "trying to download"
-    UPLOAD_START = "trying to upload"
+    SET_CUSTOM_USERNAME_PASSWORD = """If you want to download with custom filename, provide in the following format:
+URL | Filename.extention"""
+    NOYES_URL = "URL detected. Please use https://shrtz.me/PtsVnf6 and get me a fast URL so that I can upload to Telegram, without me slowing down for other users."
+    DOWNLOAD_START = "📥 Downloading... ⏳"
+    UPLOAD_START = "📤 Uploading... ⏳"
     RCHD_BOT_API_LIMIT = "size greater than maximum allowed size (50MB). Neverthless, trying to upload."
-    RCHD_TG_API_LIMIT = "Downloaded in {} seconds.\nDetected File Size: {}\nSorry. But, I cannot upload files greater than 1.5GB due to Telegram API limitations."
-    AFTER_SUCCESSFUL_UPLOAD_MSG = "Please rate me if you find me useful. Join : @TGBotsZ"
-    AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS = "Downloaded in {} seconds. \nJoin : @TGBotsZ \nUploaded in {} seconds."
+    RCHD_TG_API_LIMIT = "Downloaded in {} seconds.\nDetected File Size: {}\nSorry. But, I cannot upload files greater than 2GB due to Telegram API limitations."
+    AFTER_SUCCESSFUL_UPLOAD_MSG = "Please rate me if you find me useful. © @Super_botz"
+    AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS = "Downloaded in {} seconds. \n© @Super_botz \nUploaded in {} seconds."
     NOT_AUTH_USER_TEXT = "Please /upgrade your subscription."
     NOT_AUTH_USER_TEXT_FILE_SIZE = "Detected File Size: {}. Free Users can only upload: {}\nPlease /upgrade your subscription.\nIf you think this is a bug, please contact <a href='https://telegram.dog/ThankTelegram'>@SpEcHlDe</a>"
     SAVED_CUSTOM_THUMB_NAIL = "Custom video / file thumbnail saved. This image will be used in the video / file."
@@ -29,30 +31,25 @@ URL | filename | username | password"""
     SAVED_RECVD_DOC_FILE = "Document Downloaded Successfully."
     CUSTOM_CAPTION_UL_FILE = " "
     NO_CUSTOM_THUMB_NAIL_FOUND = "No Custom ThumbNail found."
-    NO_VOID_FORMAT_FOUND = "ERROR...\n<b>YouTubeDL</b> said: {}"
+    NO_VOID_FORMAT_FOUND = "ERROR...\n<b>Zee5 Downloader</b> said: {}"
     USER_ADDED_TO_DB = "User <a href='tg://user?id={}'>{}</a> added to {} till {}."
     CURENT_PLAN_DETAILS = """Current plan details
 --------
 Telegram ID: <code>{}</code>
-Plan name: Free Cloned User
-Expires on: 31/12/2020"""
-    HELP_USER = """Hai am URL Uploader bot..
+Plan name: Premium
+Expires on: 30 Days after Payment"""
+    HELP_USER = """<b>How to use me?</b>
+<i>I am Zee5 Downloader bot..
     
-1. Send url (Link|New Name with Extension).
-2. Send Custom Thumbnail (Optional).
-3. Select the button.
-   SVideo - Give File as video with Screenshots
-   DFile  - Give File with Screenshots
-   Video  - Give File as video without Screenshots
-   DFile  - Give File without Screenshots
+Send Zee5 URL.
    
-<b>👉 Create own Clone Bot :</b> 👉 <a href="https://youtu.be/QkAkSLBgoYw">Diploy</a>
-
+   Eg.: 
+       <code>https://www.zee5.com/tvshows/details/chembarathi/0-6-1150</code>
+   
+</i>
 --------
 Send /me to know current plan details
-
-Support Group : @InFoTelGroup
-© @TGBotsZ"""
+© @Super_botz"""
     REPLY_TO_DOC_GET_LINK = "Reply to a Telegram media to get High Speed Direct Download Link"
     REPLY_TO_DOC_FOR_C2V = "Reply to a Telegram media to convert"
     REPLY_TO_DOC_FOR_SCSS = "Reply to a Telegram media to get screenshots"
@@ -81,3 +78,9 @@ You can use /rename command after receiving file to rename it with custom thumbn
 Free users only 1 request per 30 minutes.
 /upgrade or Try 1800 seconds later."""
     SLOW_URL_DECED = "Gosh that seems to be a very slow URL. Since you were screwing my home, I am in no mood to download this file. Meanwhile, why don't you try this:==> https://shrtz.me/PtsVnf6 and get me a fast URL so that I can upload to Telegram, without me slowing down for other users."
+    TODO = """<b><u>Bugs and Upcoming Features..!</u></b>
+<a href=https://comments.bot/thread/pDqZBzyEd>☑️ Place for Bugs and Feature Requests</a> 
+"""
+    AUTH_CHANNEL_TEXT = "You must Join Updates Channel to use me."
+    REQ_FREE_TEXT = "Subscribe following YouTube Channel and wait for sometime to reach 1K. If you can't wait pay and use."
+    INVALID_URL = "Invalid URL Detected, Please send me Valid Zee5 Streaming link"
