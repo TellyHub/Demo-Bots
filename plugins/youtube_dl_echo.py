@@ -44,8 +44,23 @@ headers = {
     "sec-fetch-site":"same-site",
 }
 
-@pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
+@pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*zee5.*"))
 async def echo(bot, update):
+  if update.from_user.id in Config.AUTH_USERS:
+    try:
+        await bot.get_chat_member(
+        chat_id=Config.AUTH_CHANNEL,
+        user_id=update.from_user.id
+        )
+    except pyrogram.errors.exceptions.bad_request_400.UserNotParticipant:
+        await bot.send_message(
+            chat_id=update.chat.id,
+            text=Translation.AUTH_CHANNEL_TEXT,
+            parse_mode="html",
+            reply_to_message_id=update.message_id,
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text = '✔️ Updates Channel', url = "https://t.me/Super_botz")]])
+        )
+        return
     if update.from_user.id in Config.BANNED_USERS:
         await update.reply_text("You are B A N N E D")
         return
@@ -348,3 +363,6 @@ async def echo(bot, update):
             parse_mode="html",
             reply_to_message_id=update.message_id
         )
+  else:
+      await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
+      return
