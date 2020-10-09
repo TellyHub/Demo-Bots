@@ -34,3 +34,5 @@ class Config(object):
     PROCESS_MAX_TIMEOUT = 3600
     # watermark file
     DEF_WATER_MARK_FILE = ""
+    AUTH_CHANNEL = "@Super_botz"
+    AUTH_CHANNEL_URL = "https://t.me/Super_botz"
