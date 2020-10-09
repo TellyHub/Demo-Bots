@@ -260,22 +260,22 @@ async def echo(bot, update):
                                     cb_string_video_message).encode("UTF-8")
                             )
                         )"""
-                #else:
+                else:
                     # special weird case :\
-                #    ikeyboard = [
-                #        pyrogram.InlineKeyboardButton(
-                #            "SVideo [" +
-                #            "] ( " +
-                #            approx_file_size + " )",
-                #            callback_data=(cb_string_video).encode("UTF-8")
-                #        ),
-                #        pyrogram.InlineKeyboardButton(
-                #            "DFile [" +
-                #            "] ( " +
-                #            approx_file_size + " )",
-                #            callback_data=(cb_string_file).encode("UTF-8")
-                #        )
-                #    ]
+                    ikeyboard = [
+                        pyrogram.InlineKeyboardButton(
+                            "SVideo [" +
+                            "] ( " +
+                            approx_file_size + " )",
+                            callback_data=(cb_string_video).encode("UTF-8")
+                        ),
+                        pyrogram.InlineKeyboardButton(
+                            "DFile [" +
+                            "] ( " +
+                            approx_file_size + " )",
+                            callback_data=(cb_string_file).encode("UTF-8")
+                        )
+                    ]
                 inline_keyboard.append(ikeyboard)
             if duration is not None:
                 cb_string_64 = "{}|{}|{}".format("audio", "64k", "mp3")
