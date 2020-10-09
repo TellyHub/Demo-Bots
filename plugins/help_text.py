@@ -142,7 +142,6 @@ async def upgrade(bot, update):
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["free"]))
 async def free_req(bot, update):
-  if update.from_user.id in Config.AUTH_USERS:
     # logger.info(update)
     #TRChatBase(update.from_user.id, update.text, "/free")
     await bot.send_message(
@@ -160,6 +159,3 @@ async def free_req(bot, update):
             ]
         )
     )
-  else:
-    await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
-    return
