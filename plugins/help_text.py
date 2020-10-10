@@ -12,10 +12,7 @@ import os
 import sqlite3
 
 # the secret configuration specific things
-if bool(os.environ.get("WEBHOOK", False)):
-    from sample_config import Config
-else:
-    from config import Config
+from sample_config import Config
 
 # the Strings used for this "thing"
 from translation import Translation
@@ -23,7 +20,6 @@ from translation import Translation
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
-from helper_funcs.chat_base import TRChatBase
 from pyrogram import InlineKeyboardButton, InlineKeyboardMarkup
 
 def GetExpiryDate(chat_id):
@@ -64,7 +60,7 @@ async def help_user(bot, update):
 async def get_me_info(bot, update):
   if update.from_user.id in Config.AUTH_USERS:
     # logger.info(update)
-    TRChatBase(update.from_user.id, update.text, "/me")
+    # TRChatBase(update.from_user.id, update.text, "/me")
     chat_id = str(update.from_user.id)
     chat_id, plan_type, expires_at = GetExpiryDate(chat_id)
     await bot.send_message(
@@ -83,7 +79,7 @@ async def get_me_info(bot, update):
 async def start(bot, update):
   if update.from_user.id in Config.AUTH_USERS:
     # logger.info(update)
-    TRChatBase(update.from_user.id, update.text, "/start")
+    # TRChatBase(update.from_user.id, update.text, "/start")
     await bot.send_message(
         chat_id=update.chat.id,
         text=Translation.START_TEXT,
@@ -108,7 +104,7 @@ async def start(bot, update):
 async def bugs(bot, update):
   if update.from_user.id in Config.AUTH_USERS:
     # logger.info(update)
-    TRChatBase(update.from_user.id, update.text, "/bugs")
+    # TRChatBase(update.from_user.id, update.text, "/bugs")
     await bot.send_message(
         chat_id=update.chat.id,
         text=Translation.TODO,
@@ -123,7 +119,7 @@ async def bugs(bot, update):
 @pyrogram.Client.on_message(pyrogram.Filters.command(["upgrade"]))
 async def upgrade(bot, update):
     # logger.info(update)
-    TRChatBase(update.from_user.id, update.text, "/upgrade")
+    # TRChatBase(update.from_user.id, update.text, "/upgrade")
     await bot.send_message(
         chat_id=update.chat.id,
         text=Translation.UPGRADE_TEXT,
@@ -143,7 +139,7 @@ async def upgrade(bot, update):
 @pyrogram.Client.on_message(pyrogram.Filters.command(["free"]))
 async def free_req(bot, update):
     # logger.info(update)
-    #TRChatBase(update.from_user.id, update.text, "/free")
+    # TRChatBase(update.from_user.id, update.text, "/free")
     await bot.send_message(
         chat_id=update.from_user.id,
         text=Translation.REQ_FREE_TEXT,
