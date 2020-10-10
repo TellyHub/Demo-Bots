@@ -17,10 +17,7 @@ import re
 import requests
 
 # the secret configuration specific things
-if bool(os.environ.get("WEBHOOK", False)):
-    from sample_config import Config
-else:
-    from config import Config
+from sample_config import Config
 
 # the Strings used for this "thing"
 from translation import Translation
@@ -28,7 +25,6 @@ from translation import Translation
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
-from helper_funcs.chat_base import TRChatBase
 from helper_funcs.display_progress import humanbytes
 from helper_funcs.help_uploadbot import DownLoadFile
 headers = {
