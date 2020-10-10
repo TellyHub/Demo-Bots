@@ -61,7 +61,7 @@ async def echo(bot, update):
         await update.reply_text("You are B A N N E D")
         return
     # logger.info(update)
-    TRChatBase(update.from_user.id, update.text, "/echo")
+    #TRChatBase(update.from_user.id, update.text, "/echo")
     await bot.send_chat_action(
          chat_id=update.chat.id,
          action="typing"
