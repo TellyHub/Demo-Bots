@@ -128,10 +128,9 @@ async def echo(bot, update):
          mx1 = requests.get(u)
          mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
          mx3 = mx2.find_all("script")[1].prettify()
-         await update.reply_text(mx3)
          G = []
          for i in mx3.split(","):
-          if "contenturl" in i:
+          if "m3u8" in i:
             G.append(i)
          for x in G:
            await update.reply_text(x)
