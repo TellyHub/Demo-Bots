@@ -115,7 +115,7 @@ async def echo(bot, update):
          duration = r1["duration"]
          description = r1["description"]
     elif "mxplayer" in u:
-         mx1 = requests.get(u).json()
+         mx1 = requests.get(u)
          mx2 = re.findall('.*master.*')
          await update.reply_text(mx2)
          return
