@@ -24,3 +24,4 @@ class Config(object):
     AUTH_CHANNEL = "@Super_botz"
     AUTH_CHANNEL_URL = "https://t.me/Super_botz"
     BOT_START_TIME = time.time()
+    TG_MAX_FILE_SIZE = 2097152000
