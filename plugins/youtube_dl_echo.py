@@ -40,7 +40,7 @@ headers = {
     "sec-fetch-site":"same-site",
 }
 
-@pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*zee5.*"))
+@pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
   if update.from_user.id in Config.AUTH_USERS:
     try:
@@ -71,7 +71,8 @@ async def echo(bot, update):
     youtube_dl_username = None
     youtube_dl_password = None
     file_name = None
-    if "zee5vodnd.akamaized.net" in u:
+    if "zee5" in u:
+      if "zee5vodnd.akamaized.net" in u:
          await bot.send_message(
               chat_id=update.chat.id,
               text=Translation.INVALID_URL,
@@ -80,7 +81,7 @@ async def echo(bot, update):
               disable_web_page_preview=True
          )
          return
-    elif "tvshows" or "originals" in u:
+      elif "tvshows" or "originals" in u:
          req1 = requests.get("https://useraction.zee5.com/tokennd").json()
          rgx = re.findall("([0-9]?\w+)", u)[-3:]
          li = { "url":"zee5vodnd.akamaized.net", "token":"https://gwapi.zee5.com/content/details/" }
@@ -103,7 +104,7 @@ async def echo(bot, update):
                     thumb = r2["image_url"]
                     duration = r2["duration"]
                     description = r2["description"]
-    elif "movies" in u:
+      elif "movies" in u:
          r1 = requests.get(li["token"] + "-".join(rgx),
                                             headers=headers, 
                                             params={"translation":"en", "country":"IN"}).json()
@@ -113,7 +114,15 @@ async def echo(bot, update):
          thumb = r1["image_url"]
          duration = r1["duration"]
          description = r1["description"]
-    if "|" in url:
+    elif "mxplayer" in u:
+         mx1 = requests.get(u).json
+         mx2 = mx1["contentUrl"][0]
+         await update.reply_text(mx2)
+         return
+    elif "http" in u:
+         await update.reply_text("Please send zee5 or Mx-Player")
+         return
+    if "|" in u:
         url_parts = url.split("|")
         if len(url_parts) == 2:
             url = url_parts[0]
