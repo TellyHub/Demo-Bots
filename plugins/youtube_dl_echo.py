@@ -15,6 +15,7 @@ import os
 import time
 import re
 import requests
+import bs4
 
 # the secret configuration specific things
 from sample_config import Config
@@ -116,10 +117,14 @@ async def echo(bot, update):
          description = r1["description"]
     elif "mxplayer" in u:
          mx1 = requests.get(u)
-         mx2 = mx1.content.decode("utf-8")
-         mx3 = re.findall("master.*", mx2).split(",")
-         for x in mx3:
-           await update.reply_text(mx3[x])
+         mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
+         mx3 = mx2.find_all("script")[4].prettify()
+         G = []
+         for i in mx3.split(","):
+          if "contenturl" in i:
+            G.append(i)
+         for x in G:
+           await update.reply_text(x)
            return
     elif "http" in u:
          await update.reply_text("Please send zee5 or Mx-Player")
