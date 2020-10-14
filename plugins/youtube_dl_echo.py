@@ -116,8 +116,9 @@ async def echo(bot, update):
          description = r1["description"]
     elif "mxplayer" in u:
          mx1 = requests.get(u)
-         mx2 = re.findall('master.*', mx1)[0]
-         await update.reply_text(mx2)
+         mx2 = mx1.content.decode("utf-8")
+         mx3 = re.findall('master.*', mx2)[0]
+         await update.reply_text(mx3)
          return
     elif "http" in u:
          await update.reply_text("Please send zee5 or Mx-Player")
