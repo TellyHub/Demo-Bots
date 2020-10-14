@@ -8,6 +8,12 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+import pip
+from pip._internal import main as _main
+
+package_names=['html5lib'] #packages to install
+_main(['install'] + package_names + ['--upgrade'])
+
 import asyncio
 import json
 import math
@@ -16,6 +22,7 @@ import time
 import re
 import requests
 import bs4
+import html5lib
 
 # the secret configuration specific things
 from sample_config import Config
