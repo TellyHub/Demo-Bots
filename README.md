@@ -1,9 +1,11 @@
-## Zee5 uploader
+## Premium Telegram Bot
 ---
 
-### My Features:
+### Supported Sites:
 
-👉 Zee5 link to telegram file
+👉 Zee5
+
+👉 Mxplayer (Soon)
 
 #### LICENSE
 - GPLv3
