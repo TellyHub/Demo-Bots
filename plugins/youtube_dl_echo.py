@@ -128,7 +128,7 @@ async def echo(bot, update):
          mx1 = requests.get(u)
          mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
          mx3 = mx2.find_all("script")[1].prettify()
-         mx4 = mx3.json()
+         mx4 = json.loads(mx3)
          #G = []
          #for i in mx4.split(","):
          # if "m3u8" in i:
