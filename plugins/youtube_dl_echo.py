@@ -79,6 +79,7 @@ async def echo(bot, update):
     youtube_dl_username = None
     youtube_dl_password = None
     file_name = None
+    url = None
     if "zee5" in u:
       if "zee5vodnd.akamaized.net" in u:
          await bot.send_message(
