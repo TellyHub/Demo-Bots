@@ -134,7 +134,7 @@ async def echo(bot, update):
          # if "m3u8" in i:
          #   G.append(i)
          #mx5 = G[0].strip(
-         await update.reply_text(mx4[0])
+         await update.reply_text(mx4[1])
          return
     elif "http" in u:
          await update.reply_text("Please send zee5 or Mx-Player")
