@@ -127,7 +127,7 @@ async def echo(bot, update):
          await update.reply_text("yes")
          mx1 = requests.get(u)
          mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
-         mx3 = mx2.find_all("script")[1].prettify()
+         mx3 = mx2.find_all("script")[2].prettify()
          await update.reply_text(mx3)
          G = []
          for i in mx3.split(","):
