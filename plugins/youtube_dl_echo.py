@@ -129,7 +129,7 @@ async def echo(bot, update):
          mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
          mx3 = mx2.find_all("script")[1].prettify()
          G = []
-         for i in mx3.split(","):
+         for i in mx3.split("""):
           if "m3u8" in i:
             G.append(i)
          for x in G:
