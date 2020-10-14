@@ -133,7 +133,7 @@ async def echo(bot, update):
          for i in mx4.split(","):
           if "m3u8" in i:
             G.append(i)
-         mx5 = G[0].strip('"hls:')
+         mx5 = G[0]
          await update.reply_text(mx5)
          return
     elif "http" in u:
