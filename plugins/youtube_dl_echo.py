@@ -128,13 +128,12 @@ async def echo(bot, update):
          mx1 = requests.get(u)
          mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
          mx3 = mx2.find_all("script")[1].prettify()
-         mx4 = mx3.replace(",100,400,750,1000,1600,3000,.mp4","cvatricks.4pm")
          G = []
-         for i in mx4.split(","):
+         for i in mx3.split('"'):
           if "m3u8" in i:
             G.append(i)
-         mx5 = G[0]
-         await update.reply_text(mx5)
+         for x in G:
+           await update.reply_text(x)
          return
     elif "http" in u:
          await update.reply_text("Please send zee5 or Mx-Player")
