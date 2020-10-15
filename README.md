@@ -13,6 +13,8 @@
 
   - [x] Music
 
+  - [ ] No Audio issue for some videos
+
 👉 Mxplayer
   
    Note: DRM Protected Videos Can't be extracted.
