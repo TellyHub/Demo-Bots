@@ -81,9 +81,10 @@ async def youtube_dl_call_back(bot, update):
         vcodec = formats.get("vcodec")
         if vcodec == "none":
           audio_format_id = aformat_id
-    youtube_dl_url = update.message.reply_to_message.text
-    u_parts = None
-    u_parts[1] = None
+    youtube_l_url = update.message.reply_to_message.text
+    youtube_dl_url = youtube_l_url
+    #u_parts = None
+    #u_parts[1] = None
     if "|" in youtube_dl_url:
           u_part = youtube_dl_url.strip(' ')
           u_parts = u_part.split("|")
@@ -425,10 +426,10 @@ async def youtube_dl_call_back(bot, update):
               disable_web_page_preview=True
           )
     except IndexError:
-      if "|" in cb_data:
-          #ul_part = cb_data.strip(' ')
-          #ul_parts = ul_part.split("|")
-          cva_file_name = u_parts[1]
+      if "|" in youtube_l_url:
+          ull_part = youtube_l_url.strip(' ')
+          ull_parts = ull_part.split("|")
+          cva_file_name = ull_parts[1]
           #if len(url_parts) == 2:
               #youtube_dl_url = url_parts[0]
               #custom_file_name = url_parts[1]
