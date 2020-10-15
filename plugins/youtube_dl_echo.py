@@ -80,6 +80,10 @@ async def echo(bot, update):
     youtube_dl_password = None
     file_name = None
     url = None
+    if "|" in u:
+       ul_part = u.strip(" ")
+       ul_parts = ul_part.split("|")
+       u = ul_parts[0]
     if "zee5" in u:
       if "zee5vodnd.akamaized.net" in u:
          await bot.send_message(
@@ -138,16 +142,17 @@ async def echo(bot, update):
     elif "http" in u:
          await update.reply_text("Please send zee5 or Mx-Player")
          return
-    if "|" in u:
-        url_parts = url.split("|")
-        if len(url_parts) == 2:
-            url = url_parts[0]
-            file_name = url_parts[1]
-        elif len(url_parts) == 4:
-            url = url_parts[0]
-            file_name = url_parts[1]
-            youtube_dl_username = url_parts[2]
-            youtube_dl_password = url_parts[3]
+    if "|" in update.text:
+        file_name = ul_parts[1]
+        #url_parts = url.split("|")
+        #if len(url_parts) == 2:
+            #url = url_parts[0]
+            #file_name = url_parts[1]
+        #elif len(url_parts) == 4:
+            #url = url_parts[0]
+            #file_name = url_parts[1]
+            #youtube_dl_username = url_parts[2]
+            #youtube_dl_password = url_parts[3]
         #else:
         #    for entity in update.entities:
         #        if entity.type == "text_link":
