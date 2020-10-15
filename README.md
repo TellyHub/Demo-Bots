@@ -5,10 +5,13 @@
 
 👉 Zee5
    
-   [x] Movies
-   [x] TVshows
-   [x] Originals
-   [x] Music
+  - [x] Movies
+
+  - [x] TVshows
+
+  - [x] Originals
+
+  - [x] Music
 
 👉 Mxplayer
   
