@@ -3,7 +3,7 @@
 
 ### Supported Sites:
 
-👉 Zee5
+👉 Zee5 (Inc. Premium Content)
    
   - [x] Movies
 
