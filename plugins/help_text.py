@@ -196,4 +196,4 @@ async def rfrsh(client, message):
     reply_markup = InlineKeyboardMarkup(buttons)
 
     msg = ms_g
-    await message.edit_message_text(msg, reply_markup=reply_markup, quote=True)
+    await message.edit_message_text(msg, reply_markup=reply_markup)
