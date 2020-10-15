@@ -178,7 +178,7 @@ async def status_message_f(client, message):
     msg = ms_g
     await message.reply_text(msg, reply_markup=reply_markup, quote=True)
 @pyrogram.Client.on_message(pyrogram.Filters.command(["status"]))
-async def status_message_f(client, message):
+async def rfrsh(client, message):
     currentTime = time.strftime("%H:%M:%S", time.gmtime(time.time() - Config.BOT_START_TIME))
     total, used, free = shutil.disk_usage(".")
     total = humanbytes(total)
