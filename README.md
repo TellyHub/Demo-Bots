@@ -3,7 +3,7 @@
 
 ### Supported Sites:
 
-👉 Zee5 (Inc. Premium Content)
+####👉 Zee5 (Inc. Premium Content)
    
   - [x] Movies
 
@@ -15,9 +15,9 @@
 
   - [ ] No Audio issue for some videos
 
-👉 Mxplayer
+####👉 Mxplayer
   
    Note: DRM Protected Videos Can't be extracted.
 
-#### LICENSE
+##### LICENSE
 - GPLv3
