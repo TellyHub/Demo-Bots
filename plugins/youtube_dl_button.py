@@ -82,6 +82,7 @@ async def youtube_dl_call_back(bot, update):
         if vcodec == "none":
           audio_format_id = aformat_id
     youtube_dl_url = update.message.reply_to_message.text
+    u_parts = None
     if "|" in youtube_dl_url:
           u_part = youtube_dl_url.strip(' ')
           u_parts = u_part.split("|")
