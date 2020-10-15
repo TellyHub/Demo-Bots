@@ -10,13 +10,15 @@ logger = logging.getLogger(__name__)
 
 import os
 import sqlite3
+import shutil
+import time
 
 # the secret configuration specific things
 from sample_config import Config
 
 # the Strings used for this "thing"
 from translation import Translation
-
+from display_progress import humanbytes, TimeFormatter
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
@@ -155,3 +157,43 @@ async def free_req(bot, update):
             ]
         )
     )
+@pyrogram.Client.on_message(pyrogram.Filters.command(["status"]))
+async def status_message_f(client, message):
+    currentTime = time.strftime("%H:%M:%S", time.gmtime(time.time() - Config.BOT_START_TIME))
+    total, used, free = shutil.disk_usage(".")
+    total = humanbytes(total)
+    used = humanbytes(used)
+    free = humanbytes(free)
+
+    ms_g = f"<b>Bot Uptime</b>: <code>{currentTime}</code>\n" \
+        f"<b>Total disk space</b>: <code>{total}</code>\n" \
+        f"<b>Used</b>: <code>{used}</code>\n" \
+        f"<b>Free</b>: <code>{free}</code>\n"
+    buttons = [[
+        InlineKeyboardButton('Refresh 🔄', callback_data="rfrsh"),
+        InlineKeyboardButton('close ⛔', callback_data="close")
+    ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
+
+    msg = ms_g
+    await message.reply_text(msg, reply_markup=reply_markup, quote=True)
+@pyrogram.Client.on_message(pyrogram.Filters.command(["status"]))
+async def status_message_f(client, message):
+    currentTime = time.strftime("%H:%M:%S", time.gmtime(time.time() - Config.BOT_START_TIME))
+    total, used, free = shutil.disk_usage(".")
+    total = humanbytes(total)
+    used = humanbytes(used)
+    free = humanbytes(free)
+
+    ms_g = f"<b>Bot Uptime</b>: <code>{currentTime}</code>\n" \
+        f"<b>Total disk space</b>: <code>{total}</code>\n" \
+        f"<b>Used</b>: <code>{used}</code>\n" \
+        f"<b>Free</b>: <code>{free}</code>\n"
+    buttons = [[
+        InlineKeyboardButton('Refresh 🔄', callback_data="rfrsh"),
+        InlineKeyboardButton('close ⛔', callback_data="close")
+    ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
+
+    msg = ms_g
+    await message.edit_message_text(msg, reply_markup=reply_markup, quote=True)
