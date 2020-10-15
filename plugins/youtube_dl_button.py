@@ -59,10 +59,6 @@ headers = {
 
 async def youtube_dl_call_back(bot, update):
     cb_data = update.data
-    if "|" in cb_data:
-          u_part = cb_data.strip(' ')
-          u_parts = u_part.split("|")
-          youtube_dl_url = u_parts[0]
     # youtube_dl extractors
     tg_send_type, youtube_dl_format, youtube_dl_ext = cb_data.split("|")
     thumb_image_path = Config.DOWNLOAD_LOCATION + \
@@ -86,6 +82,10 @@ async def youtube_dl_call_back(bot, update):
         if vcodec == "none":
           audio_format_id = aformat_id
     youtube_dl_url = update.message.reply_to_message.text
+    if "|" in youtube_dl_url:
+          u_part = youtube_dl_url.strip(' ')
+          u_parts = u_part.split("|")
+          youtube_dl_url = u_parts[0]
     #youtube_dl_url = pjson_url
     custom_file_name = str(response_json.get("title")) + \
         "_" + youtube_dl_format + "." + youtube_dl_ext
