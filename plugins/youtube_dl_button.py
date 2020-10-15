@@ -59,6 +59,9 @@ headers = {
 
 async def youtube_dl_call_back(bot, update):
     cb_data = update.data
+    if "|" in cb_data:
+          u_parts = cb_data.split("|")
+          youtube_dl_url = u_parts[0]
     # youtube_dl extractors
     tg_send_type, youtube_dl_format, youtube_dl_ext = cb_data.split("|")
     thumb_image_path = Config.DOWNLOAD_LOCATION + \
@@ -419,16 +422,18 @@ async def youtube_dl_call_back(bot, update):
               disable_web_page_preview=True
           )
     except IndexError:
-      if "|" in youtube_dl_url:
-          url_parts = youtube_dl_url.split("|")
-          if len(url_parts) == 2:
-              youtube_dl_url = url_parts[0]
-              custom_file_name = url_parts[1]
-          elif len(url_parts) == 4:
-              youtube_dl_url = url_parts[0]
-              custom_file_name = url_parts[1]
-              youtube_dl_username = url_parts[2]
-              youtube_dl_password = url_parts[3]
+      if "|" in cb_data:
+          ul_part = cb_data.strip('')
+          ul_parts = ul_part.split("|")
+          cva_file_name = ul_parts[1]
+          #if len(url_parts) == 2:
+              #youtube_dl_url = url_parts[0]
+              #custom_file_name = url_parts[1]
+          #elif len(url_parts) == 4:
+              #youtube_dl_url = url_parts[0]
+              #custom_file_name = url_parts[1]
+              #youtube_dl_username = url_parts[2]
+              #youtube_dl_password = url_parts[3]
           #else:
               #for entity in update.message.reply_to_message.entities:
                   #if entity.type == "text_link":
@@ -468,7 +473,7 @@ async def youtube_dl_call_back(bot, update):
       tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
       if not os.path.isdir(tmp_directory_for_each_user):
           os.makedirs(tmp_directory_for_each_user)
-      download_directory = tmp_directory_for_each_user + "/" + custom_file_name
+      download_directory = tmp_directory_for_each_user + "/" + cva_file_name
       command_to_exec = []
       if tg_send_type == "audio":
           command_to_exec = [
