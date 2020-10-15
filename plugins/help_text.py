@@ -18,7 +18,7 @@ from sample_config import Config
 
 # the Strings used for this "thing"
 from translation import Translation
-from display_progress import humanbytes, TimeFormatter
+from helper_funcs.display_progress import humanbytes, TimeFormatter
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
