@@ -20,5 +20,5 @@
   
    Note: DRM Protected Videos Can't be extracted.
 
-#### LICENSE
+### LICENSE
 - GPLv3
