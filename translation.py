@@ -38,7 +38,7 @@ class Translation(object):
     SAVED_RECVD_DOC_FILE = "Document Downloaded Successfully."
     CUSTOM_CAPTION_UL_FILE = " "
     NO_CUSTOM_THUMB_NAIL_FOUND = "No Custom ThumbNail found."
-    NO_VOID_FORMAT_FOUND = "ERROR...\n<b>Zee5 Downloader</b> said: {}"
+    NO_VOID_FORMAT_FOUND = "ERROR...\n<b>PremiumSBBot</b> said: {}"
     USER_ADDED_TO_DB = "User <a href='tg://user?id={}'>{}</a> added to {} till {}."
     CURENT_PLAN_DETAILS = """Current plan details
 --------
@@ -46,14 +46,13 @@ Telegram ID: <code>{}</code>
 Plan name: Premium
 Expires on: 30 Days after Payment"""
     HELP_USER = """<b>How to use me?</b>
-<i>I am Zee5 Downloader bot..
     
 Send Streaming (URL) link from <a href=https://t.me/super_botz_support>Supported sites</a>.
    
-   Example: (Without Custom File Name)
+   <b>Example: (Without Custom File Name)</b>
        <code>https://www.zee5.com/tvshows/details/sathya/0-6-1339/sathya-september-29-2020-trailer/0-1-323703</code>
        
-   Example: (With Custom File Name)
+   <b>Example: (With Custom File Name)</b>
        <code>https://www.zee5.com/tvshows/details/sathya/0-6-1339/sathya-september-29-2020-trailer/0-1-323703|Sathya_September_29_Trailer</code>
    
 </i>
