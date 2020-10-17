@@ -44,11 +44,11 @@ async def help_user(bot, update):
             [ 
                 [
                     InlineKeyboardButton(text = '💬 Support Group ', url="https://t.me/Super_botz_support"),
-                    InlineKeyboardButton(text = '🔐 Close ', callback_data="close")
+                    InlineKeyboardButton(text = '✅ Updates Channel', url = "https://t.me/Super_botz")
                 ],
                 [
                     InlineKeyboardButton(text = '🤩 How to get for Free?', callback_data = "free_req"),
-                    InlineKeyboardButton(text = '😎 My Creator 😎 ', url = "https://t.me/Edwin_Jarvis_Ofl")
+                    InlineKeyboardButton(text = '🔐 Close ', callback_data="close")
                 ]
             ]
         )
@@ -93,7 +93,7 @@ async def start(bot, update):
                     InlineKeyboardButton(text = '🔐 Close ', callback_data="close")
                 ],
                 [
-                    InlineKeyboardButton(text = '😎 My Creator ', url = "https://t.me/Edwin_Jarvis_Ofl")
+                    InlineKeyboardButton(text = '💬 Helpline', url="https://t.me/Super_botz_support")
                 ]
             ]
         )
@@ -165,13 +165,13 @@ async def status_message_f(client, message):
     used = humanbytes(used)
     free = humanbytes(free)
 
-    ms_g = f"<b>Bot Uptime</b>: <code>{currentTime}</code>\n" \
-        f"<b>Total disk space</b>: <code>{total}</code>\n" \
-        f"<b>Used</b>: <code>{used}</code>\n" \
-        f"<b>Free</b>: <code>{free}</code>\n"
+    ms_g = f"<b>🕒 Bot Uptime</b>: <code>{currentTime}</code>\n" \
+        f"<b>🗄 Total disk space</b>: <code>{total}</code>\n" \
+        f"<b>🗄 Used</b>: <code>{used}</code>\n" \
+        f"<b>🗄 Free</b>: <code>{free}</code>\n"
     buttons = [[
-        InlineKeyboardButton('Refresh 🔄', callback_data="rfrsh"),
-        InlineKeyboardButton('close ⛔', callback_data="close")
+        InlineKeyboardButton('🔄 Refresh', callback_data="rfrsh"),
+        InlineKeyboardButton('🔐 Close', callback_data="close")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
 
@@ -185,13 +185,13 @@ async def rfrsh(client, message):
     used = humanbytes(used)
     free = humanbytes(free)
 
-    ms_g = f"<b>Bot Uptime</b>: <code>{currentTime}</code>\n" \
-        f"<b>Total disk space</b>: <code>{total}</code>\n" \
-        f"<b>Used</b>: <code>{used}</code>\n" \
-        f"<b>Free</b>: <code>{free}</code>\n"
+    ms_g = f"<b>🕒 Bot Uptime</b>: <code>{currentTime}</code>\n" \
+        f"<b>🗄 Total disk space</b>: <code>{total}</code>\n" \
+        f"<b>🗄 Used</b>: <code>{used}</code>\n" \
+        f"<b>🗄 Free</b>: <code>{free}</code>\n"
     buttons = [[
-        InlineKeyboardButton('Refresh 🔄', callback_data="rfrsh"),
-        InlineKeyboardButton('close ⛔', callback_data="close")
+        InlineKeyboardButton('🔄 Refresh', callback_data="rfrsh"),
+        InlineKeyboardButton('🔐 Close', callback_data="close")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
 
