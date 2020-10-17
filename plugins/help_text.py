@@ -165,10 +165,11 @@ async def status_message_f(client, message):
     used = humanbytes(used)
     free = humanbytes(free)
 
-    ms_g = f"<b>🕒 Bot Uptime</b>: <code>{currentTime}</code>\n" \
-        f"<b>🗄 Total disk space</b>: <code>{total}</code>\n" \
-        f"<b>🗄 Used</b>: <code>{used}</code>\n" \
-        f"<b>🗄 Free</b>: <code>{free}</code>\n"
+    ms_g = f"<b><u>Server Status:</u></b>\n\n" \
+        f"<b>🕒 Bot Uptime</b>: <code>{currentTime}</code>\n\n" \
+        f"<b>🗄 Total disk space</b>: <code>{total}</code>\n\n" \
+        f"<b>🗄 Used</b>: <code>{used}</code>\n\n" \
+        f"<b>🗄 Free</b>: <code>{free}</code>\n\n"
     buttons = [[
         InlineKeyboardButton('🔄 Refresh', callback_data="rfrsh"),
         InlineKeyboardButton('🔐 Close', callback_data="close")
@@ -185,7 +186,7 @@ async def rfrsh(client, message):
     used = humanbytes(used)
     free = humanbytes(free)
 
-    ms_g = f"<b><u>Server Status:</u></b>: <code>{currentTime}</code>\n\n\n" \
+    ms_g = f"<b><u>Server Status:</u></b>\n\n" \
         f"<b>🕒 Bot Uptime</b>: <code>{currentTime}</code>\n\n" \
         f"<b>🗄 Total disk space</b>: <code>{total}</code>\n\n" \
         f"<b>🗄 Used</b>: <code>{used}</code>\n\n" \
