@@ -186,14 +186,23 @@ async def youtube_dl_call_back(bot, update):
          except IndexError:
           pass
     elif "mxplayer" in youtube_dl_url:
+      if "movie" in youtube_dl_url:
          mx1 = requests.get(youtube_dl_url)
          mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
          mx3 = mx2.find_all("script")[1].prettify()
          G = []
          for i in mx3.split('"'):
-          if ",.mp4" in i:
+          if "embed/detail" in i:
             G.append(i)
-         youtube_dl_url = G[-1]
+         mx4 = G[0]
+         mx5 = requests.get(mx4)
+         mx6 = bs4.BeautifulSoup(mx5.content.decode('utf-8'), "html5lib")
+         mx7 = mx6.find_all("script")[1].prettify()
+         H = []
+         for j in mx7.split('"'):
+            if ",.mp4" in j:
+              H.append(j)
+         youtube_dl_url = H[0]
     if "|" in youtube_l_url:
           ull_part = youtube_l_url.strip(' ')
           ull_parts = ull_part.split("|")
