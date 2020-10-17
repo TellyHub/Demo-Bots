@@ -191,7 +191,7 @@ async def youtube_dl_call_back(bot, update):
          mx3 = mx2.find_all("script")[1].prettify()
          G = []
          for i in mx3.split('"'):
-          if ".mp4" in i:
+          if ",.mp4" in i:
             G.append(i)
          youtube_dl_url = G[-1]
     if "|" in youtube_l_url:
