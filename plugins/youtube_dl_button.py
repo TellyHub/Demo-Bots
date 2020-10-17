@@ -197,7 +197,7 @@ async def youtube_dl_call_back(bot, update):
          mx4 = G[0]
          mx5 = requests.get(mx4)
          mx6 = bs4.BeautifulSoup(mx5.content.decode('utf-8'), "html5lib")
-         mx7 = mx6.find_all("script")[1].prettify()
+         mx7 = mx6.find_all("script")[0].prettify()
          H = []
          for j in mx7.split('"'):
             if ",.mp4" in j:
