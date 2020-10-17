@@ -223,8 +223,8 @@ async def youtube_dl_call_back(bot, update):
                   #youtube_dl_url = youtube_dl_url[o:o + l]
     await bot.send_message(
           text=Translation.DOWNLOAD_START,
-          chat_id=update.chat.id,
-          message_id=update.message_id
+          chat_id=update.message.chat.id,
+          message_id=update.message.message_id
     )
     description = Translation.CUSTOM_CAPTION_UL_FILE
     if "fulltitle" in response_json:
