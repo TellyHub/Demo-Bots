@@ -141,7 +141,7 @@ async def echo(bot, update):
          mx6 = bs4.BeautifulSoup(mx5.content.decode('utf-8'), "html5lib")
          #mx7 = mx6.find_all("script")[0].prettify()
          I = []
-         for k in mx6.split('"')
+         for k in mx6.split('"'):
             if ",.mp4" in k:
               I.append(k)
          await update.reply_text("url:{}".format(I[0]))
