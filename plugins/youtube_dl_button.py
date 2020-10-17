@@ -24,6 +24,7 @@ from datetime import datetime
 import requests
 import re
 import pydrive
+import html5lib
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 
@@ -94,7 +95,8 @@ async def youtube_dl_call_back(bot, update):
         "_" + youtube_dl_format + "." + youtube_dl_ext
     youtube_dl_username = None
     youtube_dl_password = None
-    if "tvshows" or "originals" in youtube_dl_url:
+    if "zee5" in youtube_dl_url:
+      if "tvshows" or "originals" in youtube_dl_url:
          req1 = requests.get("https://useraction.zee5.com/tokennd").json()
          rgx = re.findall("([0-9]?\w+)", youtube_dl_url)[-3:]
          li = { "url":"zee5vodnd.akamaized.net", "token":"https://gwapi.zee5.com/content/details/" }
@@ -154,7 +156,7 @@ async def youtube_dl_call_back(bot, update):
                     except IndexError:
                       pass
 
-    elif "movies" in u:
+      elif "movies" in youtube_dl_url:
          r1 = requests.get(li["token"] + "-".join(rgx),
                                             headers=headers, 
                                             params={"translation":"en", "country":"IN"}).json()
@@ -182,6 +184,15 @@ async def youtube_dl_call_back(bot, update):
             )
          except IndexError:
           pass
+    elif "mxplayer" in youtube_dl_url:
+         mx1 = requests.get(youtube_dl_url)
+         mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
+         mx3 = mx2.find_all("script")[1].prettify()
+         G = []
+         for i in mx3.split('"'):
+          if ".mp4" in i:
+            G.append(i)
+         youtube_dl_url = G[-1]
     if "|" in youtube_l_url:
           ull_part = youtube_l_url.strip(' ')
           ull_parts = ull_part.split("|")
