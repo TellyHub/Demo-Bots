@@ -92,7 +92,7 @@ async def youtube_dl_call_back(bot, update):
           u_parts = u_part.split("|")
           youtube_dl_url = u_parts[0]
     #youtube_dl_url = pjson_url
-    custom_file_name = str(response_json.get("title")) + \
+    cva_file_name = str(response_json.get("title")) + \
         "_" + youtube_dl_format + "." + youtube_dl_ext
     youtube_dl_username = None
     youtube_dl_password = None
