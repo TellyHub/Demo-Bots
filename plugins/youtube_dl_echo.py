@@ -128,21 +128,33 @@ async def echo(bot, update):
          duration = r1["duration"]
          description = r1["description"]
     elif "mxplayer" in u:
+      if "movie" in u:
          mx1 = requests.get(u)
          mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
          mx3 = mx2.find_all("script")[1].prettify()
          G = []
          for i in mx3.split('"'):
-          if ",.mp4" in i:
+          if "embed/detail" in i:
             G.append(i)
+         mx4 = G[0]
+         mx5 = requests.get(mx4)
+         mx6 = bs4.BeautifulSoup(mx5.content.decode('utf-8'), "html5lib")
+         mx7 = mx6.find_all("script")[1].prettify()
+         H = []
+         for j in mx7.split('"'):
+            if ",.mp4" in j:
+              H.append(j)
          try:
-            url = G[-1]
+            url = H[0]
          except IndexError:
             await update.reply_text("🔒 DRM Protected...!")
             return
          if "voot" in url:
            await update.reply_text("🔒 Voot Videos Temporarily Disabled...!")
            return
+      elif "show" or "live-tv" or "music-online" in u:
+         await update.reply_text("😐 Now only Support movies...!")
+         return
     elif "http" in u:
          await update.reply_text("😐 Unsupported URL...!")
          return
