@@ -189,6 +189,8 @@ async def youtube_dl_call_back(bot, update):
       if "movie" in youtube_dl_url:
          my1 = requests.get(youtube_dl_url)
          my2 = bs4.BeautifulSoup(my1.content.decode('utf-8'), "html5lib")
+         mt1 = my2.find_all("title")[0].prettify()
+         cva_file_name = mt1.replace(" ", "_")
          my3 = my2.find_all("script")[1].prettify()
          G = []
          for i in my3.split('"'):
@@ -225,15 +227,15 @@ async def youtube_dl_call_back(bot, update):
                       #youtube_dl_url = youtube_dl_url[o:o + l]
           if youtube_dl_url is not None:
               youtube_dl_url = youtube_dl_url.strip()
-          if custom_file_name is not None:
-              custom_file_name = custom_file_name.strip()
+          #if custom_file_name is not None:
+              #custom_file_name = custom_file_name.strip()
           # https://stackoverflow.com/a/761825/4723940
-          if youtube_dl_username is not None:
-              youtube_dl_username = youtube_dl_username.strip()
-          if youtube_dl_password is not None:
-              youtube_dl_password = youtube_dl_password.strip()
+          #if youtube_dl_username is not None:
+              #youtube_dl_username = youtube_dl_username.strip()
+          #if youtube_dl_password is not None:
+              #youtube_dl_password = youtube_dl_password.strip()
           logger.info(youtube_dl_url)
-          logger.info(custom_file_name)
+          #logger.info(custom_file_name)
     #else:
           #for entity in update.message.reply_to_message.entities:
               #if entity.type == "text_link":
