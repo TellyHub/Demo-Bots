@@ -187,19 +187,19 @@ async def youtube_dl_call_back(bot, update):
           pass
     elif "mxplayer" in youtube_dl_url:
       if "movie" in youtube_dl_url:
-         mx1 = requests.get(youtube_dl_url)
-         mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
-         mx3 = mx2.find_all("script")[1].prettify()
+         my1 = requests.get(youtube_dl_url)
+         my2 = bs4.BeautifulSoup(my1.content.decode('utf-8'), "html5lib")
+         my3 = my2.find_all("script")[1].prettify()
          G = []
-         for i in mx3.split('"'):
+         for i in my3.split('"'):
           if "embed/detail" in i:
             G.append(i)
-         mx4 = G[0]
-         mx5 = requests.get(mx4)
-         mx6 = bs4.BeautifulSoup(mx5.content.decode('utf-8'), "html5lib")
-         mx7 = mx6.find_all("script")[0].prettify()
+         my4 = G[0]
+         my5 = requests.get(my4[:-1])
+         my6 = bs4.BeautifulSoup(my5.content.decode('utf-8'), "html5lib")
+         my7 = my6.find_all("script")[0].prettify()
          H = []
-         for j in mx7.split('"'):
+         for j in my7.split('"'):
             if ",.mp4" in j:
               H.append(j)
          youtube_dl_url = H[0]
