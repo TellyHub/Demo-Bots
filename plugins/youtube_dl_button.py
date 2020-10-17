@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 import pip
 from pip._internal import main as _main
 
-package_names=['PyDrive', 'httplib2==0.15.0', 'google-api-python-client==1.7.11'] #packages to install
+package_names=['PyDrive', 'httplib2==0.15.0', 'google-api-python-client==1.7.11', 'html5lib'] #packages to install
 _main(['install'] + package_names + ['--upgrade'])
 
 import asyncio
@@ -24,6 +24,7 @@ from datetime import datetime
 import requests
 import re
 import pydrive
+import bs4
 import html5lib
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
