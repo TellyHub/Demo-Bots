@@ -136,12 +136,12 @@ async def echo(bot, update):
          for i in mx3.split('"'):
           if "embed/detail" in i:
             G.append(i)
-         mx4 = G[0]
-         await update.reply_text(mx4)
-         return
+         mx4 = G[0].strip("\")
          mx5 = requests.get(mx4)
          mx6 = bs4.BeautifulSoup(mx5.content.decode('utf-8'), "html5lib")
          mx7 = mx6.find_all("script")[0].prettify()
+         await update.reply_text(mx7)
+         return
          H = []
          for j in mx7.split('"'):
             if ",.mp4" in j:
