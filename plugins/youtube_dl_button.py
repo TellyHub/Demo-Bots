@@ -115,10 +115,10 @@ async def youtube_dl_call_back(bot, update):
                     check_au = check_a.content.decode('utf-8')
                     try:
                       check_aud = re.findall('stream.m3u8',check_au)[0]
-                      await bot.edit_message_text(
+                      await bot.send_message(
                          text="Detected Audio issue...! Still trying to fixing...".format(),
                          chat_id=update.message.chat.id,
-                         message_id=update.message.message_id,
+                         reply_to_message_id=update.message.message_id,
                          reply_markup=InlineKeyboardMarkup(
                             [
                               [
@@ -139,10 +139,10 @@ async def youtube_dl_call_back(bot, update):
                     check_au = check_a.content.decode('utf-8')
                     try:
                       check_aud = re.findall('stream.m3u8',check_au)[0]
-                      await bot.edit_message_text(
+                      await bot.send_message(
                          text="Detected Audio issue...! Still trying to fixing...".format(),
                          chat_id=update.message.chat.id,
-                         message_id=update.message.message_id,
+                         reply_to_message_id=update.message.message_id,
                          reply_markup=InlineKeyboardMarkup(
                             [
                               [
@@ -168,10 +168,10 @@ async def youtube_dl_call_back(bot, update):
          check_au = check_a.content.decode('utf-8')
          try:
             check_aud = re.findall('stream.m3u8',check_au)[0]
-            await bot.edit_message_text(
+            await bot.send_message(
               text="Detected Audio issue...! Still trying to fixing...".format(),
               chat_id=update.message.chat.id,
-              message_id=update.message.message_id,
+              reply_to_message_id=update.message.message_id,
               reply_markup=InlineKeyboardMarkup(
                             [
                               [
@@ -221,7 +221,7 @@ async def youtube_dl_call_back(bot, update):
                   #o = entity.offset
                   #l = entity.length
                   #youtube_dl_url = youtube_dl_url[o:o + l]
-    await bot.send_message(
+    await bot.edit_message_text(
           text=Translation.DOWNLOAD_START,
           chat_id=update.message.chat.id,
           reply_to_message_id=update.message.message_id,
@@ -235,7 +235,7 @@ async def youtube_dl_call_back(bot, update):
     tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     if not os.path.isdir(tmp_directory_for_each_user):
           os.makedirs(tmp_directory_for_each_user)
-    download_directory = tmp_directory_for_each_user + "/" + cva_file_name + ".mkv"
+    download_directory = tmp_directory_for_each_user + "/" + cva_file_name + ".mp4"
     command_to_exec = []
     if tg_send_type == "audio":
           command_to_exec = [
