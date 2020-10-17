@@ -128,19 +128,23 @@ async def echo(bot, update):
          duration = r1["duration"]
          description = r1["description"]
     elif "mxplayer" in u:
-         await update.reply_text("yes")
          mx1 = requests.get(u)
          mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
          mx3 = mx2.find_all("script")[1].prettify()
          G = []
          for i in mx3.split('"'):
-          if "m3u8" in i:
+          if ".mp4" in i:
             G.append(i)
-         for x in G:
-           await update.reply_text(x)
-         return
+         try:
+            url = G[-1]
+         except IndexError:
+            await update.reply_text("🔒 DRM Protected...!")
+            return
+         if "voot" in url:
+           await update.reply_text("🔒 Voot Videos Temporarily Disabled...!")
+           return
     elif "http" in u:
-         await update.reply_text("Please send zee5 or Mx-Player")
+         await update.reply_text("😐 Unsupported URL...!")
          return
     if "|" in update.text:
         file_name = ul_parts[1]
