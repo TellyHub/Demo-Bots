@@ -330,7 +330,7 @@ async def youtube_dl_call_back(bot, update):
               download_directory = os.path.splitext(download_directory)[0] + "." + "mkv"
               # https://stackoverflow.com/a/678242/4723940
               file_size = os.stat(download_directory).st_size
-          if ((file_size > Config.TG_MAX_FILE_SIZE) and (tg_send_type == "file" or "video")):
+          if ((file_size > Config.TG_MAX_FILE_SIZE) and (if tg_send_type != "gdrive")):
               await bot.edit_message_text(
                   chat_id=update.message.chat.id,
                   text=Translation.RCHD_TG_API_LIMIT.format(time_taken_for_download, humanbytes(file_size)),
