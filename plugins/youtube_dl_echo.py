@@ -142,8 +142,6 @@ async def echo(bot, update):
          mx7 = mx6.find_all("script")[0].prettify()
          H = []
          for j in mx7.split('"'):
-            await update.reply_text(j)
-            return
             if ",.mp4" in j:
               H.append(j)
          try:
