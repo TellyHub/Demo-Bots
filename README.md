@@ -17,6 +17,8 @@
   - [ ] No Audio issue for some videos
 
 - Mxplayer
+
+  - [ ] Extract Video which Seperated Audio
   
    Note: DRM Protected Videos Can't be extracted.
 
