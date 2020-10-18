@@ -147,7 +147,7 @@ async def echo(bot, update):
          try:
             url = H[0]
          except IndexError:
-            await update.reply_text("🔒 DRM Protected...!")
+            await update.reply_text("Extraction Failed due to Audio issue or may be 🔒 DRM Protected...!")
             return
          if "voot" in url:
            await update.reply_text("🔒 Voot Videos Temporarily Disabled...!")
