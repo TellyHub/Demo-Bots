@@ -142,14 +142,24 @@ async def echo(bot, update):
          mx6 = bs4.BeautifulSoup(mx5.content.decode('utf-8'), "html5lib")
          mx7 = mx6.find_all("script")[0].prettify()
          H = []
+         O = []
          for j in mx7.split('"'):
             if ",.mp4" in j:
               H.append(j)
          try:
             url = H[0]
          except IndexError:
-            await update.reply_text("Extraction Failed due to Audio issue or may be 🔒 DRM Protected...!")
-            return
+            for k in mx7.split('"'):
+              if ".mp4" in k
+                H.append(k)
+              if ".m3u8" in k
+                O.append(k)
+            try:
+              sampleurl = H[0]
+              url = "https://llvod.mxplay.com/" + O[0]
+            except IndexError:
+              await update.reply_text("🔒 DRM Protected...!")
+              return
          if "voot" in url:
            await update.reply_text("🔒 Voot Videos Temporarily Disabled...!")
            return
