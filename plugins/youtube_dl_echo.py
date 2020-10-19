@@ -150,9 +150,9 @@ async def echo(bot, update):
             url = H[0]
          except IndexError:
             for k in mx7.split('"'):
-              if ".mp4" in k
+              if ".mp4" in k:
                 H.append(k)
-              if ".m3u8" in k
+              if ".m3u8" in k:
                 O.append(k)
             try:
               sampleurl = H[0]
