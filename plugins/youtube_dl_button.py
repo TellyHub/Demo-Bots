@@ -283,7 +283,7 @@ async def youtube_dl_call_back(bot, update):
               "--extract-audio",
               "--audio-format", ".mp3",
               "--audio-quality", audio_format_id,
-              youtube_dl_url, a_download_location
+              youtube_dl_url, a_download_location,
               "-o", 
       ]
       logger.info(command_to_exec)
