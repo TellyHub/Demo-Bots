@@ -212,7 +212,7 @@ async def youtube_dl_call_back(bot, update):
          try:
             youtube_dl_url = H[0]
          except IndexError:
-            youtube_dl_url = P[0]
+            youtube_dl_url = "https://llvod.mxplay.com/" + P[0]
     if "|" in youtube_l_url:
           ull_part = youtube_l_url.strip(' ')
           ull_parts = ull_part.split("|")
