@@ -303,10 +303,6 @@ async def youtube_dl_call_back(bot, update):
       await bot.send_document(
                       chat_id=update.message.chat.id,
                       document=a_download_location,
-                      thumb="None",
-                      caption=cva_file_name,
-                      parse_mode="HTML",
-                      # reply_markup=reply_markup,
                       reply_to_message_id=update.message.reply_to_message.message_id
       )      
       await bot.edit_message_text(
@@ -342,10 +338,6 @@ async def youtube_dl_call_back(bot, update):
       await bot.send_document(
                       chat_id=update.message.chat.id,
                       document=v_download_location,
-                      thumb="None",
-                      caption=cva_file_name,
-                      parse_mode="HTML",
-                      # reply_markup=reply_markup,
                       reply_to_message_id=update.message.reply_to_message.message_id
       )
       await bot.edit_message_text(
@@ -368,10 +360,6 @@ async def youtube_dl_call_back(bot, update):
       await bot.send_document(
                       chat_id=update.message.chat.id,
                       document=download_directory,
-                      thumb="None",
-                      caption=cva_file_name,
-                      parse_mode="HTML",
-                      # reply_markup=reply_markup,
                       reply_to_message_id=update.message.reply_to_message.message_id
       )
       return
