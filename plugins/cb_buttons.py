@@ -27,6 +27,7 @@ from plugins.youtube_dl_button import youtube_dl_call_back
 from plugins.help_text import help_user
 from plugins.help_text import free_req
 from plugins.help_text import rfrsh
+from plugins.help_text import errorformat
 from plugins.dl_button import ddl_call_back
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -54,3 +55,5 @@ async def button(bot, update):
     elif "rfrsh" in cb_data:
         #await update.message.delete()
         await rfrsh(bot, update)
+    elif "ferror" in cb_data:
+        await errorformat(bot, update)
