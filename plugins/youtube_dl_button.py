@@ -300,11 +300,11 @@ async def youtube_dl_call_back(bot, update):
       t_response = stdout.decode().strip()
       logger.info(e_response)
       logger.info(t_response)
-      await bot.send_document(
-                      chat_id=update.message.chat.id,
-                      document=a_download_location,
-                      reply_to_message_id=update.message.reply_to_message.message_id
-      )      
+      #await bot.send_document(
+      #                chat_id=update.message.chat.id,
+      #                document=a_download_location,
+      #                reply_to_message_id=update.message.reply_to_message.message_id
+      #)      
       await bot.edit_message_text(
           text="trying to download Video...",
           chat_id=update.message.chat.id,
@@ -335,16 +335,17 @@ async def youtube_dl_call_back(bot, update):
       t_response = stdout.decode().strip()
       logger.info(e_response)
       logger.info(t_response)
-      await bot.send_document(
-                      chat_id=update.message.chat.id,
-                      document=v_download_location,
-                      reply_to_message_id=update.message.reply_to_message.message_id
-      )
+      #await bot.send_document(
+      #                chat_id=update.message.chat.id,
+      #                document=v_download_location,
+      #                reply_to_message_id=update.message.reply_to_message.message_id
+      #)
       await bot.edit_message_text(
           text="trying to merge Audio and Video...",
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
+      av_download_location = tmp_directory_for_each_user + "/" + "audiovideo" + ".mp4"
       command_to_exec = [
         "ffmpeg",
         "-i",
@@ -354,8 +355,8 @@ async def youtube_dl_call_back(bot, update):
         "-c:v",
         "copy",
         "-c:a",
-        "aac",
-        download_directory
+        "copy",
+        av_download_location
       ]
       await bot.send_document(
                       chat_id=update.message.chat.id,
