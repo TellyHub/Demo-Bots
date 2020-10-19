@@ -202,8 +202,4 @@ async def rfrsh(client, message):
     await message.edit_message_text(msg, reply_markup=reply_markup)
 
 async def errorformat(bot, update):
-  await bot.answer_callback_query(
-    callback_query_id=update.callback_query.message.chat.id,
-    text="Please select a Valid format from Below...!",
-    show_alert=True
-  )
+  await bot.answer_callback_query("Hello", show_alert=True)
