@@ -203,7 +203,7 @@ async def rfrsh(client, message):
 
 async def errorformat(bot, update):
   await bot.answer_callback_query(
-    update.query.id,
+    update.id,
     text="Hello",
     show_alert=True
   )
