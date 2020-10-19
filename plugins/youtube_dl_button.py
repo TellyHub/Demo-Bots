@@ -300,6 +300,15 @@ async def youtube_dl_call_back(bot, update):
       t_response = stdout.decode().strip()
       logger.info(e_response)
       logger.info(t_response)
+      await bot.send_document(
+                      chat_id=update.message.chat.id,
+                      document=a_download_location,
+                      thumb="None",
+                      caption=cva_file_name,
+                      parse_mode="HTML",
+                      # reply_markup=reply_markup,
+                      reply_to_message_id=update.message.reply_to_message.message_id
+      )      
       await bot.edit_message_text(
           text="trying to download Video...",
           chat_id=update.message.chat.id,
@@ -330,6 +339,15 @@ async def youtube_dl_call_back(bot, update):
       t_response = stdout.decode().strip()
       logger.info(e_response)
       logger.info(t_response)
+      await bot.send_document(
+                      chat_id=update.message.chat.id,
+                      document=v_download_location,
+                      thumb="None",
+                      caption=cva_file_name,
+                      parse_mode="HTML",
+                      # reply_markup=reply_markup,
+                      reply_to_message_id=update.message.reply_to_message.message_id
+      )
       await bot.edit_message_text(
           text="trying to merge Audio and Video...",
           chat_id=update.message.chat.id,
@@ -344,7 +362,7 @@ async def youtube_dl_call_back(bot, update):
         "-c:v",
         "copy",
         "-c:a",
-        "copy",
+        "aac",
         download_directory
       ]
       await bot.send_document(
