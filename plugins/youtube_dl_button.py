@@ -191,13 +191,8 @@ async def youtube_dl_call_back(bot, update):
          my2 = bs4.BeautifulSoup(my1.content.decode('utf-8'), "html5lib")
          mt1 = my2.find_all("title")[0].prettify()
          mt2 = mt1.split("|")
-         cva_file_name = mt2[1].replace(" ", "_")
-         await bot.send_message(
-              text=cva_file_name,
-              chat_id=update.message.chat.id,
-              reply_to_message_id=update.message.message_id
-         )
-         return
+         mt3 = mt2[1].replace(" ", "_")
+         cva_file_name = mt3[1:]
          my3 = my2.find_all("script")[1].prettify()
          G = []
          for i in my3.split('"'):
