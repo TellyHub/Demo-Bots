@@ -360,7 +360,7 @@ async def youtube_dl_call_back(bot, update):
       ]
       await bot.send_document(
                       chat_id=update.message.chat.id,
-                      document=download_directory,
+                      document=av_download_location,
                       reply_to_message_id=update.message.reply_to_message.message_id
       )
       return
