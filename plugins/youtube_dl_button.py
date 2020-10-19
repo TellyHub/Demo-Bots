@@ -281,7 +281,7 @@ async def youtube_dl_call_back(bot, update):
               "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
               "--prefer-ffmpeg",
               "--extract-audio",
-              "--audio-format", audio_format_id,
+              "--audio-format", "mp3",
               "--audio-quality", "320k",
               youtube_dl_url,
               "-o", a_download_location,
