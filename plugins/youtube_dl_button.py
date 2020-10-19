@@ -504,7 +504,7 @@ async def youtube_dl_call_back(bot, update):
                                 InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}.mp4".format(cva_file_name))
                               ],
                               [
-                                InlineKeyboardButton(text = '🤝 Join Team Drive', url = 'https://groups.google.com/g/edwin-leech-group')
+                                InlineKeyboardButton(text = '🤝 Join Team Drive', url = "https://groups.google.com/g/edwin-leech-group")
                               ]
                             ]
                           )
