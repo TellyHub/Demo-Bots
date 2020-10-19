@@ -347,24 +347,14 @@ async def youtube_dl_call_back(bot, update):
         "copy",
         download_directory
       ]
-      await bot.send_video(
+      await bot.send_document(
                       chat_id=update.message.chat.id,
-                      video=download_directory,
+                      document=download_directory,
+                      thumb="None",
                       caption=cva_file_name,
                       parse_mode="HTML",
-                      duration=duration,
-                      width=360,
-                      height=120,
-                      supports_streaming=True,
                       # reply_markup=reply_markup,
-                      thumb="None",
-                      reply_to_message_id=update.message.reply_to_message.message_id,
-                      progress=progress_for_pyrogram,
-                      progress_args=(
-                          Translation.UPLOAD_START,
-                          update.message,
-                          start_time
-                      )
+                      reply_to_message_id=update.message.reply_to_message.message_id
       )
       return
     if tg_send_type == "audio":
