@@ -283,8 +283,8 @@ async def youtube_dl_call_back(bot, update):
               "--extract-audio",
               "--audio-format", ".mp3",
               "--audio-quality", audio_format_id,
-              youtube_dl_url, a_download_location,
-              "-o", 
+              youtube_dl_url,
+              "-o", a_download_location,
       ]
       logger.info(command_to_exec)
       start = datetime.now()
