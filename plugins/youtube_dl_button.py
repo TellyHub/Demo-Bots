@@ -85,6 +85,7 @@ async def youtube_dl_call_back(bot, update):
           audio_format_id = aformat_id
     youtube_l_url = update.message.reply_to_message.text
     youtube_dl_url = youtube_l_url
+    audio_issue = "false"
     #u_parts = None
     #u_parts[1] = None
     if "|" in youtube_dl_url:
@@ -213,6 +214,7 @@ async def youtube_dl_call_back(bot, update):
             youtube_dl_url = H[0]
          except IndexError:
             youtube_dl_url = "https://llvod.mxplay.com/" + P[0]
+            audio_issue = "true"
     if "|" in youtube_l_url:
           ull_part = youtube_l_url.strip(' ')
           ull_parts = ull_part.split("|")
@@ -266,6 +268,105 @@ async def youtube_dl_call_back(bot, update):
           os.makedirs(tmp_directory_for_each_user)
     download_directory = tmp_directory_for_each_user + "/" + cva_file_name + ".mp4"
     command_to_exec = []
+    if audio_issue == "true":
+      await bot.edit_message_text(
+          text="trying to download Audio...",
+          chat_id=update.message.chat.id,
+          message_id=update.message.message_id
+      )
+      a_download_location = tmp_directory_for_each_user + "/" + "audio" + ".mp3"
+      command_to_exec = [
+              "youtube-dl",
+              "-c",
+              "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+              "--prefer-ffmpeg",
+              "--extract-audio",
+              "--audio-format", ".mp3",
+              "--audio-quality", audio_format_id,
+              youtube_dl_url, a_download_location
+              "-o", 
+      ]
+      logger.info(command_to_exec)
+      start = datetime.now()
+      process = await asyncio.create_subprocess_exec(
+            *command_to_exec,
+            # stdout must a pipe to be accessible as process.stdout
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+      )
+      # Wait for the subprocess to finish
+      stdout, stderr = await process.communicate()
+      e_response = stderr.decode().strip()
+      t_response = stdout.decode().strip()
+      logger.info(e_response)
+      logger.info(t_response)
+      await bot.edit_message_text(
+          text="trying to download Video...",
+          chat_id=update.message.chat.id,
+          message_id=update.message.message_id
+      )
+      v_download_location = tmp_directory_for_each_user + "/" + "video" + ".mp4"
+      command_to_exec = [
+              "youtube-dl",
+              "-c",
+              "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+              "--embed-subs",
+              "-f", youtube_dl_format,
+              "--hls-prefer-ffmpeg", youtube_dl_url,
+              "-o", v_download_location
+      ]
+      command_to_exec.append("--no-warnings")
+      logger.info(command_to_exec)
+      start = datetime.now()
+      process = await asyncio.create_subprocess_exec(
+            *command_to_exec,
+            # stdout must a pipe to be accessible as process.stdout
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+      )
+      # Wait for the subprocess to finish
+      stdout, stderr = await process.communicate()
+      e_response = stderr.decode().strip()
+      t_response = stdout.decode().strip()
+      logger.info(e_response)
+      logger.info(t_response)
+      await bot.edit_message_text(
+          text="trying to merge Audio and Video...",
+          chat_id=update.message.chat.id,
+          message_id=update.message.message_id
+      )
+      command_to_exec = [
+        "ffmpeg",
+        "-i",
+        v_download_location,
+        "-i",
+        a_download_location,
+        "-c:v",
+        "copy",
+        "-c:a",
+        "copy",
+        download_directory
+      ]
+      await bot.send_video(
+                      chat_id=update.message.chat.id,
+                      video=download_directory,
+                      caption=cva_file_name,
+                      parse_mode="HTML",
+                      duration=duration,
+                      width=360,
+                      height=120,
+                      supports_streaming=True,
+                      # reply_markup=reply_markup,
+                      thumb="None",
+                      reply_to_message_id=update.message.reply_to_message.message_id,
+                      progress=progress_for_pyrogram,
+                      progress_args=(
+                          Translation.UPLOAD_START,
+                          update.message,
+                          start_time
+                      )
+      )
+      return
     if tg_send_type == "audio":
           command_to_exec = [
               "youtube-dl",
