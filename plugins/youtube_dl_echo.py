@@ -322,11 +322,11 @@ async def echo(bot, update):
                         ),
                         pyrogram.InlineKeyboardButton(
                             "📂 - File",
-                            callback_data=(cb_string_file).encode("UTF-8")
+                            callback_data="ferror"
                         ),
                         pyrogram.InlineKeyboardButton(
                             "📥 - GDrive",
-                            callback_data=(cb_string_td).encode("UTF-8")
+                            callback_data="ferror"
                         )
                     ]
                 inline_keyboard.append(ikeyboard)
