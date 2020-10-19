@@ -318,7 +318,7 @@ async def echo(bot, update):
                     ikeyboard = [
                         pyrogram.InlineKeyboardButton(
                             "🎞 - Video",
-                            callback_data=(cb_string_video).encode("UTF-8")
+                            callback_query.answer("Hello", show_alert=True)
                         ),
                         pyrogram.InlineKeyboardButton(
                             "📂 - File",
