@@ -190,7 +190,7 @@ async def youtube_dl_call_back(bot, update):
          my1 = requests.get(youtube_dl_url)
          my2 = bs4.BeautifulSoup(my1.content.decode('utf-8'), "html5lib")
          mt1 = my2.find_all("title")[0].prettify()
-         mt2 = mt1.strip('<>|"')
+         mt2 = mt1.strip('<>()|"')
          cva_file_name = mt2.replace(" ", "_")
          my3 = my2.find_all("script")[1].prettify()
          G = []
