@@ -203,10 +203,16 @@ async def youtube_dl_call_back(bot, update):
          my6 = bs4.BeautifulSoup(my5.content.decode('utf-8'), "html5lib")
          my7 = my6.find_all("script")[0].prettify()
          H = []
+         P = []
          for j in my7.split('"'):
             if ",.mp4" in j:
               H.append(j)
-         youtube_dl_url = H[0]
+            if ".m3u8" in j:
+              P.append(j)
+         try:
+            youtube_dl_url = H[0]
+         except IndexError:
+            youtube_dl_url = P[0]
     if "|" in youtube_l_url:
           ull_part = youtube_l_url.strip(' ')
           ull_parts = ull_part.split("|")
