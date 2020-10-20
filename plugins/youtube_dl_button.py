@@ -314,7 +314,7 @@ async def youtube_dl_call_back(bot, update):
       #                reply_to_message_id=update.message.reply_to_message.message_id
       #)      
       await bot.edit_message_text(
-          text="📥 Downloading Video...",
+          text="📥 Downloading Video...⌛️",
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
