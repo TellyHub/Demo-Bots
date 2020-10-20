@@ -358,6 +358,20 @@ async def youtube_dl_call_back(bot, update):
         "copy",
         av_download_location
       ]
+      logger.info(command_to_exec)
+      start = datetime.now()
+      process = await asyncio.create_subprocess_exec(
+            *command_to_exec,
+            # stdout must a pipe to be accessible as process.stdout
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+      )
+      # Wait for the subprocess to finish
+      stdout, stderr = await process.communicate()
+      e_response = stderr.decode().strip()
+      t_response = stdout.decode().strip()
+      logger.info(e_response)
+      logger.info(t_response)
       await bot.send_document(
                       chat_id=update.message.chat.id,
                       document=av_download_location,
