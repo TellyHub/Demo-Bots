@@ -143,6 +143,7 @@ async def echo(bot, update):
          mx7 = mx6.find_all("script")[0].prettify()
          H = []
          O = []
+         N = []
          for j in mx7.split('"'):
             if ",.mp4" in j:
               H.append(j)
@@ -154,12 +155,18 @@ async def echo(bot, update):
                 H.append(k)
               if ".m3u8" in k:
                 O.append(k)
+              if "hlsurl" in l:
+                N.append(l)
             try:
               sampleurl = H[0]
               url = "https://llvod.mxplay.com/" + O[0]
             except IndexError:
-              await update.reply_text("🔒 DRM Protected...!")
-              return
+              try:
+                sample2url = N[0]
+                url = O[0]
+              except IndexError:
+                await update.reply_text("🔒 DRM Protected...!")
+                return
          if "voot" in url:
            await update.reply_text("🔒 Voot Videos Temporarily Disabled...!")
            return
