@@ -220,7 +220,8 @@ async def errorformat(bot, update):
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["backup"]))
 async def backup(bot, update):
+   backfile = "backup.json"
    await bot.send_document(
        chat_id=update.chat.id,
-       document=backup.json
+       document=backfile
    )
