@@ -47,8 +47,12 @@ async def help_user(bot, update):
                     InlineKeyboardButton(text = '✅ Updates Channel', url = "https://t.me/Super_botz")
                 ],
                 [
-                    InlineKeyboardButton(text = '✍🏼 Custom File Name ', url="https://www.youtube.com/watch?v=5wSi4KC70Gw&t=2m5s"),
-                    InlineKeyboardButton(text = '🏞 Custom Thumbnail', url = "https://www.youtube.com/watch?v=5wSi4KC70Gw&t=3m33s")
+                    InlineKeyboardButton(text = '✍🏼 Custom File Name ', url="https://www.youtube.com/watch?v=5wSi4KC70Gw&t=2m5s")
+                 
+                ],
+                [
+                     InlineKeyboardButton(text = '🏞 Custom Thumbnail', url = "https://www.youtube.com/watch?v=5wSi4KC70Gw&t=3m33s")
+                ],
                 [
                     InlineKeyboardButton(text = '📽️ Proof', url = "https://youtu.be/5wSi4KC70Gw"),
                     InlineKeyboardButton(text = '🔐 Close ', callback_data="close")
