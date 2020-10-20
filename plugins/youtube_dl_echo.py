@@ -155,8 +155,8 @@ async def echo(bot, update):
                 H.append(k)
               if ".m3u8" in k:
                 O.append(k)
-              if "hlsurl" in l:
-                N.append(l)
+              if "hlsurl" in k:
+                N.append(k)
             try:
               sampleurl = H[0]
               url = "https://llvod.mxplay.com/" + O[0]
