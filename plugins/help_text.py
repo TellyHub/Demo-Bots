@@ -54,7 +54,7 @@ async def help_user(bot, update):
                      InlineKeyboardButton(text = '🏞 Custom Thumbnail', url = "https://www.youtube.com/watch?v=5wSi4KC70Gw&t=3m33s")
                 ],
                 [
-                    InlineKeyboardButton(text = '📽️ Proof', url = "https://youtu.be/5wSi4KC70Gw"),
+                    InlineKeyboardButton(text = '📽️ Tutorial', url = "https://youtu.be/5wSi4KC70Gw"),
                     InlineKeyboardButton(text = '🔐 Close ', callback_data="close")
                 ]
             ]
