@@ -205,16 +205,24 @@ async def youtube_dl_call_back(bot, update):
          my7 = my6.find_all("script")[0].prettify()
          H = []
          P = []
+         Q = []
+         R = []
          for j in my7.split('"'):
             if ",.mp4" in j:
               H.append(j)
             if ".m3u8" in j:
               P.append(j)
+            if ".mp4" in j:
+              R.append(j)
          try:
             youtube_dl_url = H[0]
          except IndexError:
-            youtube_dl_url = "https://llvod.mxplay.com/" + P[0]
-            audio_issue = "true"
+            try:
+              sampurl = R[0]
+              youtube_dl_url = "https://llvod.mxplay.com/" + P[0]
+              audio_issue = "true"
+            except IndexError:
+                youtube_dl_url = P[0]
     if "|" in youtube_l_url:
           ull_part = youtube_l_url.strip(' ')
           ull_parts = ull_part.split("|")
@@ -270,7 +278,7 @@ async def youtube_dl_call_back(bot, update):
     command_to_exec = []
     if audio_issue == "true":
       await bot.edit_message_text(
-          text="trying to download Audio...",
+          text="📥 Downloading Audio...⌛️",
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
@@ -306,7 +314,7 @@ async def youtube_dl_call_back(bot, update):
       #                reply_to_message_id=update.message.reply_to_message.message_id
       #)      
       await bot.edit_message_text(
-          text="trying to download Video...",
+          text="📥 Downloading Video...",
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
@@ -322,7 +330,6 @@ async def youtube_dl_call_back(bot, update):
       ]
       command_to_exec.append("--no-warnings")
       logger.info(command_to_exec)
-      start = datetime.now()
       process = await asyncio.create_subprocess_exec(
             *command_to_exec,
             # stdout must a pipe to be accessible as process.stdout
@@ -341,11 +348,10 @@ async def youtube_dl_call_back(bot, update):
       #                reply_to_message_id=update.message.reply_to_message.message_id
       #)
       await bot.edit_message_text(
-          text="trying to merge Audio and Video...",
+          text="⌛️ Merging Audio and Video...",
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
-      av_download_location = tmp_directory_for_each_user + "/" + "audiovideo" + ".mp4"
       command_to_exec = [
         "ffmpeg",
         "-i",
@@ -356,10 +362,9 @@ async def youtube_dl_call_back(bot, update):
         "copy",
         "-c:a",
         "copy",
-        av_download_location
+        download_directory
       ]
       logger.info(command_to_exec)
-      start = datetime.now()
       process = await asyncio.create_subprocess_exec(
             *command_to_exec,
             # stdout must a pipe to be accessible as process.stdout
@@ -372,13 +377,249 @@ async def youtube_dl_call_back(bot, update):
       t_response = stdout.decode().strip()
       logger.info(e_response)
       logger.info(t_response)
-      await bot.send_document(
+      os.remove(save_ytdl_json_path)
+      end_one = datetime.now()
+      time_taken_for_download = (end_one -start).seconds
+      file_size = Config.TG_MAX_FILE_SIZE + 1
+      try:
+          file_size = os.stat(download_directory).st_size
+      except FileNotFoundError as exc:
+          download_directory = os.path.splitext(download_directory)[0] + "." + "mkv"
+          # https://stackoverflow.com/a/678242/4723940
+          file_size = os.stat(download_directory).st_size
+      if ((file_size > Config.TG_MAX_FILE_SIZE) and (tg_send_type != "gdrive")):
+          await bot.edit_message_text(
+              chat_id=update.message.chat.id,
+              text=Translation.RCHD_TG_API_LIMIT.format(time_taken_for_download, humanbytes(file_size)),
+              message_id=update.message.message_id
+          )
+      else:
+          is_w_f = False
+          images = await generate_screen_shots(
+              download_directory,
+              tmp_directory_for_each_user,
+              is_w_f,
+              Config.DEF_WATER_MARK_FILE,
+              300,
+              9
+          )
+          logger.info(images)
+          await bot.edit_message_text(
+              text=Translation.UPLOAD_START,
+              chat_id=update.message.chat.id,
+              message_id=update.message.message_id
+          )
+          # get the correct width, height, and duration for videos greater than 10MB
+          # ref: message from @BotSupport
+          width = 0
+          height = 0
+          duration = 0
+          if tg_send_type != "file":
+              metadata = extractMetadata(createParser(download_directory))
+              if metadata is not None:
+                  if metadata.has("duration"):
+                      duration = metadata.get('duration').seconds
+          # get the correct width, height, and duration for videos greater than 10MB
+          if os.path.exists(thumb_image_path):
+              width = 0
+              height = 0
+              metadata = extractMetadata(createParser(thumb_image_path))
+              if metadata.has("width"):
+                  width = metadata.get("width")
+              if metadata.has("height"):
+                  height = metadata.get("height")
+              if tg_send_type == "vm":
+                  height = width
+              # resize image
+              # ref: https://t.me/PyrogramChat/44663
+              # https://stackoverflow.com/a/21669827/4723940
+              Image.open(thumb_image_path).convert(
+                  "RGB").save(thumb_image_path)
+              img = Image.open(thumb_image_path)
+              # https://stackoverflow.com/a/37631799/4723940
+              # img.thumbnail((90, 90))
+              if tg_send_type == "file":
+                  img.resize((320, height))
+              else:
+                  img.resize((90, height))
+              img.save(thumb_image_path, "JPEG")
+              # https://pillow.readthedocs.io/en/3.1.x/reference/Image.html#create-thumbnails
+                  
+          else:
+              thumb_image_path = None
+          start_time = time.time()
+          # try to upload file
+          if tg_send_type == "audio":
+                  await bot.send_audio(
                       chat_id=update.message.chat.id,
-                      document=av_download_location,
-                      reply_to_message_id=update.message.reply_to_message.message_id
-      )
-      return
-    if tg_send_type == "audio":
+                      audio=download_directory,
+                      caption=description,
+                      parse_mode="HTML",
+                      duration=duration,
+                      # performer=response_json["uploader"],
+                      # title=response_json["title"],
+                      # reply_markup=reply_markup,
+                      thumb=thumb_image_path,
+                      reply_to_message_id=update.message.reply_to_message.message_id,
+                      progress=progress_for_pyrogram,
+                      progress_args=(
+                          Translation.UPLOAD_START,
+                          update.message,
+                          start_time
+                      )
+                  )
+          elif tg_send_type == "file":
+                  await bot.send_document(
+                      chat_id=update.message.chat.id,
+                      document=download_directory,
+                      thumb=thumb_image_path,
+                      caption=cva_file_name,
+                      parse_mode="HTML",
+                      # reply_markup=reply_markup,
+                      reply_to_message_id=update.message.reply_to_message.message_id,
+                      progress=progress_for_pyrogram,
+                      progress_args=(
+                          Translation.UPLOAD_START,
+                          update.message,
+                          start_time
+                      )
+                  )
+          elif tg_send_type == "vm":
+                  await bot.send_video_note(
+                      chat_id=update.message.chat.id,
+                      video_note=download_directory,
+                      duration=duration,
+                      length=width,
+                      thumb=thumb_image_path,
+                      reply_to_message_id=update.message.reply_to_message.message_id,
+                      progress=progress_for_pyrogram,
+                      progress_args=(
+                          Translation.UPLOAD_START,
+                          update.message,
+                          start_time
+                      )
+                  )
+          elif tg_send_type == "video":
+                  await bot.send_video(
+                      chat_id=update.message.chat.id,
+                      video=download_directory,
+                      caption=cva_file_name,
+                      parse_mode="HTML",
+                      duration=duration,
+                      width=width,
+                      height=height,
+                      supports_streaming=True,
+                      # reply_markup=reply_markup,
+                      thumb=thumb_image_path,
+                      reply_to_message_id=update.message.reply_to_message.message_id,
+                      progress=progress_for_pyrogram,
+                      progress_args=(
+                          Translation.UPLOAD_START,
+                          update.message,
+                          start_time
+                      )
+                  )
+          elif tg_send_type == "gdrive":
+                      gauth = GoogleAuth()
+                      # Try to load saved client credentials
+                      gauth.LoadCredentialsFile("mycreds.txt")
+                      if gauth.credentials is None:
+                          # Authenticate if they're not there
+                          await bot.edit_message_text(
+                              text="GDrive Authentication failed! Report to Support Group for fixing it.",
+                              chat_id=update.message.chat.id,
+                              message_id=update.message.message_id
+                          )
+                      elif gauth.access_token_expired:
+                          # Refresh them if expired
+                          gauth.Refresh()
+                          logging.getLogger('googleapicliet.discovery_cache').setLevel(logging.ERROR)
+                      else:
+                          # Initialize the saved creds
+                          gauth.Authorize()
+                      # Save the current credentials to a file
+                      gauth.SaveCredentialsFile("mycreds.txt")
+                      drive = GoogleDrive(gauth)
+                      #Starting Upload
+                      parent_folder_id = ("1_QRZa46ij7El6BxRo4XIlajWms0v-4qr")
+                      team_drive_id = ("1B6NjbN9XojZw9rjzsWhUFwLOgEk_DjeJ")
+                      g_title = ("{}.mp4".format(cva_file_name))
+                      start_upload = datetime.now()
+                      file1 = drive.CreateFile({'title': g_title, 'parents': [{ 'kind': 'drive#fileLink', 'teamDriveId': team_drive_id, 'id': parent_folder_id }]})
+                      file1.SetContentFile(download_directory)
+                      file1.Upload(param={'supportsTeamDrives': True})
+                      stop_upload = datetime.now()
+                      upload_time = (stop_upload -start_upload).seconds
+                      await bot.edit_message_text(
+                          text=cva_file_name.replace("_", " ") + " is Downloaded in {} seconds and uploaded in {} seconds.".format(time_taken_for_download, upload_time),
+                          chat_id=update.message.chat.id,
+                          message_id=update.message.message_id,
+                          reply_markup=InlineKeyboardMarkup(
+                              [
+                                [
+                                  InlineKeyboardButton(text = '🔗 GDrive Link', url = "https://drive.google.com/file/d/{}/view?usp=sharing".format(file1['id'])),
+                                  InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}.mp4".format(cva_file_name))
+                                ],
+                                [
+                                  InlineKeyboardButton(text = '🤝 Join Team Drive', url = 'https://groups.google.com/g/edwin-leech-group')
+                                ]
+                              ]
+                          )
+                      )
+                      try:
+                        shutil.rmtree(tmp_directory_for_each_user)
+                        os.remove(thumb_image_path)
+                      except:
+                        pass
+                      return
+          else:
+              logger.info("Did this happen? :\\")
+          end_two = datetime.now()
+          time_taken_for_upload = (end_two - end_one).seconds
+          #
+          media_album_p = []
+          if images is not None:
+                  i = 0
+                  caption = "© @Super_BotZ"
+                  if is_w_f:
+                      caption = "/upgrade to Plan D to remove the watermark\n© @AnyDLBot"
+                  for image in images:
+                      if os.path.exists(image):
+                          if i == 0:
+                              media_album_p.append(
+                                  pyrogram.InputMediaPhoto(
+                                      media=image,
+                                      caption=caption,
+                                      parse_mode="html"
+                                  )
+                              )
+                          else:
+                              media_album_p.append(
+                                  pyrogram.InputMediaPhoto(
+                                      media=image
+                                  )
+                              )
+                          i = i + 1
+          await bot.send_media_group(
+                  chat_id=update.message.chat.id,
+                  disable_notification=True,
+                  reply_to_message_id=update.message.message_id,
+                  media=media_album_p
+          )
+          #
+          try:
+                  shutil.rmtree(tmp_directory_for_each_user)
+                  #os.remove(thumb_image_path)
+          except:
+              pass
+          await bot.edit_message_text(
+                  text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download, time_taken_for_upload),
+                  chat_id=update.message.chat.id,
+                  message_id=update.message.message_id,
+                  disable_web_page_preview=True
+          )
+    else:
+      if tg_send_type == "audio":
           command_to_exec = [
               "youtube-dl",
               "-c",
@@ -390,7 +631,7 @@ async def youtube_dl_call_back(bot, update):
               youtube_dl_url,
               "-o", download_directory
           ]
-    else:
+      else:
           # command_to_exec = ["youtube-dl", "-f", youtube_dl_format, "--hls-prefer-ffmpeg", "--recode-video", "mp4", "-k", youtube_dl_url, "-o", download_directory]
           minus_f_format = youtube_dl_format
           if "youtu" in youtube_dl_url:
@@ -404,33 +645,33 @@ async def youtube_dl_call_back(bot, update):
               "--hls-prefer-ffmpeg", youtube_dl_url,
               "-o", download_directory
           ]
-    if Config.HTTP_PROXY != "":
+      if Config.HTTP_PROXY != "":
           command_to_exec.append("--proxy")
           command_to_exec.append(Config.HTTP_PROXY)
-    if youtube_dl_username is not None:
+      if youtube_dl_username is not None:
           command_to_exec.append("--username")
           command_to_exec.append(youtube_dl_username)
-    if youtube_dl_password is not None:
+      if youtube_dl_password is not None:
           command_to_exec.append("--password")
           command_to_exec.append(youtube_dl_password)
-    command_to_exec.append("--no-warnings")
-    # command_to_exec.append("--quiet")
-    logger.info(command_to_exec)
-    start = datetime.now()
-    process = await asyncio.create_subprocess_exec(
+      command_to_exec.append("--no-warnings")
+      # command_to_exec.append("--quiet")
+      logger.info(command_to_exec)
+      start = datetime.now()
+      process = await asyncio.create_subprocess_exec(
           *command_to_exec,
           # stdout must a pipe to be accessible as process.stdout
           stdout=asyncio.subprocess.PIPE,
           stderr=asyncio.subprocess.PIPE,
-    )
-    # Wait for the subprocess to finish
-    stdout, stderr = await process.communicate()
-    e_response = stderr.decode().strip()
-    t_response = stdout.decode().strip()
-    logger.info(e_response)
-    logger.info(t_response)
-    ad_string_to_replace = "please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
-    if e_response and ad_string_to_replace in e_response:
+      )
+      # Wait for the subprocess to finish
+      stdout, stderr = await process.communicate()
+      e_response = stderr.decode().strip()
+      t_response = stdout.decode().strip()
+      logger.info(e_response)
+      logger.info(t_response)
+      ad_string_to_replace = "please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
+      if e_response and ad_string_to_replace in e_response:
           error_message = e_response.replace(ad_string_to_replace, "")
           await bot.edit_message_text(
               chat_id=update.message.chat.id,
@@ -438,7 +679,7 @@ async def youtube_dl_call_back(bot, update):
               text=error_message
           )
           return False
-    if t_response:
+      if t_response:
           # logger.info(t_response)
           os.remove(save_ytdl_json_path)
           end_one = datetime.now()
