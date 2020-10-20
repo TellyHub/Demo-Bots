@@ -217,3 +217,10 @@ async def errorformat(bot, update):
     text="Invalid Format...!",
     show_alert=True
   )
+
+@pyrogram.Client.on_message(pyrogram.Filters.command(["backup"]))
+async def backup(bot, update):
+   await bot.send_document(
+       chat_id=update.chat.id,
+       document=backup.json
+   )
