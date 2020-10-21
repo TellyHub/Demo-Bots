@@ -5,12 +5,12 @@
     {
       "user_id": "userid1",
       "paid_on": "userpaiddate1",
-      "expire_on": "userexpiredate1",
+      "expire_on": "userexpiredate1"
     },
     {
       "user_id": "userid2",
       "paid_on": "userpaiddate2",
-      "expire_on": "userexpiredate2",
+      "expire_on": "userexpiredate2"
     }
     
   ]
