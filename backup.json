@@ -2,8 +2,11 @@
   "id": "*~hmac=63256b94f9f7658c4ab1ed52af91f644c679ee7c7e486f4a81507d5473cf6f6d",
   "title": "index",
   "upload_date": "20201005",
-  "formats": 
+  "users": 
   [
-    "test1", "test2"
+    "user1"
+    [
+      "date", "time"
+    ]
   ]
 }
