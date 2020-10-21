@@ -226,6 +226,8 @@ async def backup(bot, update):
        chat_id=update.chat.id,
        document="backup.json"
    )
-   await update.reply_text(backup.json[0])
+   with open(backup.json, "r", encoding="utf8") as f:
+            b_json = json.load(f)
+   await update.reply_text(b_json[0])
  else:
    await update.reply_text("You are not Owner...!")
