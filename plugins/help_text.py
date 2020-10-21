@@ -225,7 +225,7 @@ async def backup(bot, update):
  if update.from_user.id == 695291232:
    b_file = "backup.json"
    await bot.send_document(
-       chat_id=update.chat.id,
+       chat_id=update.from_user.id,
        document=b_file
    )
  else:
@@ -247,6 +247,6 @@ async def backup(bot, update):
    })
    with open("backup.json", "w", encoding="utf8") as outfile:
             json.dump(b_json, outfile, ensure_ascii=False)
-   await update.reply_text("User {} added and Expire on {}th-{}-{}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
+   await update.reply_text("[User](tg://user?id={}) added and Expire on {}th-{}-{}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
  else:
    await update.reply_text("You are not Owner...!")
