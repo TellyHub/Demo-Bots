@@ -226,7 +226,7 @@ async def backup(bot, update):
        chat_id=update.chat.id,
        document="backup.json"
    )
-   with open(backup.json, "r", encoding="utf8") as f:
+   with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
    await update.reply_text(b_json[0])
  else:
