@@ -254,6 +254,6 @@ async def backup(bot, update):
    })
    with open("backup.json", "w", encoding="utf8") as outfile:
             json.dump(b_json, outfile, ensure_ascii=False)
-   await update.reply_text("User {} added and Expiry on {}".format(new_user,(expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y"))))
+   await update.reply_text("User {} added and Expire on {}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
  else:
    await update.reply_text("You are not Owner...!")
