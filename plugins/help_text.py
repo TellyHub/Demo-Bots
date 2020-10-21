@@ -226,6 +226,6 @@ async def backup(bot, update):
        chat_id=update.chat.id,
        document=backfile
    )
-   await update.reply_text(backfile[update.from_user.id][0])
+   await update.reply_text(backfile[0])
  else:
    await update.reply_text("You are not Owner...!")
