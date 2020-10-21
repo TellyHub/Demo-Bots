@@ -248,8 +248,8 @@ async def backup(bot, update):
    with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
    b_json["users"].append({
-      "user_id": new_user,
-      "paid_on": paid_date,
+      "user_id": "{}".format(new_user),
+      "paid_on": "{}".format(paid_date),
       "expire_on": expiry_date
     })
    with open("backup.json", "w", encoding="utf8") as outfile:
