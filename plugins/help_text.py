@@ -223,18 +223,10 @@ async def errorformat(bot, update):
 @pyrogram.Client.on_message(pyrogram.Filters.command(["backup"]))
 async def backup(bot, update):
  if update.from_user.id == 695291232:
-   #backfile = "backup.json"
    await bot.send_document(
        chat_id=update.chat.id,
        document="backup.json"
    )
-   with open("backup.json", "r", encoding="utf8") as f:
-            b_json = json.load(f)
-   await update.reply_text(b_json["formats"][0])
-   b_json.append("test3user")
-   with open("backup.json", "w", encoding="utf8") as outfile:
-            json.dump(b_json, outfile, ensure_ascii=False)
-   await update.reply_text(b_json["formats"][2])
  else:
    await update.reply_text("You are not Owner...!")
 
@@ -254,6 +246,6 @@ async def backup(bot, update):
    })
    with open("backup.json", "w", encoding="utf8") as outfile:
             json.dump(b_json, outfile, ensure_ascii=False)
-   await update.reply_text("User {} added and Expire on {}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
+   await update.reply_text("User {} added and Expire on {}th-{}-{}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
  else:
    await update.reply_text("You are not Owner...!")
