@@ -3,10 +3,10 @@
   "title": "index",
   "upload_date": "20201005",
   "users": 
-  [
+  {[
     "user1"
     [
       "date", "time"
     ]
-  ]
+  ]}
 }
