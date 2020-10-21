@@ -223,9 +223,10 @@ async def errorformat(bot, update):
 @pyrogram.Client.on_message(pyrogram.Filters.command(["backup"]))
 async def backup(bot, update):
  if update.from_user.id == 695291232:
+   b_file = "backup.json"
    await bot.send_document(
        chat_id=update.chat.id,
-       document="backup.json"
+       document=b_file
    )
  else:
    await update.reply_text("You are not Owner...!")
