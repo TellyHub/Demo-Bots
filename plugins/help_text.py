@@ -229,6 +229,6 @@ async def backup(bot, update):
    )
    with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
-   await update.reply_text(b_json["users"][0])
+   await update.reply_text(b_json["users"][update.from_user.id])
  else:
    await update.reply_text("You are not Owner...!")
