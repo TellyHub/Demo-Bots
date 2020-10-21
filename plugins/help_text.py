@@ -250,7 +250,7 @@ async def backup(bot, update):
    b_json["users"].append({
       "user_id": new_user,
       "paid_on": paid_date,
-      "expire_on": expiry_date,
+      "expire_on": expiry_date
     })
    with open("backup.json", "w", encoding="utf8") as outfile:
             json.dump(b_json, outfile, ensure_ascii=False)
