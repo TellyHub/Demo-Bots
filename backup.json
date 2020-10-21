@@ -1,12 +1,20 @@
 {
   "id": "*~hmac=63256b94f9f7658c4ab1ed52af91f644c679ee7c7e486f4a81507d5473cf6f6d",
   "title": "index",
-  "upload_date": "20201005",
+  "upload_date":
+  "20201005",
   "users": 
-  [{
-    "user1":
-    [
-      "date", "time"
-    ]
-  }]
+  [
+    {
+      "user_id": "userid1",
+      "paid_on": "userpaiddate1",
+      "expire_on": "userexpiredate1",
+    },
+    {
+      "user_id": "userid2",
+      "paid_on": "userpaiddate2",
+      "expire_on": "userexpiredate2",
+    }
+    
+  ]
 }
