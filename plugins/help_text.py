@@ -230,7 +230,7 @@ async def backup(bot, update):
    with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
    await update.reply_text(b_json["formats"][0])
-   b_json["formats"].append("test3")
+   b_json.append("test3user")
    with open("backup.json", "w", encoding="utf8") as outfile:
             json.dump(b_json, outfile, ensure_ascii=False)
    await update.reply_text(b_json["formats"][2])
