@@ -232,7 +232,7 @@ async def backup(bot, update):
    await update.reply_text("You are not Owner...!")
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["add"]))
-async def backup(bot, update):
+async def add(bot, update):
  if update.from_user.id == 695291232:
    new_u = update.text
    new_user = new_u.strip('/add ')
@@ -247,6 +247,6 @@ async def backup(bot, update):
    })
    with open("backup.json", "w", encoding="utf8") as outfile:
             json.dump(b_json, outfile, ensure_ascii=False)
-   await update.reply_text("[User](tg://user?id={}) added and Expire on {}th-{}-{}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
+   await update.reply_text("User ID {} is added and Expire on {}th-{}-{}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
  else:
    await update.reply_text("You are not Owner...!")
