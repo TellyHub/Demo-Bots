@@ -13,7 +13,7 @@ import sqlite3
 import shutil
 import time
 import json
-import datetime
+from datetime import datetime
 
 # the secret configuration specific things
 from sample_config import Config
