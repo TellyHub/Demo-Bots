@@ -251,9 +251,7 @@ async def backup(bot, update):
       "user_id": "{}".format(new_user),
       "paid_on": "{}".format(paid_date),
       "expire_on": "{}".format(expiry_date)
-    })
-   await update.reply_text(b_json["users"])
-   return
+   })
    with open("backup.json", "w", encoding="utf8") as outfile:
             json.dump(b_json, outfile, ensure_ascii=False)
    await update.reply_text("User {} added and Expiry on {}".format(new_user,(expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y"))))
