@@ -241,8 +241,8 @@ async def backup(bot, update):
 @pyrogram.Client.on_message(pyrogram.Filters.command(["add"]))
 async def backup(bot, update):
  if update.from_user.id == 695291232:
-  if update.text is not None:
-   new_user = update.text
+   new_u = update.text
+   new_user = new_u.strip('/add ')
    paid_date = datetime.now()
    expiry_date = paid_date + timedelta(30)
    with open("backup.json", "r", encoding="utf8") as f:
@@ -250,9 +250,9 @@ async def backup(bot, update):
    b_json["users"].append({
       "user_id": "{}".format(new_user),
       "paid_on": "{}".format(paid_date),
-      "expire_on": expiry_date
+      "expire_on": "{}".format(expiry_date)
     })
-   await update.reply_text(update.text)
+   await update.reply_text(b_json["users"])
    return
    with open("backup.json", "w", encoding="utf8") as outfile:
             json.dump(b_json, outfile, ensure_ascii=False)
