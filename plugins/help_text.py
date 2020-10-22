@@ -236,7 +236,7 @@ async def add(bot, update):
  if update.from_user.id == 695291232:
    new_u = update.text
    new_us = new_u.split(' ')
-   if len(new_us) == 4
+   if len(new_us) == 4:
      new_User = new_us[1]
      act_plan = new_us[2]
      d = new_us[3]
