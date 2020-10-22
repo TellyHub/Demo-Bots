@@ -260,6 +260,7 @@ async def em(bot, update):
       for users in b_json["users"]:
         user = users.get("user_id")
         if user == update.from_user.id:
+           await update.reply_text("OK")
            userr = user
            paid = users.get("paid_on")
            exp = users.get("expire_on")
