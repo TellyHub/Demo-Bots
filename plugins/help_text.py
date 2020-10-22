@@ -266,7 +266,7 @@ async def em(bot, update):
           reply_to_message_id=update.message_id,
           disable_web_page_preview=True
         )
-        cvalue = update.chat.id - us
+        cvalue = update.chat.id - int(us)
         if cvalue == "0":
           await update.reply_text("OK")
           await bot.send_message(
