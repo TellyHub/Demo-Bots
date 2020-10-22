@@ -235,19 +235,26 @@ async def backup(bot, update):
 async def add(bot, update):
  if update.from_user.id == 695291232:
    new_u = update.text
-   new_user = new_u.strip('/add ')
-   paid_date = datetime.now()
-   expiry_date = paid_date + timedelta(30)
-   with open("backup.json", "r", encoding="utf8") as f:
-            b_json = json.load(f)
-   b_json["users"].append({
-      "user_id": "{}".format(new_user),
-      "paid_on": "{}".format(paid_date),
-      "expire_on": "{}".format(expiry_date)
-   })
-   with open("backup.json", "w", encoding="utf8") as outfile:
-            json.dump(b_json, outfile, ensure_ascii=False)
-   await update.reply_text("User ID {} is added and Expire on {}th-{}-{}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
+   new_us = new_u.split(' ')
+   if len(new_us) == 4
+     new_User = new_us[1]
+     act_plan = new_us[2]
+     d = new_us[3]
+     paid_date = datetime.now()
+     expiry_date = paid_date + timedelta(d)
+     with open("backup.json", "r", encoding="utf8") as f:
+              b_json = json.load(f)
+     b_json["users"].append({
+        "user_id": "{}".format(new_user),
+        "plan_name": "{}".format(act_plan),
+        "paid_on": "{}".format(paid_date),
+        "expire_on": "{}".format(expiry_date)
+     })
+     with open("backup.json", "w", encoding="utf8") as outfile:
+              json.dump(b_json, outfile, ensure_ascii=False)
+     await update.reply_text("User ID {} is added and Expire on {}th-{}-{}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
+   else:
+     await update.reply_text("Eg.: /add 123456 Trial 1")
  else:
    await update.reply_text("You are not Owner...!")
 
@@ -258,12 +265,15 @@ async def em(bot, update):
     if update.chat.id in b_json["users"]:
       for users in b_json["users"]:
           user = users.get("user_id")
-          paid = users.get("paid_on")
+          plan = users.get("plan_name")
           exp = users.get("expire_on")
           if int(update.chat.id) == int(user):
             await bot.send_message(
               chat_id=update.chat.id,
-              text="Paid on {} and Expire on {}".format(paid,exp)
+              text=Translation.CURENT_PLAN_DETAILS.format(user, plan, exp),
+              parse_mode="html",
+              disable_web_page_preview=True,
+              reply_to_message_id=update.message_id
             )
     else:
        await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
