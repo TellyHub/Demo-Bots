@@ -259,7 +259,13 @@ async def em(bot, update):
         user = users.get("user_id")
         paid = users.get("paid_on")
         exp = users.get("expire_on")
-        await update.reply_text(user,paid,exp)
+        await bot.send_message(
+          chat_id=update.chat.id,
+          text="{},{},{}".format(user,paid,exp),
+          parse_mode="html",
+          reply_to_message_id=update.message_id,
+          disable_web_page_preview=True
+        )
         if update.from_user.id == user:
           await update.reply_text("OK")
           await bot.send_message(
