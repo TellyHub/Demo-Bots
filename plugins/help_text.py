@@ -263,7 +263,7 @@ async def em(bot, update):
            userr = user
            paid = users.get("paid_on")
            exp = users.get("expire_on")
-    if userr is not None:
+    if userr == update.from_user.id:
        await bot.send_message(
           chat_id=update.chat.id,
           text="Paid on {} and Expire on {}".format(paid,exp)
