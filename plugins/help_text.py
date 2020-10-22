@@ -259,7 +259,7 @@ async def em(bot, update):
     if "users" in b_json:
       for users in b_json["users"]:
         user = users.get("user_id")
-        await update.reply_text(user)
+        await update.reply_text(update.from_user.id)
         if user == update.from_user.id:
            userr = user
            paid = users.get("paid_on")
