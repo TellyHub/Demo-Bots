@@ -255,12 +255,14 @@ async def add(bot, update):
 async def em(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
-    if update.from_user.id in b_json.["users"]:
-       for users in b_json.["users"]:
-          user = users.get(user_id)
-          if user == update.from_user.id:
-             paid = users.get(paid_on)
-             exp = users.get(expire_on)
+    userr = None
+    for users in b_json.["users"]:
+        user = users.get(user_id)
+        if user == update.from_user.id:
+           userr = user
+           paid = users.get(paid_on)
+           exp = users.get(expire_on)
+    if userr is not None:
        await bot.send_message(
           chat_id=update.chat.id,
           text="Paid on {} and Expire on {}".format(paid,exp)
