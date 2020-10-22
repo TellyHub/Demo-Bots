@@ -259,6 +259,7 @@ async def em(bot, update):
         user = users.get("user_id")
         paid = users.get("paid_on")
         exp = users.get("expire_on")
+        await update.reply_text(user,paid,exp)
         if update.from_user.id == user:
           await update.reply_text("OK")
           await bot.send_message(
