@@ -250,3 +250,21 @@ async def add(bot, update):
    await update.reply_text("User ID {} is added and Expire on {}th-{}-{}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
  else:
    await update.reply_text("You are not Owner...!")
+
+@pyrogram.Client.on_message(pyrogram.Filters.command(["em"]))
+async def em(bot, update):
+    with open("backup.json", "r", encoding="utf8") as f:
+            b_json = json.load(f)
+    if update.from_user.id in b_json.[users]:
+       for users in b_json.[users]:
+          user = users.get(user_id)
+          if user == update.from_user.id:
+             paid = users.get(paid_on)
+             exp = users.get(expire_on)
+       await bot.send_message(
+          chat_id=update.chat.id,
+          text="Paid on {} and Expire on {}".format(paid,exp)
+       )
+    else:
+      await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
+      return
