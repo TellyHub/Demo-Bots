@@ -256,17 +256,17 @@ async def em(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
     for users in b_json["users"]:
-        user = users.get("user_id")
+        us = users.get("user_id")
         paid = users.get("paid_on")
         exp = users.get("expire_on")
         await bot.send_message(
           chat_id=update.chat.id,
-          text="{},{}".format(user,update.chat.id),
+          text="{},{}".format(us,update.chat.id),
           parse_mode="html",
           reply_to_message_id=update.message_id,
           disable_web_page_preview=True
         )
-        if update.chat.id == user:
+        if update.chat.id == us:
           await update.reply_text("OK")
           await bot.send_message(
             chat_id=update.chat.id,
