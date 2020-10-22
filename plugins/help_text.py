@@ -266,7 +266,7 @@ async def em(bot, update):
           user = users.get("user_id")
           plan = users.get("plan_name")
           exp = users.get("expire_on")
-          expr = int(exp)
+          expr = float(exp)
           if int(update.chat.id) == int(user):
             await bot.send_message(
               chat_id=update.chat.id,
