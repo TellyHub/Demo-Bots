@@ -1,19 +1,6 @@
 {
   "Owner": "695291232",
   "users": 
-  [
-    {
-      "user_id": "695291232",
-      "plan_name": "Owner",
-      "paid_on": "Never",
-      "expire_on": "Never"
-    },
-    {
-      "user_id": "2222",
-      "plan_name": "Owner",
-      "paid_on": "userpaiddate2",
-      "expire_on": "userexpiredate2"
-    }
-    
+  [ 
   ]
 }
