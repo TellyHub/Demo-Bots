@@ -241,8 +241,7 @@ async def add(bot, update):
      act_plan = new_us[2]
      d = new_us[3]
      paid_date = datetime.now()
-     dayss = "timedelta({})".format(int(d))
-     expiry_date = paid_date + dayss
+     expiry_date = paid_date + timedelta(days=d)
      with open("backup.json", "r", encoding="utf8") as f:
               b_json = json.load(f)
      b_json["users"].append({
