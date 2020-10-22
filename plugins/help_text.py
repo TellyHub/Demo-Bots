@@ -235,7 +235,7 @@ async def add(bot, update):
    await update.reply_text("You are not Owner...!")
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["me"]))
-async def em(bot, update):
+async def me(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
     for users in b_json["users"]:
