@@ -237,7 +237,7 @@ async def add(bot, update):
    new_u = update.text
    new_us = new_u.split(' ')
    if len(new_us) == 4:
-     new_User = new_us[1]
+     new_user = new_us[1]
      act_plan = new_us[2]
      d = new_us[3]
      paid_date = datetime.now()
