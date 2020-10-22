@@ -261,7 +261,7 @@ async def em(bot, update):
         exp = users.get("expire_on")
         await bot.send_message(
           chat_id=update.chat.id,
-          text="{},{}".format(user,update.from_user.id),
+          text="{},{}".format(user,update.chat.id),
           parse_mode="html",
           reply_to_message_id=update.message_id,
           disable_web_page_preview=True
