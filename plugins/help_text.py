@@ -256,7 +256,8 @@ async def em(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
     userr = None
-    for users in b_json.["users"]:
+    if "users" in b_json:
+      for users in b_json.["users"]:
         user = users.get(user_id)
         if user == update.from_user.id:
            userr = user
