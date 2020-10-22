@@ -258,11 +258,11 @@ async def em(bot, update):
     userr = None
     if "users" in b_json:
       for users in b_json["users"]:
-        user = users.get(user_id)
+        user = users.get("user_id")
         if user == update.from_user.id:
            userr = user
-           paid = users.get(paid_on)
-           exp = users.get(expire_on)
+           paid = users.get("paid_on")
+           exp = users.get("expire_on")
     if userr is not None:
        await bot.send_message(
           chat_id=update.chat.id,
