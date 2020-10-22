@@ -252,7 +252,7 @@ async def add(bot, update):
      })
      with open("backup.json", "w", encoding="utf8") as outfile:
               json.dump(b_json, outfile, ensure_ascii=False)
-     await update.reply_text("User ID {} is added and Expire on {}th-{}-{}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
+     await update.reply_text("✅ User ID {} is added and Expire on {}th {} {}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
    else:
      await update.reply_text("Eg.: /add 123456 Trial 1")
  else:
@@ -262,8 +262,7 @@ async def add(bot, update):
 async def em(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
-    if update.chat.id in b_json["users"]:
-      for users in b_json["users"]:
+    for users in b_json["users"]:
           user = users.get("user_id")
           plan = users.get("plan_name")
           exp = users.get("expire_on")
@@ -275,5 +274,5 @@ async def em(bot, update):
               disable_web_page_preview=True,
               reply_to_message_id=update.message_id
             )
-    else:
-       await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
+            return
+    await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
