@@ -266,11 +266,10 @@ async def em(bot, update):
           user = users.get("user_id")
           plan = users.get("plan_name")
           exp = users.get("expire_on")
-          expr = float(exp)
           if int(update.chat.id) == int(user):
             await bot.send_message(
               chat_id=update.chat.id,
-              text=Translation.CURENT_PLAN_DETAILS.format(user, plan, expr.strftime("%d")),
+              text=Translation.CURENT_PLAN_DETAILS.format(user, plan, exp.strftime("%d")),
               parse_mode="html",
               disable_web_page_preview=True,
               reply_to_message_id=update.message_id
