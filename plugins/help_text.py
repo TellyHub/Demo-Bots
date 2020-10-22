@@ -248,7 +248,7 @@ async def add(bot, update):
         "user_id": "{}".format(new_user),
         "plan_name": "{}".format(act_plan),
         "paid_on": "{}".format(paid_date),
-        "expire_on": {}.format(expiry_date)
+        "expire_on": '{}'.format(expiry_date)
      })
      with open("backup.json", "w", encoding="utf8") as outfile:
               json.dump(b_json, outfile, ensure_ascii=False)
