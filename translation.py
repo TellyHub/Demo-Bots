@@ -43,8 +43,8 @@ class Translation(object):
     CURENT_PLAN_DETAILS = """Current plan details
 --------
 Telegram ID: <code>{}</code>
-Plan name: Premium
-Expires on: 30 Days after Payment"""
+Plan : {}
+Expires on: {}"""
     HELP_USER = """<b>How to use me?</b>
     
 Send Streaming (URL) link from <a href=https://t.me/super_botz_support/3955>Supported sites</a>.
