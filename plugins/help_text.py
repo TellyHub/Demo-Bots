@@ -255,22 +255,15 @@ async def add(bot, update):
 async def em(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
-    for users in b_json["users"]:
-        us = users.get("user_id")
-        paid = users.get("paid_on")
-        exp = users.get("expire_on")
-        await bot.send_message(
-          chat_id=update.chat.id,
-          text="{},{}".format(us,update.chat.id),
-          parse_mode="html",
-          reply_to_message_id=update.message_id,
-          disable_web_page_preview=True
-        )
-        if int(update.chat.id) == int(us):
-          await update.reply_text("OK")
-          await bot.send_message(
-            chat_id=update.chat.id,
-            text="Paid on {} and Expire on {}".format(paid,exp)
-          )
-        else:
-          await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
+    if update.chat.id in b_json["users"]:
+      for users in b_json["users"]:
+          user = users.get("user_id")
+          paid = users.get("paid_on")
+          exp = users.get("expire_on")
+          if int(update.chat.id) == int(user):
+            await bot.send_message(
+              chat_id=update.chat.id,
+              text="Paid on {} and Expire on {}".format(paid,exp)
+            )
+    else:
+       await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
