@@ -269,7 +269,7 @@ async def em(bot, update):
           if int(update.chat.id) == int(user):
             await bot.send_message(
               chat_id=update.chat.id,
-              text=Translation.CURENT_PLAN_DETAILS.format(user, plan, exp.strftime("%d")),
+              text=Translation.CURENT_PLAN_DETAILS.format(user, plan, int(exp).strftime("%d")),
               parse_mode="html",
               disable_web_page_preview=True,
               reply_to_message_id=update.message_id
