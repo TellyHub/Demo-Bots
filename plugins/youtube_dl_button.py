@@ -26,6 +26,7 @@ import re
 import pydrive
 import bs4
 import html5lib
+import urllib
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 
@@ -93,11 +94,8 @@ async def youtube_dl_call_back(bot, update):
           u_parts = u_part.split("|")
           youtube_dl_url = u_parts[0]
     #youtube_dl_url = pjson_url
-    cva_file_nam = str(response_json.get("title")) + \
+    cva_file_name = str(response_json.get("title")) + \
         "_" + youtube_dl_format + "." + youtube_dl_ext
-    cva_file_n = re.escape(cva_file_nam)
-    cva_file = cva_file_n.replace(" ", "_")
-    cva_file_name = cva_file.strip("\")
     youtube_dl_username = None
     youtube_dl_password = None
     if "zee5" in youtube_dl_url:
@@ -114,7 +112,7 @@ async def youtube_dl_call_back(bot, update):
          g2 = (r2["hls"][0].replace("drm", "hls"))
          if "netst" in g2:
                     youtube_dl_url = (g2 + req3["video_token"])
-                    cva_file_name = r2["title"].replace(" ", "_")
+                    cva_file_name = r2["title"].replace(" ", "_") + ".mp4"
                     cva_thumb = r2["image_url"]
                     cva_duration = r2["duration"]
                     cva_description = r2["description"]
@@ -138,7 +136,7 @@ async def youtube_dl_call_back(bot, update):
                       pass
          else:
                     youtube_dl_url = ("https://" + li["url"] + g2 + req1["video_token"])
-                    cva_file_name = r2["title"].replace(" ", "_")
+                    cva_file_name = r2["title"].replace(" ", "_") + ".mp4"
                     cva_thumb = r2["image_url"]
                     cva_duration = r2["duration"]
                     cva_description = r2["description"]
@@ -167,7 +165,7 @@ async def youtube_dl_call_back(bot, update):
                                             params={"translation":"en", "country":"IN"}).json()
          g1 = (r1["hls"][0].replace("drm", "hls") + req1["video_token"])
          youtube_dl_url = ("https://" + li["url"] + g1)
-         cva_file_name = r1["title"].replace(" ", "_")
+         cva_file_name = r1["title"].replace(" ", "_") + ".mp4"
          cva_thumb = r1["image_url"]
          cva_duration = r1["duration"]
          cva_description = r1["description"]
@@ -196,7 +194,7 @@ async def youtube_dl_call_back(bot, update):
          mt1 = my2.find_all("title")[0].prettify()
          mt2 = mt1.split("|")
          mt3 = mt2[1].replace(" ", "_")
-         cva_file_name = mt3[1:-10]
+         cva_file_name = mt3[1:-10] + ".mp4"
          my3 = my2.find_all("script")[1].prettify()
          G = []
          for i in my3.split('"'):
@@ -566,7 +564,7 @@ async def youtube_dl_call_back(bot, update):
                               [
                                 [
                                   InlineKeyboardButton(text = '🔗 GDrive Link', url = "https://drive.google.com/file/d/{}/view?usp=sharing".format(file1['id'])),
-                                  InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}.mp4".format(cva_file_name))
+                                  InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}.mp4".format(urllib.urlencode(cva_file_name)))
                                 ],
                                 [
                                   InlineKeyboardButton(text = '🤝 Join Team Drive', url = 'https://groups.google.com/g/edwin-leech-group')
@@ -870,7 +868,7 @@ async def youtube_dl_call_back(bot, update):
                               [
                                 [
                                   InlineKeyboardButton(text = '🔗 GDrive Link', url = "https://drive.google.com/file/d/{}/view?usp=sharing".format(file1['id'])),
-                                  InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}.mp4".format(cva_file_name))
+                                  InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}.mp4".format(urllib.urlencode(cva_file_name)))
                                 ],
                                 [
                                   InlineKeyboardButton(text = '🤝 Join Team Drive', url = 'https://groups.google.com/g/edwin-leech-group')
