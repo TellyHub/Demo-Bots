@@ -85,9 +85,8 @@ async def start(bot, update):
                 )
             )
             return
-    else:
-      await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
-      return
+    await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
+    return
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["bugs"]))
 async def bugs(bot, update):
