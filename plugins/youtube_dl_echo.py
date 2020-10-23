@@ -177,13 +177,7 @@ async def echo(bot, update):
          ty1 = requests.get(u)
          ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
          ty3 = ty2.find_all("iframe")[1]['src']
-         await update.reply_text(ty3)
-         return
-         Z = []
-         for tyy in ty3.split('"'):
-            if "http" in tyy:
-              Z.append(tyy)
-         url = Z[0]
+         url = ty3
     elif "http" in u:
          await update.reply_text("😐 Unsupported URL...!")
          return
