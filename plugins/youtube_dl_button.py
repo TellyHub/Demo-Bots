@@ -93,8 +93,9 @@ async def youtube_dl_call_back(bot, update):
           u_parts = u_part.split("|")
           youtube_dl_url = u_parts[0]
     #youtube_dl_url = pjson_url
-    cva_file_name = str(response_json.get("title")) + \
+    cva_file_nam = str(response_json.get("title")) + \
         "_" + youtube_dl_format + "." + youtube_dl_ext
+    cva_file_name = re.escape(cva_file_nam)
     youtube_dl_username = None
     youtube_dl_password = None
     if "zee5" in youtube_dl_url:
@@ -279,7 +280,7 @@ async def youtube_dl_call_back(bot, update):
     tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     if not os.path.isdir(tmp_directory_for_each_user):
           os.makedirs(tmp_directory_for_each_user)
-    download_directory = tmp_directory_for_each_user + "/" + cva_file_name + ".mp4"
+    download_directory = tmp_directory_for_each_user + "/" + cva_file_name
     command_to_exec = []
     if audio_issue == "true":
       await bot.edit_message_text(
@@ -548,7 +549,7 @@ async def youtube_dl_call_back(bot, update):
                       #Starting Upload
                       parent_folder_id = ("1_QRZa46ij7El6BxRo4XIlajWms0v-4qr")
                       team_drive_id = ("1B6NjbN9XojZw9rjzsWhUFwLOgEk_DjeJ")
-                      g_title = ("{}.mp4".format(cva_file_name))
+                      g_title = cva_file_name
                       start_upload = datetime.now()
                       file1 = drive.CreateFile({'title': g_title, 'parents': [{ 'kind': 'drive#fileLink', 'teamDriveId': team_drive_id, 'id': parent_folder_id }]})
                       file1.SetContentFile(download_directory)
@@ -852,7 +853,7 @@ async def youtube_dl_call_back(bot, update):
                       #Starting Upload
                       parent_folder_id = ("1_QRZa46ij7El6BxRo4XIlajWms0v-4qr")
                       team_drive_id = ("1B6NjbN9XojZw9rjzsWhUFwLOgEk_DjeJ")
-                      g_title = ("{}.mp4".format(cva_file_name))
+                      g_title = cva_file_name
                       start_upload = datetime.now()
                       file1 = drive.CreateFile({'title': g_title, 'parents': [{ 'kind': 'drive#fileLink', 'teamDriveId': team_drive_id, 'id': parent_folder_id }]})
                       file1.SetContentFile(download_directory)
