@@ -173,6 +173,15 @@ async def echo(bot, update):
       elif "show" or "live-tv" or "music-online" in u:
          await update.reply_text("😐 Now only Support movies...!")
          return
+    elif "tamilyogi" in u:
+         ty1 = requests.get(u)
+         ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
+         ty3 = ty2.find_all("div")[16].prettify()
+         Z = []
+         for tyy in ty3.split('"')
+            if "http" in tyy:
+              Z.append(tyy)
+         url = Z[0]
     elif "http" in u:
          await update.reply_text("😐 Unsupported URL...!")
          return
