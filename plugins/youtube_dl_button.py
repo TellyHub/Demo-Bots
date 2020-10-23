@@ -97,7 +97,7 @@ async def youtube_dl_call_back(bot, update):
         "_" + youtube_dl_format + "." + youtube_dl_ext
     cva_file_n = re.escape(cva_file_nam)
     cva_file = cva_file_n.replace(" ", "_")
-    cva_file_name = cva_file.strip('\')
+    cva_file_name = cva_file.strip("\")
     youtube_dl_username = None
     youtube_dl_password = None
     if "zee5" in youtube_dl_url:
