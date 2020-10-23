@@ -27,7 +27,7 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 from pyrogram import InlineKeyboardButton, InlineKeyboardMarkup
 
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["about"]))
+#@pyrogram.Client.on_message(pyrogram.Filters.command(["about"]))
 async def help_user(bot, update):
   if update.from_user.id in Config.AUTH_USERS:
     # logger.info(update)
@@ -64,50 +64,58 @@ async def help_user(bot, update):
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["start"]))
 async def start(bot, update):
-  if update.from_user.id in Config.AUTH_USERS:
-    # logger.info(update)
-    # TRChatBase(update.from_user.id, update.text, "/start")
-    await bot.send_message(
-        chat_id=update.chat.id,
-        text=Translation.START_TEXT,
-        reply_to_message_id=update.message_id,
-        disable_web_page_preview=True,
-        reply_markup=InlineKeyboardMarkup(
-            [ 
-                [
-                    InlineKeyboardButton(text = 'ℹ️ Help ', callback_data="help_back"),
-                    InlineKeyboardButton(text = '🔐 Close ', callback_data="close")
-                ],
-                [
-                    InlineKeyboardButton(text = '💬 Helpline', url="https://t.me/Super_botz_support")
-                ]
-            ]
-        )
-    )
-  else:
-    await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
-    return
+    with open("backup.json", "r", encoding="utf8") as f:
+            b_json = json.load(f)
+    for users in b_json["users"]:
+          user = users.get("user_id")
+          plan = users.get("plan_name")
+          exp = users.get("expire_on")
+          if int(update.chat.id) == int(user):
+            await bot.send_message(
+                chat_id=update.chat.id,
+                text=Translation.START_TEXT,
+                reply_to_message_id=update.message_id,
+                disable_web_page_preview=True,
+                reply_markup=InlineKeyboardMarkup(
+                    [ 
+                        [
+                            InlineKeyboardButton(text = 'ℹ️ Help ', callback_data="help_back"),
+                            InlineKeyboardButton(text = '🔐 Close ', callback_data="close")
+                        ],
+                        [
+                            InlineKeyboardButton(text = '💬 Helpline', url="https://t.me/Super_botz_support")
+                        ]
+                    ]
+                )
+            )
+            return
+    else:
+      await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
+      return
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["bugs"]))
 async def bugs(bot, update):
-  if update.from_user.id in Config.AUTH_USERS:
-    # logger.info(update)
-    # TRChatBase(update.from_user.id, update.text, "/bugs")
-    await bot.send_message(
-        chat_id=update.chat.id,
-        text=Translation.TODO,
-        reply_to_message_id=update.message_id
-    )
-  else:
-    await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
-    return
+    with open("backup.json", "r", encoding="utf8") as f:
+            b_json = json.load(f)
+    for users in b_json["users"]:
+          user = users.get("user_id")
+          plan = users.get("plan_name")
+          exp = users.get("expire_on")
+          if int(update.chat.id) == int(user):
+            await bot.send_message(
+                chat_id=update.chat.id,
+                text=Translation.TODO,
+                reply_to_message_id=update.message_id
+            )
+            return
+    else:
+      await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
+      return
 
 
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["upgrade"]))
 async def upgrade(bot, update):
-    # logger.info(update)
-    # TRChatBase(update.from_user.id, update.text, "/upgrade")
     await bot.send_message(
         chat_id=update.chat.id,
         text=Translation.UPGRADE_TEXT,
@@ -127,10 +135,8 @@ async def upgrade(bot, update):
         )
     )
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["free"]))
+#@pyrogram.Client.on_message(pyrogram.Filters.command(["free"]))
 async def free_req(bot, update):
-    # logger.info(update)
-    # TRChatBase(update.from_user.id, update.text, "/free")
     await bot.send_message(
         chat_id=update.from_user.id,
         text=Translation.REQ_FREE_TEXT,
