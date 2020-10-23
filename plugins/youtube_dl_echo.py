@@ -60,7 +60,7 @@ async def echo(bot, update):
           exp = users.get("expire_on")
           user_li = user_li + 1
           if int(update.chat.id) == int(user):
-            if int(exp) < datetime.now():
+            if datetime.strptime(exp, '%Y-%m-%d %H:%M:%S.%f') < datetime.now():
               await update.reply_text("Plan Expired!\n\nPlease upgrade to continue...")
               b_json["users"].pop(user_li - 1)
               with open("backup.json", "w", encoding="utf8") as outfile:
