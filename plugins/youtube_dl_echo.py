@@ -176,7 +176,7 @@ async def echo(bot, update):
     elif "tamilyogi" in u:
          ty1 = requests.get(u)
          ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
-         ty3 = ty2.find_all("iframe")[2]['src']
+         ty3 = ty2.find_all("iframe")[1]['src']
          await update.reply_text(ty3)
          return
          Z = []
