@@ -223,6 +223,11 @@ async def youtube_dl_call_back(bot, update):
               audio_issue = "true"
             except IndexError:
                 youtube_dl_url = P[0]
+    elif "tamilyogi" in youtube_dl_url:
+         ty1 = requests.get(u)
+         ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
+         ty3 = ty2.find_all("iframe")[1]['src']
+         youtube_dl_url = ty3
     if "|" in youtube_l_url:
           ull_part = youtube_l_url.strip(' ')
           ull_parts = ull_part.split("|")
