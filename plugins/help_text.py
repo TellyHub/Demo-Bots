@@ -54,9 +54,6 @@ async def help_user(bot, update):
             ]
         )
     )
-  else:
-    await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
-    return
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["start"]))
 async def start(bot, update):
