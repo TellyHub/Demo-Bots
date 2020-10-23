@@ -53,11 +53,19 @@ headers = {
 async def echo(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
+    user_li = 0
     for users in b_json["users"]:
           user = users.get("user_id")
           plan = users.get("plan_name")
           exp = users.get("expire_on")
+          user_li = user_li + 1
           if int(update.chat.id) == int(user):
+            if int(exp) < datetime.now():
+              await update.reply_text("Plan Expired!\n\nPlease upgrade to continue...")
+              b_json["users"].pop(user_li - 1)
+              with open("backup.json", "w", encoding="utf8") as outfile:
+                   json.dump(b_json, outfile, ensure_ascii=False)
+              return
             try:
                 await bot.get_chat_member(
                 chat_id=Config.AUTH_CHANNEL,
@@ -69,7 +77,7 @@ async def echo(bot, update):
                     text=Translation.AUTH_CHANNEL_TEXT,
                     parse_mode="html",
                     reply_to_message_id=update.message_id,
-                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text = '✔️ Updates Channel', url = "https://t.me/Super_botz")]])
+                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text = '✅ Updates Channel', url = "https://t.me/Super_botz")]])
                 )
                 return
             if update.from_user.id in Config.BANNED_USERS:
