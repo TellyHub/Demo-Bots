@@ -61,7 +61,7 @@ async def echo(bot, update):
           plan = users.get("plan_name")
           exp = users.get("expire_on")
           user_li = user_li + 1
-          if int(update.chat.id) == int(user):
+          if int(update.from_user.id) == int(user):
             if datetime.strptime(exp, '%Y-%m-%d %H:%M:%S.%f') < datetime.now():
               await update.reply_text("Plan Expired!\n\nPlease upgrade to continue...")
               b_json["users"].pop(user_li - 1)
