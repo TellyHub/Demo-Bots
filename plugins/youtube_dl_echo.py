@@ -358,20 +358,20 @@ async def echo(bot, update):
                                 )
                             ]
                         inline_keyboard.append(ikeyboard)
-                    if duration is not None:
-                        cb_string_64 = "{}|{}|{}".format("audio", "64k", "mp3")
-                        cb_string_128 = "{}|{}|{}".format("audio", "128k", "mp3")
-                        cb_string = "{}|{}|{}".format("audio", "320k", "mp3")
-                        inline_keyboard.append([
-                            pyrogram.InlineKeyboardButton(
-                                "MP3 " + "(" + "64 kbps" + ")", callback_data=cb_string_64.encode("UTF-8")),
-                            pyrogram.InlineKeyboardButton(
-                                "MP3 " + "(" + "128 kbps" + ")", callback_data=cb_string_128.encode("UTF-8"))
-                        ])
-                        inline_keyboard.append([
-                            pyrogram.InlineKeyboardButton(
-                                "MP3 " + "(" + "320 kbps" + ")", callback_data=cb_string.encode("UTF-8"))
-                        ])
+                    #if duration is not None:
+                    #    cb_string_64 = "{}|{}|{}".format("audio", "64k", "mp3")
+                    #    cb_string_128 = "{}|{}|{}".format("audio", "128k", "mp3")
+                    #    cb_string = "{}|{}|{}".format("audio", "320k", "mp3")
+                    #    inline_keyboard.append([
+                    #        pyrogram.InlineKeyboardButton(
+                    #            "MP3 " + "(" + "64 kbps" + ")", callback_data=cb_string_64.encode("UTF-8")),
+                    #        pyrogram.InlineKeyboardButton(
+                    #            "MP3 " + "(" + "128 kbps" + ")", callback_data=cb_string_128.encode("UTF-8"))
+                    #    ])
+                    #    inline_keyboard.append([
+                    #        pyrogram.InlineKeyboardButton(
+                    #            "MP3 " + "(" + "320 kbps" + ")", callback_data=cb_string.encode("UTF-8"))
+                    #    ])
                 else:
                     format_id = response_json["format_id"]
                     format_ext = response_json["ext"]
