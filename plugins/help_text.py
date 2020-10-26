@@ -236,7 +236,7 @@ async def add(bot, update):
 async def restore(bot, update):
  if update.from_user.id == 695291232:
    if update.reply_to_message is not None:
-      await bot.download_media(
+      the_real_download_location = await bot.download_media(
             message=update.reply_to_message
       )
       await update.reply_text("✅ Backup file sucessfully restored.")
