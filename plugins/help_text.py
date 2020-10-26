@@ -240,7 +240,7 @@ async def restore(bot, update):
             message=update.reply_to_message,
             file_name="backup.json"
       )
-      await update.reply_text("✅ User ID {} is added and Expire on {}th {} {}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
+      await update.reply_text("✅ Backup file sucessfully restored.")
    else:
      await update.reply_text("Please reply to backup file...!")
  else:
