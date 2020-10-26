@@ -115,7 +115,25 @@ async def save_photo(bot, update):
             reply_to_message_id=update.message_id
         )
 
-
+@pyrogram.Client.on_message(pyrogram.Filters.command(["showthumbnail"]))
+async def show_thumbnail(bot, update):
+    if update.from_user.id in Config.BANNED_USERS:
+        await bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id,
+            revoke=True
+        )
+        return
+    download_location = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
+    if os.path.exists(download_location):
+      await bot.send_file(
+        chat_id=update.chat.id,
+        file=download_location,
+        caption="+ This is your Permanent Thumbnail."
+      )
+    else:
+      await update.reply_text("Custom Thumbnail Not Available.\nDefault Thumbnail will be used.")
+    
 @pyrogram.Client.on_message(pyrogram.Filters.command(["deletethumbnail"]))
 async def delete_thumbnail(bot, update):
     if update.from_user.id in Config.BANNED_USERS:
