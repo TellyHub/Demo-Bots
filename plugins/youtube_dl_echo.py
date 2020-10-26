@@ -204,13 +204,13 @@ async def echo(bot, update):
                   HS = []
                   OS = []
                   NS = []
-                  for js in mxs7.split('"'):
+                  for js in mxs3.split('"'):
                     if ",.mp4" in js:
                       HS.append(js)
                   try:
                     url = HS[0]
                   except IndexError:
-                    for ks in mxs7.split('"'):
+                    for ks in mxs3.split('"'):
                       if ".mp4" in ks:
                         HS.append(ks)
                       if ".m3u8" in ks:
