@@ -186,8 +186,49 @@ async def echo(bot, update):
                  if "voot" in url:
                    await update.reply_text("🔒 Voot Videos Temporarily Disabled...!")
                    return
-              elif "show" or "live-tv" or "music-online" in u:
-                 await update.reply_text("😐 Now only Support movies...!")
+              elif "show" in u:
+                 mxs1 = requests.get(u)
+                 mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
+                 mxs3 = mxs2.find_all("script")[1].prettify()
+                 GS = []
+                 for ia in mxs3.split('"'):
+                  if "embed/detail" in ia:
+                    GS.append(ia)
+                 try:
+                  mxs4 = GS[0]
+                  mxs5 = requests.get(mxs4[:-1])
+                  mxs6 = bs4.BeautifulSoup(mxs5.content.decode('utf-8'), "html5lib")
+                  mxs7 = mxs6.find_all("script")[0].prettify()
+                  await update.reply_text("embed link found")
+                 except IndexError:
+                  HS = []
+                  OS = []
+                  NS = []
+                  for js in mxs7.split('"'):
+                    if ",.mp4" in js:
+                      HS.append(js)
+                  try:
+                    url = HS[0]
+                  except IndexError:
+                    for ks in mxs7.split('"'):
+                      if ".mp4" in ks:
+                        HS.append(ks)
+                      if ".m3u8" in ks:
+                        OS.append(ks)
+                      if "hlsurl" in ks:
+                        NS.append(ks)
+                    try:
+                      ssampleurl = HS[0]
+                      url = "https://llvod.mxplay.com/" + OS[0]
+                    except IndexError:
+                      try:
+                        sample2url = NS[0]
+                        url = OS[0]
+                      except IndexError:
+                        await update.reply_text("🔒 DRM Protected...!")
+                        return
+              elif "live-tv" or "music-online" in u:
+                 await update.reply_text("😐 Now only Support Movies & Shows...!")
                  return
             elif "tamilyogi" in u:
                  ty1 = requests.get(u)
