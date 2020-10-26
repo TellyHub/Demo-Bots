@@ -232,6 +232,21 @@ async def add(bot, update):
  else:
    await update.reply_text("You are not Owner...!")
 
+@pyrogram.Client.on_message(pyrogram.Filters.command(["restore"]))
+async def restore(bot, update):
+ if update.from_user.id == 695291232:
+   if update.reply_to_message is not None:
+      await bot.download_media(
+            message=update.reply_to_message,
+            file_name="backup.json"
+      )
+      await update.reply_text("✅ User ID {} is added and Expire on {}th {} {}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
+   else:
+     await update.reply_text("Please reply to backup file...!")
+ else:
+   await update.reply_text("You are not Owner...!")
+
+
 @pyrogram.Client.on_message(pyrogram.Filters.command(["me"]))
 async def me(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
