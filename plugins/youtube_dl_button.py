@@ -228,9 +228,8 @@ async def youtube_dl_call_back(bot, update):
                  mxs1 = requests.get(youtube_dl_url)
                  mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
                  mts1 = mxs2.find_all("title")[0].prettify()
-                 mts2 = mts1.split("|")
-                 mts3 = mts2[1].replace(" ", "_")
-                 cva_file_name = mts3[1:-10] + ".mp4"
+                 mts2 = mts1.replace(" ", "_")
+                 cva_file_name = mts2[:-10] + ".mp4"
                  mxs3 = mxs2.find_all("script")[1].prettify()
                  HS = []
                  OS = []
