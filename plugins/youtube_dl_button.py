@@ -224,6 +224,31 @@ async def youtube_dl_call_back(bot, update):
               audio_issue = "true"
             except IndexError:
                 youtube_dl_url = P[0]
+      elif "show" in youtube_dl_url:
+                 mxs1 = requests.get(youtube_dl_url)
+                 mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
+                 mxs3 = mxs2.find_all("script")[1].prettify()
+                 for js in mxs3.split('"'):
+                    if ",.mp4" in js:
+                      HS.append(js)
+                 try:
+                    youtube_dl_url = HS[0]
+                 except IndexError:
+                    for ks in mxs3.split('"'):
+                      if ".mp4" in ks:
+                        HS.append(ks)
+                      if ".m3u8" in ks:
+                        OS.append(ks)
+                      if "hlsurl" in ks:
+                        NS.append(ks)
+                    try:
+                      ssampleurl = HS[0]
+                      youtube_dl_url = "https://llvod.mxplay.com/" + OS[0]
+                      audio_issue = "true"
+                    except IndexError:
+                      try:
+                        sample2url = NS[0]
+                        youtube_dl_url = OS[0]
     elif "tamilyogi" in youtube_dl_url:
          ty1 = requests.get(youtube_dl_url)
          ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
