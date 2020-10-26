@@ -246,7 +246,6 @@ async def youtube_dl_call_back(bot, update):
                       youtube_dl_url = "https://llvod.mxplay.com/" + OS[0]
                       audio_issue = "true"
                     except IndexError:
-                      try:
                         sample2url = NS[0]
                         youtube_dl_url = OS[0]
     elif "tamilyogi" in youtube_dl_url:
