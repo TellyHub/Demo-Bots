@@ -199,7 +199,8 @@ async def echo(bot, update):
                   mxs5 = requests.get(mxs4[:-1])
                   mxs6 = bs4.BeautifulSoup(mxs5.content.decode('utf-8'), "html5lib")
                   mxs7 = mxs6.find_all("script")[0].prettify()
-                  await update.reply_text("embed link found")
+                  await update.reply_text("Please send this link to **Support Group**.\nIt may be fixed.")
+                  return
                  except IndexError:
                   HS = []
                   OS = []
