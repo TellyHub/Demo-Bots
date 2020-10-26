@@ -228,6 +228,9 @@ async def youtube_dl_call_back(bot, update):
                  mxs1 = requests.get(youtube_dl_url)
                  mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
                  mxs3 = mxs2.find_all("script")[1].prettify()
+                 HS = []
+                 OS = []
+                 NS = []
                  for js in mxs3.split('"'):
                     if ",.mp4" in js:
                       HS.append(js)
