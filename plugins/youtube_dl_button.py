@@ -229,7 +229,7 @@ async def youtube_dl_call_back(bot, update):
                  mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
                  mts1 = mxs2.find_all("title")[0].prettify()
                  mts2 = mts1.replace(" ", "_")
-                 cva_file_name = mts2[:-10] + ".mp4"
+                 cva_file_name = mts2[1:-10] + ".mp4"
                  mxs3 = mxs2.find_all("script")[1].prettify()
                  HS = []
                  OS = []
@@ -455,6 +455,16 @@ async def youtube_dl_call_back(bot, update):
               if metadata is not None:
                   if metadata.has("duration"):
                       duration = metadata.get('duration').seconds
+          if not os.path.exists(thumb_image_path):
+                thumb_image_path = await take_screen_shot(
+                    download_directory,
+                    os.path.dirname(download_directory),
+                    random.randint(
+                        0,
+                        duration - 1
+                    )
+                )
+          logger.info(thumb_image_path)
           # get the correct width, height, and duration for videos greater than 10MB
           if os.path.exists(thumb_image_path):
               width = 0
@@ -604,7 +614,7 @@ async def youtube_dl_call_back(bot, update):
                       )
                       try:
                         shutil.rmtree(tmp_directory_for_each_user)
-                        os.remove(thumb_image_path)
+                        #os.remove(thumb_image_path)
                       except:
                         pass
                       return
@@ -759,6 +769,16 @@ async def youtube_dl_call_back(bot, update):
                   if metadata is not None:
                       if metadata.has("duration"):
                           duration = metadata.get('duration').seconds
+              if not os.path.exists(thumb_image_path):
+                thumb_image_path = await take_screen_shot(
+                    download_directory,
+                    os.path.dirname(download_directory),
+                    random.randint(
+                        0,
+                        duration - 1
+                    )
+                )
+              logger.info(thumb_image_path)
               # get the correct width, height, and duration for videos greater than 10MB
               if os.path.exists(thumb_image_path):
                   width = 0
@@ -908,7 +928,7 @@ async def youtube_dl_call_back(bot, update):
                       )
                       try:
                         shutil.rmtree(tmp_directory_for_each_user)
-                        os.remove(thumb_image_path)
+                        #os.remove(thumb_image_path)
                       except:
                         pass
                       return
