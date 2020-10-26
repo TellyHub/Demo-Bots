@@ -128,7 +128,7 @@ async def show_thumbnail(bot, update):
     if os.path.exists(download_location):
       await bot.send_photo(
         chat_id=update.chat.id,
-        file=download_location,
+        photo=download_location,
         caption="+ This is your Permanent Thumbnail."
       )
     else:
