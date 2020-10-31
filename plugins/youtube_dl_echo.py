@@ -501,6 +501,5 @@ async def echo(bot, update):
                     reply_to_message_id=update.message_id
                 )
             return
-    else:
-      await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
-      return
+    await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
+    return
