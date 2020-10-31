@@ -3,7 +3,7 @@ class Translation(object):
     
 <i>This is a Premium URL Upload Bot!</i>
 
-<i>Please send me any Streaming (URL) Link from <a href=https://t.me/Super_Botz_support/3955>Supported sites</a>, Then I will upload to Telegram as File/Video or Team Drive.</i>
+<i>Please send me any Streaming (URL) Link from <a href=https://t.me/super_botz_support/4154>Supported sites</a>, Then I will upload to Telegram as File/Video or Team Drive.</i>
 
 ℹ️Help <i>for more details...</i>
 
@@ -47,7 +47,7 @@ Plan : {}
 Expires on: {}"""
     HELP_USER = """<b>How to use me?</b>
     
-Send Streaming (URL) link from <a href=https://t.me/super_botz_support/3955>Supported sites</a>.
+Send Streaming (URL) link from <a href=https://t.me/super_botz_support/4154>Supported sites</a>.
    
    <b>Example: (Without Custom File Name)</b>
        <code>https://www.zee5.com/tvshows/details/sathya/0-6-1339/sathya-september-29-2020-trailer/0-1-323703</code>
