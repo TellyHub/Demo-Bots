@@ -57,7 +57,8 @@ async def echo(bot, update):
             b_json = json.load(f)
     user_li = 0
     if update.from_user.id in Config.ONE_BY_ONE:
-          await update.reply_text("Please wait for previous process to complete...")
+          await update.reply_text("😐 Please wait for previous process to complete.")
+          return
     else:
       Config.ONE_BY_ONE.append(update.from_user.id)
       for users in b_json["users"]:
