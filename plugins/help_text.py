@@ -265,3 +265,16 @@ async def me(bot, update):
             )
             return
     await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
+
+@pyrogram.Client.on_message(pyrogram.Filters.command(["resetsession"]))
+async def resetsession(bot, update):
+    tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
+    thumb_image_path = Config.DOWNLOAD_LOCATION + \
+        "/" + str(update.from_user.id) + ".jpg"
+    if update.from_user.id in Config.ONE_BY_ONE:
+        Config.ONE_BY_ONE.remove(update.from_user.id)
+    if os.path.exists(thumb_image_path):
+        shutil.rmtree(thumb_image_path)
+    if os.path.exists(tmp_directory_for_each_user):
+        shutil.rmtree(tmp_directory_for_each_user)
+    await update.reply_text("✅ Session Restarted successfully.")
