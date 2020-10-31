@@ -766,11 +766,11 @@ async def youtube_dl_call_back(bot, update):
               width = 0
               height = 0
               duration = 0
-              if tg_send_type != "file":
-                  metadata = extractMetadata(createParser(download_directory))
-                  if metadata is not None:
-                      if metadata.has("duration"):
-                          duration = metadata.get('duration').seconds
+              #if tg_send_type != "file":
+              metadata = extractMetadata(createParser(download_directory))
+              if metadata is not None:
+                  if metadata.has("duration"):
+                      duration = metadata.get('duration').seconds
               if not os.path.exists(thumb_image_path):
                 thumb_image_path = await take_screen_shot(
                     download_directory,
