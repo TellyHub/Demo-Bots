@@ -273,8 +273,8 @@ async def resetsession(bot, update):
         "/" + str(update.from_user.id) + ".jpg"
     if update.from_user.id in Config.ONE_BY_ONE:
         Config.ONE_BY_ONE.remove(update.from_user.id)
-    if os.path.exists(thumb_image_path):
-        shutil.rmtree(thumb_image_path)
+    #if os.path.exists(thumb_image_path):
+        #shutil.rmtree(thumb_image_path)
     if os.path.exists(tmp_directory_for_each_user):
         shutil.rmtree(tmp_directory_for_each_user)
     await update.reply_text("✅ Session Restarted successfully.")
