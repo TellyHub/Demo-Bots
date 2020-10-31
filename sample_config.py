@@ -26,3 +26,4 @@ class Config(object):
     BOT_START_TIME = time.time()
     TG_MAX_FILE_SIZE = 2097152000
     DEF_WATER_MARK_FILE = ""
+    ONE_BY_ONE = []
