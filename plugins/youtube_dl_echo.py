@@ -56,11 +56,10 @@ async def echo(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
     user_li = 0
-    one_by_one = []
-    if update.from_user.id in one_by_one:
+    if update.from_user.id in Config.ONE_BY_ONE:
           await update.reply_text("Please wait for previous process to complete...")
     else:
-      one_by_one.append(update.from_user.id)
+      Config.ONE_BY_ONE.append(update.from_user.id)
       for users in b_json["users"]:
           user = users.get("user_id")
           plan = users.get("plan_name")
