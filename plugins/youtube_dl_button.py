@@ -63,6 +63,7 @@ headers = {
 }
 
 async def youtube_dl_call_back(bot, update):
+    one_by_one = []
     cb_data = update.data
     # youtube_dl extractors
     tg_send_type, youtube_dl_format, youtube_dl_ext = cb_data.split("|")
@@ -980,3 +981,4 @@ async def youtube_dl_call_back(bot, update):
                   message_id=update.message.message_id,
                   disable_web_page_preview=True
               )
+              one_by_one.remove(update.from_user.id)
