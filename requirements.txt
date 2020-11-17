@@ -10,4 +10,5 @@ tgcrypto
 #git+https://github.com/TGExplore/youtube-dl.git
 #git+https://github.com/cvatricks/cvatricks-dl.git
 youtube_dl==2020.9.14
+dnspython
 pymongo
