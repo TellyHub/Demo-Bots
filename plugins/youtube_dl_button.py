@@ -64,7 +64,6 @@ headers = {
 
 async def youtube_dl_call_back(bot, update):
     cb_data = update.data
-    Config.ONE_BY_ONE.remove(update.from_user.id)
     # youtube_dl extractors
     tg_send_type, youtube_dl_format, youtube_dl_ext = cb_data.split("|")
     thumb_image_path = Config.DOWNLOAD_LOCATION + \
