@@ -206,9 +206,9 @@ async def echo(bot, update):
                   for sss in mxs7.split('"'):
                     if ",.mp4" in sss:
                       HSS.append(sss)
-                    try:
+                  try:
                       url = HSS[0]
-                    except IndexError:
+                  except IndexError:
                       for kss in mxs7.split('"'):
                         if ".mp4" in kss:
                           HSS.append(kss)
