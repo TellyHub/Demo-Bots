@@ -53,25 +53,33 @@ headers = {
 
 @pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
-    with open("backup.json", "r", encoding="utf8") as f:
-            b_json = json.load(f)
-    user_li = 0
+    #with open("backup.json", "r", encoding="utf8") as f:
+    #        b_json = json.load(f)
+    #user_li = 0
     if update.from_user.id in Config.ONE_BY_ONE:
           await update.reply_text("😐 Please wait for previous process to complete.")
           return
     else:
       Config.ONE_BY_ONE.append(update.from_user.id)
-      for users in b_json["users"]:
+      for users in Config.BOTDB.find():
           user = users.get("user_id")
           plan = users.get("plan_name")
+          paid = users.get("paid_on")
           exp = users.get("expire_on")
-          user_li = user_li + 1
+          #user_li = user_li + 1
           if int(update.from_user.id) == int(user):
-            if datetime.strptime(exp, '%Y-%m-%d %H:%M:%S.%f') < datetime.now():
+            if datetime.strptime(exp, '%Y-%m-%d %H:%M:%S.%f') > datetime.now():
               await update.reply_text("Plan Expired!\n\nPlease upgrade to continue...")
-              b_json["users"].pop(user_li - 1)
-              with open("backup.json", "w", encoding="utf8") as outfile:
-                   json.dump(b_json, outfile, ensure_ascii=False)
+              to_be_deleted = {
+                "user_id": "{}".format(user),
+                "plan_name": "{}".format(plan),
+                "paid_on": "{}".format(paid),
+                "expire_on": '{}'.format(exp)
+              }
+              Config.BOTDB.delete_one(to_be_deleted)
+              #b_json["users"].pop(user_li - 1)
+              #with open("backup.json", "w", encoding="utf8") as outfile:
+              #     json.dump(b_json, outfile, ensure_ascii=False)
               return
             try:
                 await bot.get_chat_member(
