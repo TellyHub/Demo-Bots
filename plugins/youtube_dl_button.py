@@ -64,6 +64,7 @@ headers = {
 
 async def youtube_dl_call_back(bot, update):
     cb_data = update.data
+    Config.ONE_BY_ONE.remove(update.from_user.id)
     # youtube_dl extractors
     tg_send_type, youtube_dl_format, youtube_dl_ext = cb_data.split("|")
     thumb_image_path = Config.DOWNLOAD_LOCATION + \
@@ -80,12 +81,12 @@ async def youtube_dl_call_back(bot, update):
             revoke=True
         )
         return False
-    if "formats" in response_json:
-      for formats in response_json["formats"]:
-        aformat_id = formats.get("format_id")
-        vcodec = formats.get("vcodec")
-        if vcodec == "none":
-          audio_format_id = aformat_id
+    #if "formats" in response_json:
+    #  for formats in response_json["formats"]:
+    #    aformat_id = formats.get("format_id")
+    #    vcodec = formats.get("vcodec")
+    #    if vcodec == "none":
+    #      audio_format_id = aformat_id
     youtube_l_url = update.message.reply_to_message.text
     youtube_dl_url = youtube_l_url
     audio_issue = "false"
@@ -312,7 +313,7 @@ async def youtube_dl_call_back(bot, update):
     tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     if not os.path.isdir(tmp_directory_for_each_user):
           os.makedirs(tmp_directory_for_each_user)
-    download_directory = tmp_directory_for_each_user + "/" + cva_file_name
+    download_directory = tmp_directory_for_each_user + "/" + cva_file_name + "/" + cva_file_name
     command_to_exec = []
     if audio_issue == "true":
       await bot.edit_message_text(
@@ -320,7 +321,7 @@ async def youtube_dl_call_back(bot, update):
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
-      a_download_location = tmp_directory_for_each_user + "/" + "audio" + ".mp3"
+      a_download_location = tmp_directory_for_each_user + "/" + cva_file_name + "/" + "audio" + ".mp3"
       command_to_exec = [
               "youtube-dl",
               "-c",
@@ -356,7 +357,7 @@ async def youtube_dl_call_back(bot, update):
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
-      v_download_location = tmp_directory_for_each_user + "/" + "video" + ".mp4"
+      v_download_location = tmp_directory_for_each_user + "/" + cva_file_name + "/" + "video" + ".mp4"
       command_to_exec = [
               "youtube-dl",
               "-c",
@@ -615,7 +616,7 @@ async def youtube_dl_call_back(bot, update):
                           )
                       )
                       try:
-                        shutil.rmtree(tmp_directory_for_each_user)
+                        shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name)
                         #os.remove(thumb_image_path)
                       except:
                         pass
@@ -656,7 +657,7 @@ async def youtube_dl_call_back(bot, update):
           )
           #
           try:
-                  shutil.rmtree(tmp_directory_for_each_user)
+                  shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name)
                   #os.remove(thumb_image_path)
           except:
               pass
@@ -929,7 +930,7 @@ async def youtube_dl_call_back(bot, update):
                           )
                       )
                       try:
-                        shutil.rmtree(tmp_directory_for_each_user)
+                        shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name)
                         #os.remove(thumb_image_path)
                       except:
                         pass
@@ -970,7 +971,7 @@ async def youtube_dl_call_back(bot, update):
               )
               #
               try:
-                  shutil.rmtree(tmp_directory_for_each_user)
+                  shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name)
                   #os.remove(thumb_image_path)
               except:
                   pass
@@ -980,4 +981,3 @@ async def youtube_dl_call_back(bot, update):
                   message_id=update.message.message_id,
                   disable_web_page_preview=True
               )
-              Config.ONE_BY_ONE.remove(update.from_user.id)
