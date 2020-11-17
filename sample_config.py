@@ -1,6 +1,5 @@
 import os
 import time
-import dnspython
 import pymongo
 
 class Config(object):
