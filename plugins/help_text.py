@@ -278,7 +278,7 @@ async def restore(bot, update):
 async def me(bot, update):
     #with open("backup.json", "r", encoding="utf8") as f:
     #        b_json = json.load(f)
-    for users in Config.BOTDB:
+    for users in Config.BOTDB.find():
           user = users.get("user_id")
           plan = users.get("plan_name")
           exp = users.get("expire_on")
