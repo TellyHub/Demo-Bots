@@ -53,11 +53,6 @@ headers = {
 
 @pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
-    if update.from_user.id in Config.ONE_BY_ONE:
-          await update.reply_text("😐 Send resetsession cmd to continue.")
-          return
-    else:
-      Config.ONE_BY_ONE.append(update.from_user.id)
       for users in Config.BOTDB.find():
           user = users.get("user_id")
           plan = users.get("plan_name")
@@ -502,5 +497,5 @@ async def echo(bot, update):
                     reply_to_message_id=update.message_id
                 )
             return
-    await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
-    return
+      await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
+      return
