@@ -57,9 +57,7 @@ async def help_user(bot, update):
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["start"]))
 async def start(bot, update):
-    with open("backup.json", "r", encoding="utf8") as f:
-            b_json = json.load(f)
-    for users in b_json["users"]:
+    for users in Config.BOTDB.find():
           user = users.get("user_id")
           plan = users.get("plan_name")
           exp = users.get("expire_on")
@@ -87,9 +85,7 @@ async def start(bot, update):
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["bugs"]))
 async def bugs(bot, update):
-    with open("backup.json", "r", encoding="utf8") as f:
-            b_json = json.load(f)
-    for users in b_json["users"]:
+    for users in Config.BOTDB.find():
           user = users.get("user_id")
           plan = users.get("plan_name")
           exp = users.get("expire_on")
@@ -197,6 +193,8 @@ async def errorformat(bot, update):
 @pyrogram.Client.on_message(pyrogram.Filters.command(["backup"]))
 async def backup(bot, update):
  if update.from_user.id == 695291232:
+   with open("backup.json", "w", encoding="utf8") as outfile:
+              json.dump(Config.BOTDB.find(), outfile, ensure_ascii=False)
    b_file = "backup.json"
    await bot.send_document(
        chat_id=update.from_user.id,
@@ -276,8 +274,6 @@ async def restore(bot, update):
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["me"]))
 async def me(bot, update):
-    #with open("backup.json", "r", encoding="utf8") as f:
-    #        b_json = json.load(f)
     for users in Config.BOTDB.find():
           user = users.get("user_id")
           plan = users.get("plan_name")
