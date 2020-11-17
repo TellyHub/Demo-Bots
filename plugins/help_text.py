@@ -13,6 +13,7 @@ import sqlite3
 import shutil
 import time
 import json
+from bson import json_util
 from datetime import datetime, timedelta
 
 # the secret configuration specific things
@@ -193,8 +194,12 @@ async def errorformat(bot, update):
 @pyrogram.Client.on_message(pyrogram.Filters.command(["backup"]))
 async def backup(bot, update):
  if update.from_user.id == 695291232:
+   json_docs = []
+   for doc in Config.BOTDB.find():
+    json_doc = json.dumps(doc, default=json_util.default)
+    json_docs.append(json_doc)
    with open("backup.json", "w", encoding="utf8") as outfile:
-              json.dump(Config.BOTDB.find(), outfile, ensure_ascii=False)
+              json.dump(json_docs, outfile, ensure_ascii=False)
    b_file = "backup.json"
    await bot.send_document(
        chat_id=update.from_user.id,
