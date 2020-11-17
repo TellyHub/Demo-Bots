@@ -218,7 +218,7 @@ async def echo(bot, update):
                           NSS.append(kss)
                       try:
                         sssampleurl = HSS[0]
-                        url = "https://llvod.mxplay.com/" + OSS[0]"
+                        url = "https://llvod.mxplay.com/" + OSS[0]
                       except IndexError:
                         try:
                           sample3urll = NSS[0]
