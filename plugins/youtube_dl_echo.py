@@ -200,8 +200,32 @@ async def echo(bot, update):
                   mxs5 = requests.get(mxs4[:-1])
                   mxs6 = bs4.BeautifulSoup(mxs5.content.decode('utf-8'), "html5lib")
                   mxs7 = mxs6.find_all("script")[0].prettify()
-                  await update.reply_text("Please send this link to **Support Group**.\nIt may be fixed.")
-                  return
+                  HSS = []
+                  OSS = []
+                  NSS = []
+                  for sss in mxs7.split('"'):
+                    if ",.mp4" in sss:
+                      HSS.append(sss)
+                    try:
+                      url = HSS[0]
+                    except IndexError:
+                      for kss in mxs7.split('"'):
+                        if ".mp4" in kss:
+                          HSS.append(kss)
+                        if ".m3u8" in kss:
+                          OSS.append(kss)
+                        if "hlsurl" in kss:
+                          NSS.append(kss)
+                      try:
+                        sssampleurl = HSS[0]
+                        url = "https://llvod.mxplay.com/" + OSS[0]"
+                      except IndexError:
+                        try:
+                          sample3urll = NSS[0]
+                          url = OSS[0]
+                        except IndexError:
+                          await update.reply_text("🔒 DRM Protected...!")
+                          return
                  except IndexError:
                   HS = []
                   OS = []
