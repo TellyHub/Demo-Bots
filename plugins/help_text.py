@@ -194,6 +194,7 @@ async def errorformat(bot, update):
 @pyrogram.Client.on_message(pyrogram.Filters.command(["backup"]))
 async def backup(bot, update):
  if update.from_user.id == 695291232:
+   #https://stackoverflow.com/questions/11280382/object-is-not-json-serializable
    json_docs = []
    for doc in Config.BOTDB.find():
     json_doc = json.dumps(doc, default=json_util.default)
@@ -219,16 +220,13 @@ async def add(bot, update):
      d = new_us[3]
      paid_date = datetime.now()
      expiry_date = paid_date + timedelta(days=int(d))
-     with open("backup.json", "r", encoding="utf8") as f:
-              b_json = json.load(f)
-     b_json["users"].append({
+     to_be_added = {
         "user_id": "{}".format(new_user),
         "plan_name": "{}".format(act_plan),
         "paid_on": "{}".format(paid_date),
         "expire_on": '{}'.format(expiry_date)
-     })
-     with open("backup.json", "w", encoding="utf8") as outfile:
-              json.dump(b_json, outfile, ensure_ascii=False)
+     }
+     added = Config.BOTDB.insert_one(to_be_added)
      await update.reply_text("✅ User ID {} is added and Expire on {}th {} {}".format(new_user,expiry_date.strftime("%d"),expiry_date.strftime("%B"),expiry_date.strftime("%Y")))
    else:
      await update.reply_text("Eg.: /add 123456 Trial 1")
