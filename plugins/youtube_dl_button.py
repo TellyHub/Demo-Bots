@@ -260,7 +260,7 @@ async def youtube_dl_call_back(bot, update):
                           NSS2.append(kss2)
                       try:
                         sssampleurl2 = HSS2[0]
-                        youtube_dl_url = "https://llvod.mxplay.com/" + OSS[0]"
+                        youtube_dl_url = "https://llvod.mxplay.com/" + OSS[0]
                         audio_issue = "true"
                       except IndexError:
                           sample3urll2 = NSS2[0]
