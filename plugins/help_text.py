@@ -236,10 +236,37 @@ async def add(bot, update):
 async def restore(bot, update):
  if update.from_user.id == 695291232:
    if update.reply_to_message is not None:
-      the_real_download_location = await bot.download_media(
-            message=update.reply_to_message,
-            file_name="./"
-      )
+      the_real_download_location = [
+        {"user_id": "695291232", "plan_name": "Owner", "paid_on": "2020-10-20 10:20:02.657517", "expire_on": "2022-10-21 10:20:02.657517"},
+        {"user_id": "347246166", "plan_name": "Paid 1", "paid_on": "2020-10-21 17:22:02.657517", "expire_on": "2020-11-19 17:22:02.657517"},
+        {"user_id": "825450340", "plan_name": "Paid 1", "paid_on": "2020-10-21 12:50:02.657517", "expire_on": "2020-11-19 12:50:02.657517"},
+        {"user_id": "541492257", "plan_name": "Paid 1", "paid_on": "2020-10-19 12:50:02.657517", "expire_on": "2020-11-17 12:50:02.657517"},
+        {"user_id": "946913552", "plan_name": "Paid 1", "paid_on": "2020-10-13 21:50:02.657517", "expire_on": "2020-11-12 21:50:02.657517"},
+        {"user_id": "1366337468", "plan_name": "Paid 1", "paid_on": "2020-10-06 20:50:02.657517", "expire_on": "2020-11-05 20:50:02.657517"},
+        {"user_id": "680843492", "plan_name": "Paid 1", "paid_on": "2020-10-03 20:50:02.657517", "expire_on": "2020-11-02 20:50:02.657517"},
+        {"user_id": "1270348754", "plan_name": "Paid 1", "paid_on": "2020-09-29 20:50:02.657517", "expire_on": "2020-10-29 20:50:02.657517"},
+        {"user_id": "1080989904", "plan_name": "Paid 1", "paid_on": "2020-09-29 20:50:02.657517", "expire_on": "2020-10-29 20:50:02.657517"},
+        {"user_id": "917099183", "plan_name": "Paid 1", "paid_on": "2020-09-15 20:50:02.657517", "expire_on": "2020-10-24 20:50:02.657517"},
+        {"user_id": "698900540", "plan_name": "Paid2", "paid_on": "2020-10-25 17:42:12.126426", "expire_on": "2020-11-24 17:42:12.126426"},
+        {"user_id": "699615803", "plan_name": "X_row", "paid_on": "2020-10-26 03:30:32.945845", "expire_on": "2020-11-25 03:30:32.945845"},
+        {"user_id": "919584113", "plan_name": "SBBotOwner", "paid_on": "2020-10-26 03:31:18.875428", "expire_on": "2020-11-25 03:31:18.875428"},
+        {"user_id": "923064952", "plan_name": "paid2", "paid_on": "2020-10-26 04:54:14.276850", "expire_on": "2020-12-23 04:54:14.276850"},
+        {"user_id": "683538773", "plan_name": "Viruzz_Dev", "paid_on": "2020-10-26 05:19:42.963176", "expire_on": "2020-11-25 05:19:42.963176"},
+        {"user_id": "1153786300", "plan_name": "UKNum_Owner", "paid_on": "2020-10-26 07:34:21.067216", "expire_on": "2020-11-25 07:34:21.067216"},
+        {"user_id": "568715538", "plan_name": "Paid1", "paid_on": "2020-10-26 09:33:17.084030", "expire_on": "2020-11-25 09:33:17.084030"},
+        {"user_id": "1366337468", "plan_name": "Paid2", "paid_on": "2020-10-28 04:47:12.065712", "expire_on": "2020-12-05 04:47:12.065712"},
+        {"user_id": "751444330", "plan_name": "Paid1", "paid_on": "2020-10-28 08:35:04.028298", "expire_on": "2020-11-27 08:35:04.028298"},
+        {"user_id": "652767901", "plan_name": "Paid1", "paid_on": "2020-10-28 22:41:20.631243", "expire_on": "2020-11-27 22:41:20.631243"},
+        {"user_id": "1193583027", "plan_name": "Paid1", "paid_on": "2020-10-30 10:55:34.673150", "expire_on": "2020-11-29 10:55:34.673150"},
+        {"user_id": "1304514243", "plan_name": "Paid1", "paid_on": "2020-10-30 11:19:44.657497", "expire_on": "2020-11-29 11:19:44.657497"},
+        {"user_id": "978417324", "plan_name": "Trial", "paid_on": "2020-10-30 14:39:20.385529", "expire_on": "2020-10-31 14:39:20.385529"},
+        {"user_id": "1036705995", "plan_name": "Paid1", "paid_on": "2020-11-02 02:58:16.037052", "expire_on": "2020-12-02 02:58:16.037052"},
+        {"user_id": "983851680", "plan_name": "Paid2", "paid_on": "2020-11-10 05:06:43.454024", "expire_on": "2020-12-10 05:06:43.454024"},
+        {"user_id": "685160004", "plan_name": "Paid1", "paid_on": "2020-11-12 10:16:46.162865", "expire_on": "2020-12-12 10:16:46.162865"},
+        {"user_id": "1100005332", "plan_name": "Paid1", "paid_on": "2020-11-15 04:53:29.039063", "expire_on": "2020-12-15 04:53:29.039063"},
+        {"user_id": "1080989904", "plan_name": "Paid2", "paid_on": "2020-11-16 14:34:35.523843", "expire_on": "2020-12-16 14:34:35.523843"}
+      ]
+      x = Config.BOTDB.insert_many(the_real_download_location)
       await update.reply_text("✅ Backup file sucessfully restored.")
    else:
      await update.reply_text("Please reply to backup file...!")
