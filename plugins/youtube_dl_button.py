@@ -233,27 +233,60 @@ async def youtube_dl_call_back(bot, update):
                  mts2 = mts1.replace(" ", "_")
                  cva_file_name = mts2[1:-10] + ".mp4"
                  mxs3 = mxs2.find_all("script")[1].prettify()
-                 HS = []
-                 OS = []
-                 NS = []
-                 for js in mxs3.split('"'):
+                 GSX = []
+                 for ia in mxs3.split('"'):
+                  if "embed/detail" in ia:
+                    GSX.append(ia)
+                 try:
+                   mxs4 = GSX[0]
+                   mxs5 = requests.get(mxs4[:-1])
+                   mxs6 = bs4.BeautifulSoup(mxs5.content.decode('utf-8'), "html5lib")
+                   mxs7 = mxs6.find_all("script")[0].prettify()
+                   HSS2 = []
+                   OSS2 = []
+                   NSS2 = []
+                   for sss2 in mxs7.split('"'):
+                    if ",.mp4" in sss2:
+                      HSS2.append(sss2)
+                    try:
+                      youtube_dl_url = HSS2[0]
+                    except IndexError:
+                      for kss2 in mxs7.split('"'):
+                        if ".mp4" in kss2:
+                          HSS2.append(kss2)
+                        if ".m3u8" in kss2:
+                          OSS2.append(kss2)
+                        if "hlsurl" in kss2:
+                          NSS2.append(kss2)
+                      try:
+                        sssampleurl2 = HSS2[0]
+                        youtube_dl_url = "https://llvod.mxplay.com/" + OSS[0]"
+                        audio_issue = "true"
+                      except IndexError:
+                          sample3urll2 = NSS2[0]
+                          youtube_dl_url = OSS2[0]
+                 except IndexError:
+                   HS = []
+                   OS = []
+                   NS = []
+                   for js in mxs3.split('"'):
                     if ",.mp4" in js:
                       HS.append(js)
-                 try:
-                    youtube_dl_url = HS[0]
-                 except IndexError:
-                    for ks in mxs3.split('"'):
-                      if ".mp4" in ks:
-                        HS.append(ks)
-                      if ".m3u8" in ks:
-                        OS.append(ks)
-                      if "hlsurl" in ks:
-                        NS.append(ks)
-                    try:
-                      ssampleurl = HS[0]
-                      youtube_dl_url = "https://llvod.mxplay.com/" + OS[0]
-                      audio_issue = "true"
-                    except IndexError:
+                   try:
+                      youtube_dl_url = HS[0]
+                   except IndexError:
+                      for ks in mxs3.split('"'):
+                        if ".mp4" in ks:
+                          HS.append(ks)
+                        if ".m3u8" in ks:
+                          OS.append(ks)
+                        if "hlsurl" in ks:
+                          NS.append(ks)
+                      try:
+                        ssampleurl = HS[0]
+                        youtube_dl_url = "https://llvod.mxplay.com/" + OS[0]
+                        audio_issue = "true"
+                      except IndexError:
                         sample2url = NS[0]
                         youtube_dl_url = OS[0]
     elif "tamilyogi" in youtube_dl_url:
