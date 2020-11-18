@@ -28,6 +28,7 @@ import bs4
 import html5lib
 import urllib
 import random
+import hds
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 
@@ -191,7 +192,7 @@ async def youtube_dl_call_back(bot, update):
           pass
     elif "mxplayer" in youtube_dl_url:
       if "movie" in youtube_dl_url:
-         my1 = requests.get(youtube_dl_url)
+         my1 = requests.get(youtube_dl_url, headers=hds.mxplayer)
          my2 = bs4.BeautifulSoup(my1.content.decode('utf-8'), "html5lib")
          mt1 = my2.find_all("title")[0].prettify()
          mt2 = mt1.split("|")
@@ -203,7 +204,7 @@ async def youtube_dl_call_back(bot, update):
           if "embed/detail" in i:
             G.append(i)
          my4 = G[0]
-         my5 = requests.get(my4[:-1])
+         my5 = requests.get(my4[:-1], headers=hds.mxplayer)
          my6 = bs4.BeautifulSoup(my5.content.decode('utf-8'), "html5lib")
          my7 = my6.find_all("script")[0].prettify()
          H = []
@@ -227,7 +228,7 @@ async def youtube_dl_call_back(bot, update):
             except IndexError:
                 youtube_dl_url = P[0]
       elif "show" in youtube_dl_url:
-                 mxs1 = requests.get(youtube_dl_url)
+                 mxs1 = requests.get(youtube_dl_url, headers=hds.mxplayer)
                  mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
                  mts1 = mxs2.find_all("title")[0].prettify()
                  mts2 = mts1.replace(" ", "_")
@@ -239,7 +240,7 @@ async def youtube_dl_call_back(bot, update):
                     GSX.append(ia)
                  try:
                    mxs4 = GSX[0]
-                   mxs5 = requests.get(mxs4[:-1])
+                   mxs5 = requests.get(mxs4[:-1], headers=hds.mxplayer)
                    mxs6 = bs4.BeautifulSoup(mxs5.content.decode('utf-8'), "html5lib")
                    mxs7 = mxs6.find_all("script")[0].prettify()
                    HSS2 = []
