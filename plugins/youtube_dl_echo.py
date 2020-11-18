@@ -150,15 +150,13 @@ async def echo(bot, update):
               if "movie" in u:
                  mx1 = requests.get(u, headers=hds.mxplayer)
                  mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
-                 await update.reply_text(mx2)
-                 return
                  mx3 = mx2.find_all("script")[1].prettify()
                  G = []
                  for i in mx3.split('"'):
                   if "embed/detail" in i:
                     G.append(i)
                  mx4 = G[0]
-                 mx5 = requests.get(mx4[:-1])
+                 mx5 = requests.get(mx4[:-1], headers=hds.mxplayer)
                  mx6 = bs4.BeautifulSoup(mx5.content.decode('utf-8'), "html5lib")
                  mx7 = mx6.find_all("script")[0].prettify()
                  H = []
@@ -191,7 +189,7 @@ async def echo(bot, update):
                    await update.reply_text("🔒 Voot Videos Temporarily Disabled...!")
                    return
               elif "show" in u:
-                 mxs1 = requests.get(u)
+                 mxs1 = requests.get(u, headers=hds.mxplayer)
                  mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
                  mxs3 = mxs2.find_all("script")[1].prettify()
                  GS = []
@@ -200,7 +198,7 @@ async def echo(bot, update):
                     GS.append(ia)
                  try:
                   mxs4 = GS[0]
-                  mxs5 = requests.get(mxs4[:-1])
+                  mxs5 = requests.get(mxs4[:-1], headers=hds.mxplayer)
                   mxs6 = bs4.BeautifulSoup(mxs5.content.decode('utf-8'), "html5lib")
                   mxs7 = mxs6.find_all("script")[0].prettify()
                   HSS = []
