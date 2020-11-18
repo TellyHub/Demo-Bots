@@ -115,7 +115,7 @@ async def youtube_dl_call_back(bot, update):
          g2 = (r2["hls"][0].replace("drm", "hls"))
          if "netst" in g2:
                     youtube_dl_url = (g2 + req3["video_token"])
-                    cva_file_name = r2["title"].replace(" ", "_") + ".mp4"
+                    cva_file_name = r2["title"].replace(" ", "_") + youtube_dl_format + ".mp4"
                     cva_thumb = r2["image_url"]
                     cva_duration = r2["duration"]
                     cva_description = r2["description"]
@@ -139,7 +139,7 @@ async def youtube_dl_call_back(bot, update):
                       pass
          else:
                     youtube_dl_url = ("https://" + li["url"] + g2 + req1["video_token"])
-                    cva_file_name = r2["title"].replace(" ", "_") + ".mp4"
+                    cva_file_name = r2["title"].replace(" ", "_") + youtube_dl_format + ".mp4"
                     cva_thumb = r2["image_url"]
                     cva_duration = r2["duration"]
                     cva_description = r2["description"]
@@ -168,7 +168,7 @@ async def youtube_dl_call_back(bot, update):
                                             params={"translation":"en", "country":"IN"}).json()
          g1 = (r1["hls"][0].replace("drm", "hls") + req1["video_token"])
          youtube_dl_url = ("https://" + li["url"] + g1)
-         cva_file_name = r1["title"].replace(" ", "_") + ".mp4"
+         cva_file_name = r1["title"].replace(" ", "_") + youtube_dl_format + ".mp4"
          cva_thumb = r1["image_url"]
          cva_duration = r1["duration"]
          cva_description = r1["description"]
