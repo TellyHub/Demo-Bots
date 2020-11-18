@@ -261,7 +261,7 @@ async def youtube_dl_call_back(bot, update):
                           NSS2.append(kss2)
                       try:
                         sssampleurl2 = HSS2[0]
-                        youtube_dl_url = "https://llvod.mxplay.com/" + OSS[0]
+                        youtube_dl_url = "https://llvod.mxplay.com/" + OSS2[0]
                         audio_issue = "true"
                       except IndexError:
                           sample3urll2 = NSS2[0]
@@ -449,7 +449,7 @@ async def youtube_dl_call_back(bot, update):
       t_response = stdout.decode().strip()
       logger.info(e_response)
       logger.info(t_response)
-      os.remove(save_ytdl_json_path)
+      #os.remove(save_ytdl_json_path)
       end_one = datetime.now()
       time_taken_for_download = (end_one -start).seconds
       file_size = Config.TG_MAX_FILE_SIZE + 1
@@ -763,7 +763,7 @@ async def youtube_dl_call_back(bot, update):
           return False
       if t_response:
           # logger.info(t_response)
-          os.remove(save_ytdl_json_path)
+          #os.remove(save_ytdl_json_path)
           end_one = datetime.now()
           time_taken_for_download = (end_one -start).seconds
           file_size = Config.TG_MAX_FILE_SIZE + 1
