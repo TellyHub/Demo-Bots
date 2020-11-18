@@ -148,7 +148,7 @@ async def echo(bot, update):
                  description = r1["description"]
             elif "mxplayer" in u:
               if "movie" in u:
-                 mx1 = requests.get(u, headers=hds.mxplayer)
+                 mx1 = requests.get(u)
                  mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
                  mx3 = mx2.find_all("script")[1].prettify()
                  G = []
