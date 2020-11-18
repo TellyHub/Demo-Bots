@@ -150,7 +150,9 @@ async def echo(bot, update):
               if "movie" in u:
                  mx1 = requests.get(u, headers=hds.mxplayer)
                  mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
-                 mx3 = mx2.find_all("script")[0].prettify()
+                 await update.reply_text(mx2)
+                 return
+                 mx3 = mx2.find_all("script")[1].prettify()
                  G = []
                  for i in mx3.split('"'):
                   if "embed/detail" in i:
