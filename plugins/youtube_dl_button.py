@@ -250,9 +250,9 @@ async def youtube_dl_call_back(bot, update):
                    for sss2 in mxs7.split('"'):
                     if ",.mp4" in sss2:
                       HSS2.append(sss2)
-                    try:
+                   try:
                       youtube_dl_url = HSS2[0]
-                    except IndexError:
+                   except IndexError:
                       for kss2 in mxs7.split('"'):
                         if ".mp4" in kss2:
                           HSS2.append(kss2)
@@ -347,7 +347,7 @@ async def youtube_dl_call_back(bot, update):
     tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     if not os.path.isdir(tmp_directory_for_each_user):
           os.makedirs(tmp_directory_for_each_user)
-    download_directory = tmp_directory_for_each_user + "/" + cva_file_name + "/" + cva_file_name
+    download_directory = tmp_directory_for_each_user + "/" + cva_file_name[:-4] + "/" + cva_file_name
     command_to_exec = []
     if audio_issue == "true":
       await bot.edit_message_text(
@@ -355,7 +355,7 @@ async def youtube_dl_call_back(bot, update):
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
-      a_download_location = tmp_directory_for_each_user + "/" + cva_file_name + "/" + "audio" + ".mp3"
+      a_download_location = tmp_directory_for_each_user + "/" + cva_file_name[:-4] + "/" + "audio" + ".mp3"
       command_to_exec = [
               "youtube-dl",
               "-c",
@@ -391,7 +391,7 @@ async def youtube_dl_call_back(bot, update):
           chat_id=update.message.chat.id,
           message_id=update.message.message_id
       )
-      v_download_location = tmp_directory_for_each_user + "/" + cva_file_name + "/" + "video" + ".mp4"
+      v_download_location = tmp_directory_for_each_user + "/" + cva_file_name[:-4] + "/" + "video" + ".mp4"
       command_to_exec = [
               "youtube-dl",
               "-c",
@@ -650,7 +650,7 @@ async def youtube_dl_call_back(bot, update):
                           )
                       )
                       try:
-                        shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name)
+                        shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name[:-4])
                         #os.remove(thumb_image_path)
                       except:
                         pass
@@ -691,7 +691,7 @@ async def youtube_dl_call_back(bot, update):
           )
           #
           try:
-                  shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name)
+                  shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name[:-4])
                   #os.remove(thumb_image_path)
           except:
               pass
@@ -964,7 +964,7 @@ async def youtube_dl_call_back(bot, update):
                           )
                       )
                       try:
-                        shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name)
+                        shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name[:-4])
                         #os.remove(thumb_image_path)
                       except:
                         pass
@@ -1005,7 +1005,7 @@ async def youtube_dl_call_back(bot, update):
               )
               #
               try:
-                  shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name)
+                  shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name[:-4])
                   #os.remove(thumb_image_path)
               except:
                   pass
