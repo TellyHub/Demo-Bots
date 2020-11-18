@@ -198,7 +198,7 @@ async def youtube_dl_call_back(bot, update):
          mt2 = mt1.split("|")
          mt3 = mt2[1].replace(" ", "_")
          cva_file_name = mt3[1:-10] + youtube_dl_format + ".mp4"
-         await update.reply_text(cva_file_name)
+         logger.info(cva_file_name)
          return
          my3 = my2.find_all("script")[1].prettify()
          G = []
