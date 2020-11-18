@@ -196,7 +196,7 @@ async def youtube_dl_call_back(bot, update):
          mt1 = my2.find_all("title")[0].prettify()
          mt2 = mt1.split("|")
          mt3 = mt2[1].replace(" ", "_")
-         cva_file_name = mt3[1:-10] + ".mp4"
+         cva_file_name = mt3[1:-10] + random.randint(100, 999) + ".mp4"
          my3 = my2.find_all("script")[1].prettify()
          G = []
          for i in my3.split('"'):
@@ -231,7 +231,7 @@ async def youtube_dl_call_back(bot, update):
                  mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
                  mts1 = mxs2.find_all("title")[0].prettify()
                  mts2 = mts1.replace(" ", "_")
-                 cva_file_name = mts2[1:-10] + ".mp4"
+                 cva_file_name = mts2[1:-10] + random.randint(100, 999) + ".mp4"
                  mxs3 = mxs2.find_all("script")[1].prettify()
                  GSX = []
                  for ia in mxs3.split('"'):
