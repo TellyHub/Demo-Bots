@@ -89,7 +89,7 @@ async def youtube_dl_call_back(bot, update):
     #      audio_format_id = aformat_id
     youtube_l_url = update.message.reply_to_message.text
     youtube_dl_url = youtube_l_url
-    audio_issue = "false"
+    audio_issue = "true"
     #u_parts = None
     #u_parts[1] = None
     if "|" in youtube_dl_url:
