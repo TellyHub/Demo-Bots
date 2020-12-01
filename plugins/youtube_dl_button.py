@@ -101,7 +101,16 @@ async def youtube_dl_call_back(bot, update):
         "_" + youtube_dl_format + "." + youtube_dl_ext
     youtube_dl_username = None
     youtube_dl_password = None
-    if "zee5" in youtube_dl_url:
+    if "aha" in youtube_dl_url:
+              if "movies" in youtube_dl_url:
+                ahamovpath = "%2Fmovies%2F" + u.split("movies/")[-1]
+                ahareq1 = requests.get("https://prod-api-cached-2.viewlift.com/content/pages?path=" + ahamovpath + "&site=aha-tv&includeContent=true&moduleOffset=0&moduleLimit=5&languageCode=default&countryCode=IN").json()["modules"][1]["contentData"][0]["gist"]["id"]
+                youtube_dl_url = requests.get("https://prod-api.viewlift.com/entitlement/video/status?id=" + ahareq1 + "&deviceType=web_browser&contentConsumption=web", headers=hds.aha).json()["video"]["streamingInfo"]["videoAssets"]["hls"]
+              elif "originals" in youtube_dl_url:
+                ahaorgpath = "%2Foriginals%2F" + u.split("originals/")[-1]
+                ahareq1 = requests.get("https://prod-api-cached-2.viewlift.com/content/pages?path=" + ahaorgpath + "&site=aha-tv&includeContent=true&moduleOffset=0&moduleLimit=5&languageCode=default&countryCode=IN").json()["modules"][1]["contentData"][0]["gist"]["id"]
+                youtube_dl_url = requests.get("https://prod-api.viewlift.com/entitlement/video/status?id=" + ahareq1 + "&deviceType=web_browser&contentConsumption=web", headers=hds.aha).json()["video"]["streamingInfo"]["videoAssets"]["hls"]
+    elif "zee5" in youtube_dl_url:
       if "tvshows" or "originals" in youtube_dl_url:
          req1 = requests.get("https://useraction.zee5.com/tokennd").json()
          rgx = re.findall("([0-9]?\w+)", youtube_dl_url)[-3:]
