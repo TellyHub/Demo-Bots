@@ -103,11 +103,21 @@ async def echo(bot, update):
                ul_part = u.strip(" ")
                ul_parts = ul_part.split("|")
                u = ul_parts[0]
-            if "aha.video" in u:
+            if "aha" in u:
               if "movies" in u:
                 ahamovpath = "%2Fmovies%2F" + u.split("/")[-1]
                 ahareq1 = requests.get("https://prod-api-cached-2.viewlift.com/content/pages?path=" + ahamovpath + "&site=aha-tv&includeContent=true&moduleOffset=0&moduleLimit=5&languageCode=default&countryCode=IN").json()["modules"][1]["contentData"][0]["gist"]["id"]
-                url = requests.get("https://prod-api.viewlift.com/entitlement/video/status?id=" + ahareq1 + "&deviceType=web_browser&contentConsumption=web", headers=hds.aha).json()["video"]["streamingInfo"]["videoAssets"]["hlsDetail"]["url"]
+                url = requests.get("https://prod-api.viewlift.com/entitlement/video/status?id=" + ahareq1 + "&deviceType=web_browser&contentConsumption=web", headers=hds.aha).json()
+                response_json = json.loads(url)
+                save_ytdl_json_path = Config.DOWNLOAD_LOCATION + \
+                    "/" + str(update.from_user.id) + ".json"
+                with open(save_ytdl_json_path, "w", encoding="utf8") as outfile:
+                    json.dump(url, outfile, ensure_ascii=False)
+                await bot.send_document(
+                  chat_id=update.chat.id,
+                  document=save_ytdl_json_path
+                )
+                return
             if "zee5" in u:
               if "zee5vodnd.akamaized.net" in u:
                  await bot.send_message(
