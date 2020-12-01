@@ -106,7 +106,7 @@ async def echo(bot, update):
             if "aha.video" in u:
               if "movies" in u:
                 ahamovpath = "%2Fmovies%2F" + u.split("/")[-1]
-                ahareq1 = requests.get("https://prod-api-cached-2.viewlift.com/content/pages?path=" + ahamovpath + "&site=aha-tv&includeContent=true&moduleOffset=0&moduleLimit=5&languageCode=default&countryCode=IN").json().modules[1].contentData[0].gist.id
+                ahareq1 = requests.get("https://prod-api-cached-2.viewlift.com/content/pages?path=" + ahamovpath + "&site=aha-tv&includeContent=true&moduleOffset=0&moduleLimit=5&languageCode=default&countryCode=IN").json()["modules"][1].contentData[0].gist.id
                 await update.reply_text(ahareq1)
                 return
             if "zee5" in u:
