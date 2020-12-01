@@ -112,7 +112,7 @@ async def echo(bot, update):
                 except:
                   await update.reply_text("🔒 Currently Premium movies are not supported...!")
                   return
-            if "zee5" in u:
+            elif "zee5" in u:
               if "zee5vodnd.akamaized.net" in u:
                  await bot.send_message(
                       chat_id=update.chat.id,
