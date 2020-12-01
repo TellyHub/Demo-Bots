@@ -89,7 +89,7 @@ async def youtube_dl_call_back(bot, update):
     #      audio_format_id = aformat_id
     youtube_l_url = update.message.reply_to_message.text
     youtube_dl_url = youtube_l_url
-    audio_issue = "true"
+    audio_issue = "false"
     #u_parts = None
     #u_parts[1] = None
     if "|" in youtube_dl_url:
@@ -121,20 +121,10 @@ async def youtube_dl_call_back(bot, update):
                     cva_description = r2["description"]
                     check_a = requests.get(youtube_dl_url)
                     check_au = check_a.content.decode('utf-8')
+                    audio_issue = audio_issue.strip()
                     try:
                       check_aud = re.findall('stream.m3u8',check_au)[0]
-                      await bot.send_message(
-                         text="Detected Audio issue...! Still trying to fixing...".format(),
-                         chat_id=update.message.chat.id,
-                         reply_to_message_id=update.message.message_id,
-                         reply_markup=InlineKeyboardMarkup(
-                            [
-                              [
-                                InlineKeyboardButton(text = '🔗 Direct Streaming Link', url = youtube_dl_url)
-                              ]
-                            ]
-                         )
-                      )
+                      audio_issue = "true"
                     except IndexError:
                       pass
          else:
@@ -145,20 +135,10 @@ async def youtube_dl_call_back(bot, update):
                     cva_description = r2["description"]
                     check_a = requests.get(youtube_dl_url)
                     check_au = check_a.content.decode('utf-8')
+                    audio_issue = audio_issue.strip()
                     try:
                       check_aud = re.findall('stream.m3u8',check_au)[0]
-                      await bot.send_message(
-                         text="Detected Audio issue...! Still trying to fixing...".format(),
-                         chat_id=update.message.chat.id,
-                         reply_to_message_id=update.message.message_id,
-                         reply_markup=InlineKeyboardMarkup(
-                            [
-                              [
-                                InlineKeyboardButton(text = '🔗 Direct Streaming Link', url = youtube_dl_url)
-                              ]
-                            ]
-                         )
-                      )
+                      audio_issue = "true"
                     except IndexError:
                       pass
 
@@ -174,20 +154,10 @@ async def youtube_dl_call_back(bot, update):
          cva_description = r1["description"]
          check_a = requests.get(youtube_dl_url)
          check_au = check_a.content.decode('utf-8')
+         audio_issue = audio_issue.strip()
          try:
             check_aud = re.findall('stream.m3u8',check_au)[0]
-            await bot.send_message(
-              text="Detected Audio issue...! Still trying to fixing...".format(),
-              chat_id=update.message.chat.id,
-              reply_to_message_id=update.message.message_id,
-              reply_markup=InlineKeyboardMarkup(
-                            [
-                              [
-                                InlineKeyboardButton(text = '🔗 Direct Streaming Link', url = youtube_dl_url)
-                              ]
-                            ]
-              )
-            )
+            audio_issue = "true"
          except IndexError:
           pass
     elif "mxplayer" in youtube_dl_url:
