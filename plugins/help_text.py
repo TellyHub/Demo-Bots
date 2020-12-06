@@ -29,12 +29,11 @@ from pyrogram import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 async def help_user(bot, update):
-    await bot.send_message(
-        chat_id=update.from_user.id,
+    await bot.edit_message_text(
+        chat_id=update.message.from_user.id,
         text=Translation.HELP_USER,
         parse_mode="html",
         disable_web_page_preview=True,
-        reply_to_message_id=update.message.message_id,
         reply_markup=InlineKeyboardMarkup(
             [ 
                 [
@@ -126,12 +125,11 @@ async def upgrade(bot, update):
 
 #@pyrogram.Client.on_message(pyrogram.Filters.command(["free"]))
 async def free_req(bot, update):
-    await bot.send_message(
-        chat_id=update.from_user.id,
+    await bot.edit_message_text(
+        chat_id=update.message.from_user.id,
         text=Translation.REQ_FREE_TEXT,
         parse_mode="html",
         disable_web_page_preview=True,
-        reply_to_message_id=update.message.message_id,
         reply_markup=InlineKeyboardMarkup(
             [ 
                 [
