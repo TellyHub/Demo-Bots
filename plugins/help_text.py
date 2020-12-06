@@ -31,6 +31,7 @@ from pyrogram import InlineKeyboardButton, InlineKeyboardMarkup
 async def help_user(bot, update):
     await bot.edit_message_text(
         chat_id=update.message.from_user.id,
+        message_id=update.message.message_id,
         text=Translation.HELP_USER,
         parse_mode="html",
         disable_web_page_preview=True,
@@ -127,6 +128,7 @@ async def upgrade(bot, update):
 async def free_req(bot, update):
     await bot.edit_message_text(
         chat_id=update.message.from_user.id,
+        message_id=update.message.message_id,
         text=Translation.REQ_FREE_TEXT,
         parse_mode="html",
         disable_web_page_preview=True,
