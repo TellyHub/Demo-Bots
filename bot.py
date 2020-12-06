@@ -20,10 +20,11 @@ if __name__ == "__main__" :
         root="plugins"
     )
     app = pyrogram.Client(
-        "Zee5DLBot",
+        "PremiumSBBot",
         bot_token=Config.TG_BOT_TOKEN,
         api_id=Config.APP_ID,
         api_hash=Config.API_HASH,
+        workers=100,
         plugins=plugins
     )
     #Config.AUTH_USERS.add(683538773)
