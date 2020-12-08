@@ -141,8 +141,6 @@ async def echo(bot, update):
                                                     headers=headers, 
                                                     params={"translation":"en", "country":"IN"}).json()
                  g2 = (r2["hls"][0].replace("drm", "hls"))
-                 await update.reply_text(g2)
-                 return
                  if "netst" in g2:
                             url = (g2 + req3["video_token"])
                             file_name = r2["title"]
@@ -155,6 +153,7 @@ async def echo(bot, update):
                             thumb = r2["image_url"]
                             duration = r2["duration"]
                             description = r2["description"]
+                            await update.reply_text(url)
               elif "movies" in u:
                  r1 = requests.get(li["token"] + "-".join(rgx),
                                                     headers=headers, 
