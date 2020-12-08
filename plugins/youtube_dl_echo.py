@@ -133,6 +133,8 @@ async def echo(bot, update):
               elif "tvshows" or "originals" in u:
                  req1 = requests.get("https://useraction.zee5.com/tokennd").json()
                  rgx = re.findall("([0-9]?\w+)", u)[-3:]
+                 await update.reply_text(rgx)
+                 return
                  li = { "url":"zee5vodnd.akamaized.net", "token":"https://gwapi.zee5.com/content/details/" }
                  req2 = requests.get("https://useraction.zee5.com/token/platform_tokens.php?platform_name=web_app").json()["token"]
                  headers["X-Access-Token"] = req2
