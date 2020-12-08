@@ -137,7 +137,7 @@ async def echo(bot, update):
                  req2 = requests.get("https://useraction.zee5.com/token/platform_tokens.php?platform_name=web_app").json()["token"]
                  headers["X-Access-Token"] = req2
                  req3 = requests.get("https://useraction.zee5.com/token").json()
-                 r2 = requests.get(li["token"] + rgx[0],
+                 r2 = requests.get(li["token"] + rgx[0], 
                                                     headers=headers, 
                                                     params={"translation":"en", "country":"IN"}).json()
                  g2 = (r2["hls"][0].replace("drm", "hls"))
