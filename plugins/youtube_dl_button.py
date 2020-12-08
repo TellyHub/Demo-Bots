@@ -113,12 +113,12 @@ async def youtube_dl_call_back(bot, update):
     elif "zee5" in youtube_dl_url:
       if "tvshows" or "originals" in youtube_dl_url:
          req1 = requests.get("https://useraction.zee5.com/tokennd").json()
-         rgx = re.findall("([0-9]?\w+)", youtube_dl_url)[-3:]
+         rgx = youtube_dl_url.split("/")[-1:]
          li = { "url":"zee5vodnd.akamaized.net", "token":"https://gwapi.zee5.com/content/details/" }
          req2 = requests.get("https://useraction.zee5.com/token/platform_tokens.php?platform_name=web_app").json()["token"]
          headers["X-Access-Token"] = req2
          req3 = requests.get("https://useraction.zee5.com/token").json()
-         r2 = requests.get(li["token"] + "-".join(rgx), 
+         r2 = requests.get(li["token"] + rgx,
                                             headers=headers, 
                                             params={"translation":"en", "country":"IN"}).json()
          g2 = (r2["hls"][0].replace("drm", "hls"))
