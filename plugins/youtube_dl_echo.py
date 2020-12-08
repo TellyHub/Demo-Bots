@@ -153,7 +153,6 @@ async def echo(bot, update):
                             thumb = r2["image_url"]
                             duration = r2["duration"]
                             description = r2["description"]
-                            await update.reply_text(url)
               elif "movies" in u:
                  r1 = requests.get(li["token"] + "-".join(rgx),
                                                     headers=headers, 
