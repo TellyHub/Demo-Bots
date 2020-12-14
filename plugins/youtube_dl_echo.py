@@ -65,25 +65,32 @@ async def echo(bot, update):
             await update.reply_text("😴 Please wait {} for next process.".format(datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f').strftime('%H Hours %M Minutes %S Seconds'))
             return
       else:
-        if not update.from_user.id in Config.today_users:
-           b_json["users"].append({
-             "user_id": "{}".format(update.from_user.id),
-             "exp_re": "{}".format(act_plan),
-             "paid_on": "{}".format(paid_date),
-             "expire_on": '{}'.format(expiry_date)
-           })
-        for users in b_json["users"]:
-          user = users.get("user_id")
-          total_req = users.get("total_requests")
-          if int(update.from_user.id) == int(user):
-            if total_req > 3:
-              await update.reply_text("😴 You reached per day limit. send /me to know renew time.")
-              return
-        
-              b_json["users"].pop(user_li - 1)
-              with open("backup.json", "w", encoding="utf8") as outfile:
-                   json.dump(b_json, outfile, ensure_ascii=False)
-              return
+            if not update.from_user.id in Config.today_users:
+               Config.today_users.append(update.from_user.id)
+               b_json["users"].append({
+                 "user_id": "{}".format(update.from_user.id),
+                 "total_req": int(0),
+                 "exp_req": datetime.now() + timedelta(hours=int(2))
+               })
+               with open("backup.json", "w", encoding="utf8") as outfile:
+                       json.dump(b_json, outfile, ensure_ascii=False)
+            user_count = 0
+            for users in b_json["users"]:
+              user = users.get("user_id")
+              total_req = users.get("total_requests")
+              user_count = user_count + 1
+              if int(update.from_user.id) == int(user):
+               if total_req > 3:
+                  await update.reply_text("😴 You reached per day limit. send /me to know renew time.")
+                  return
+            b_json["users"].pop(user_count - 1)
+            b_json["users"].append({
+                 "user_id": "{}".format(update.from_user.id),
+                 "total_req": total_req + 1,
+                 "exp_req": datetime.now() + timedelta(hours=int(2))
+            })
+            with open("backup.json", "w", encoding="utf8") as outfile:
+                  json.dump(b_json, outfile, ensure_ascii=False)
             try:
                 await bot.get_chat_member(
                 chat_id=Config.AUTH_CHANNEL,
@@ -117,24 +124,7 @@ async def echo(bot, update):
                ul_part = u.strip(" ")
                ul_parts = ul_part.split("|")
                u = ul_parts[0]
-            if "aha" in u:
-              if "movies" in u:
-                ahamovpath = "%2Fmovies%2F" + u.split("movies/")[-1]
-                ahareq1 = requests.get("https://prod-api-cached-2.viewlift.com/content/pages?path=" + ahamovpath + "&site=aha-tv&includeContent=true&moduleOffset=0&moduleLimit=5&languageCode=default&countryCode=IN").json()["modules"][1]["contentData"][0]["gist"]["id"]
-                try:
-                  url = requests.get("https://prod-api.viewlift.com/entitlement/video/status?id=" + ahareq1 + "&deviceType=web_browser&contentConsumption=web", headers=hds.aha).json()["video"]["streamingInfo"]["videoAssets"]["hls"]
-                except:
-                  await update.reply_text("🔒 Currently Premium movies are not supported...!")
-                  return
-              elif "originals" in u:
-                ahaorgpath = "%2Foriginals%2F" + u.split("originals/")[-1]
-                ahareq1 = requests.get("https://prod-api-cached-2.viewlift.com/content/pages?path=" + ahaorgpath + "&site=aha-tv&includeContent=true&moduleOffset=0&moduleLimit=5&languageCode=default&countryCode=IN").json()["modules"][1]["contentData"][0]["gist"]["id"]
-                try:
-                  url = requests.get("https://prod-api.viewlift.com/entitlement/video/status?id=" + ahareq1 + "&deviceType=web_browser&contentConsumption=web", headers=hds.aha).json()["video"]["streamingInfo"]["videoAssets"]["hls"]
-                except:
-                  await update.reply_text("🔒 Currently Premium Shows are not supported...!")
-                  return
-            elif "zee5" in u:
+            if "zee5" in u:
               if "zee5vodnd.akamaized.net" in u:
                  await bot.send_message(
                       chat_id=update.chat.id,
@@ -177,122 +167,6 @@ async def echo(bot, update):
                  thumb = r1["image_url"]
                  duration = r1["duration"]
                  description = r1["description"]
-            elif "mxplayer" in u:
-              if "movie" in u:
-                 mx1 = requests.get(u, headers=hds.mxplayer)
-                 mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
-                 mx3 = mx2.find_all("script")[1].prettify()
-                 G = []
-                 for i in mx3.split('"'):
-                  if "embed/detail" in i:
-                    G.append(i)
-                 mx4 = G[0]
-                 mx5 = requests.get(mx4[:-1], headers=hds.mxplayer)
-                 mx6 = bs4.BeautifulSoup(mx5.content.decode('utf-8'), "html5lib")
-                 mx7 = mx6.find_all("script")[0].prettify()
-                 H = []
-                 O = []
-                 N = []
-                 for j in mx7.split('"'):
-                    if ",.mp4" in j:
-                      H.append(j)
-                 try:
-                    url = H[0]
-                 except IndexError:
-                    for k in mx7.split('"'):
-                      if ".mp4" in k:
-                        H.append(k)
-                      if ".m3u8" in k:
-                        O.append(k)
-                      if "hlsurl" in k:
-                        N.append(k)
-                    try:
-                      sampleurl = H[0]
-                      url = "https://llvod.mxplay.com/" + O[0]
-                    except IndexError:
-                      try:
-                        sample2url = N[0]
-                        url = O[0]
-                      except IndexError:
-                        await update.reply_text("🔒 DRM Protected...!")
-                        return
-                 if "voot" in url:
-                   await update.reply_text("🔒 Voot Videos Temporarily Disabled...!")
-                   return
-              elif "show" in u:
-                 mxs1 = requests.get(u, headers=hds.mxplayer)
-                 mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
-                 mxs3 = mxs2.find_all("script")[1].prettify()
-                 GS = []
-                 for ia in mxs3.split('"'):
-                  if "embed/detail" in ia:
-                    GS.append(ia)
-                 try:
-                  mxs4 = GS[0]
-                  mxs5 = requests.get(mxs4[:-1], headers=hds.mxplayer)
-                  mxs6 = bs4.BeautifulSoup(mxs5.content.decode('utf-8'), "html5lib")
-                  mxs7 = mxs6.find_all("script")[0].prettify()
-                  HSS = []
-                  OSS = []
-                  NSS = []
-                  for sss in mxs7.split('"'):
-                    if ",.mp4" in sss:
-                      HSS.append(sss)
-                  try:
-                      url = HSS[0]
-                  except IndexError:
-                      for kss in mxs7.split('"'):
-                        if ".mp4" in kss:
-                          HSS.append(kss)
-                        if ".m3u8" in kss:
-                          OSS.append(kss)
-                        if "hlsurl" in kss:
-                          NSS.append(kss)
-                      try:
-                        sssampleurl = HSS[0]
-                        url = "https://llvod.mxplay.com/" + OSS[0]
-                      except IndexError:
-                        try:
-                          sample3urll = NSS[0]
-                          url = OSS[0]
-                        except IndexError:
-                          await update.reply_text("🔒 DRM Protected...!")
-                          return
-                 except IndexError:
-                  HS = []
-                  OS = []
-                  NS = []
-                  for js in mxs3.split('"'):
-                    if ",.mp4" in js:
-                      HS.append(js)
-                  try:
-                    url = HS[0]
-                  except IndexError:
-                    for ks in mxs3.split('"'):
-                      if ".mp4" in ks:
-                        HS.append(ks)
-                      if ".m3u8" in ks:
-                        OS.append(ks)
-                      if "hlsurl" in ks:
-                        NS.append(ks)
-                    try:
-                      ssampleurl = HS[0]
-                      url = "https://llvod.mxplay.com/" + OS[0]
-                    except IndexError:
-                      try:
-                        sample2url = NS[0]
-                        url = OS[0]
-                      except IndexError:
-                        await update.reply_text("🔒 DRM Protected...!")
-                        return
-              elif "live-tv" or "music-online" in u:
-                 await update.reply_text("😐 Now only Support Movies & Shows...!")
-                 return
-            elif "tamilyogi" in u:
-                 ty1 = requests.get(u)
-                 ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
-                 ty3 = ty2.find_all("iframe")[1]['src']
-                 url = ty3
             elif "http" in u:
                  await update.reply_text("😐 Unsupported URL...!")
                  return
