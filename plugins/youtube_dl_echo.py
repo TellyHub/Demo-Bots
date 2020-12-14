@@ -136,6 +136,7 @@ async def echo(bot, update):
                       parse_mode="html",
                       disable_web_page_preview=True
                  )
+                 Config.ONE_BY_ONE.remove(update.from_user.id)
                  return
               elif "tvshows" or "originals" in u:
                  req1 = requests.get("https://useraction.zee5.com/tokennd").json()
@@ -172,6 +173,7 @@ async def echo(bot, update):
                  description = r1["description"]
             elif "http" in u:
                  await update.reply_text("😐 Unsupported URL...!")
+                 Config.ONE_BY_ONE.remove(update.from_user.id)
                  return
             if "|" in update.text:
                 file_name = ul_parts[1]
@@ -260,6 +262,7 @@ async def echo(bot, update):
                     parse_mode="html",
                     disable_web_page_preview=True
                 )
+                Config.ONE_BY_ONE.remove(update.from_user.id)
                 return False
             if t_response:
                 # logger.info(t_response)
