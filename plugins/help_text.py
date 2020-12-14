@@ -179,11 +179,11 @@ async def me(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
     input_hrs = datetime.strptime(Config.BOT_START_TIME, '%Y-%m-%d %H:%M:%S.%f').strftime('%H')
-            input_mins = datetime.strptime(Config.BOT_START_TIME, '%Y-%m-%d %H:%M:%S.%f').strftime('%M')
-            # Formula for total remaining minutes 
-            # = 1440 - 60h - m 
-            totalMin = 1440 - 60 * input_hrs - input_mins
-            remain_time = "{} Hrs {} Mins".format(totalMin // 60, totalMin % 60)
+    input_mins = datetime.strptime(Config.BOT_START_TIME, '%Y-%m-%d %H:%M:%S.%f').strftime('%M')
+    # Formula for total remaining minutes 
+    # = 1440 - 60h - m 
+    totalMin = 1440 - 60 * input_hrs - input_mins
+    remain_time = "{} Hrs {} Mins".format(totalMin // 60, totalMin % 60)
     for users in b_json["users"]:
           user = users.get("user_id")
           total_req = users.get("total_req")
