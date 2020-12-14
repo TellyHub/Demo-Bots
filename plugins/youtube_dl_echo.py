@@ -59,11 +59,11 @@ async def echo(bot, update):
       if update.from_user.id in Config.ONE_BY_ONE:
         for users in b_json["users"]:
           user = users.get("user_id")
-          exp_req = users.get("last_request_at")
+          exp_req = users.get("exp_req")
           if int(update.from_user.id) == int(user):
-            #if datetime.strptime(last_req, '%Y-%m-%d %H:%M:%S.%f') < datetime.now():
-            await update.reply_text("😴 Please wait {} for next process.".format(datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f').strftime('%H Hours %M Minutes %S Seconds')))
-            return
+            if datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f') > datetime.now():
+              await update.reply_text("😴 Please wait {} for next process.".format(datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f').strftime('%H Hours %M Minutes %S Seconds')))
+              return
       else:
             Config.ONE_BY_ONE.append(update.from_user.id)
             if not update.from_user.id in Config.TODAY_USERS:
@@ -137,7 +137,6 @@ async def echo(bot, update):
                       parse_mode="html",
                       disable_web_page_preview=True
                  )
-                 Config.ONE_BY_ONE.remove(update.from_user.id)
                  return
               elif "tvshows" or "originals" in u:
                  req1 = requests.get("https://useraction.zee5.com/tokennd").json()
@@ -174,7 +173,6 @@ async def echo(bot, update):
                  description = r1["description"]
             elif "http" in u:
                  await update.reply_text("😐 Unsupported URL...!")
-                 Config.ONE_BY_ONE.remove(update.from_user.id)
                  return
             if "|" in update.text:
                 file_name = ul_parts[1]
@@ -263,7 +261,6 @@ async def echo(bot, update):
                     parse_mode="html",
                     disable_web_page_preview=True
                 )
-                Config.ONE_BY_ONE.remove(update.from_user.id)
                 return False
             if t_response:
                 # logger.info(t_response)
