@@ -67,7 +67,8 @@ async def echo(bot, update):
       else:
             if not update.from_user.id in Config.TODAY_USERS:
                Config.TODAY_USERS.append(update.from_user.id)
-               exp_req = datetime.now() + timedelta(hours=int(2))
+               exp_date = datetime.now()
+               exp_req = exp_date + timedelta(hours=int(2))
                b_json["users"].append({
                  "user_id": "{}".format(update.from_user.id),
                  "total_req": int(0),
