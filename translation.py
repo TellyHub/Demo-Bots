@@ -1,9 +1,9 @@
 class Translation(object):
     START_TEXT = """<b>Hai...!</b>
     
-<i>This is a Premium URL Upload Bot!</i>
+<i>This is a Zee5 URL Upload Bot!</i>
 
-<i>Please send me any Streaming (URL) Link from <a href=https://t.me/super_botz_support/4154>Supported sites</a>, Then I will upload to Telegram as File/Video or Team Drive.</i>
+<i>Please send me any Zee5 Streaming (URL) Link, Then I will upload to Telegram as File/Video or Team Drive.</i>
 
 ℹ️Help <i>for more details...</i>
 
@@ -43,11 +43,12 @@ class Translation(object):
     CURENT_PLAN_DETAILS = """Current plan details
 --------
 Telegram ID: <code>{}</code>
-Plan : {}
-Expires on: {}"""
+Plan : Free
+Remaining Requests : {}
+Requests will be renewed at {}"""
     HELP_USER = """<b>How to use me?</b>
     
-Send Streaming (URL) link from <a href=https://t.me/super_botz_support/4154>Supported sites</a>.
+Send Streaming (URL) link from <a href=https://www.zee5.com/>Zee5 website</a>.
    
    <b>Example: (Without Custom File Name)</b>
        <code>https://www.zee5.com/tvshows/details/sathya/0-6-1339/sathya-september-29-2020-trailer/0-1-323703</code>
