@@ -69,10 +69,11 @@ async def echo(bot, update):
                Config.TODAY_USERS.append(update.from_user.id)
                exp_date = datetime.now()
                exp_req = exp_date + timedelta(hours=int(2))
+               fir = 0
                b_json["users"].append({
                  "user_id": "{}".format(update.from_user.id),
-                 "total_req": int(0),
-                 "exp_req": exp_req
+                 "total_req": "{}".format(fir),
+                 "exp_req": "{}".format(exp_req)
                })
                with open("backup.json", "w", encoding="utf8") as outfile:
                        json.dump(b_json, outfile, ensure_ascii=False)
