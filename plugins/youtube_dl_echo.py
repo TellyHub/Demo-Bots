@@ -38,7 +38,7 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 from helper_funcs.display_progress import humanbytes
 from helper_funcs.help_uploadbot import DownLoadFile
 from pyrogram import InlineKeyboardButton, InlineKeyboardMarkup
-from datetime import datetime
+from datetime import datetime, timedelta
 headers = {
     "User-Agent":"Mozilla/5.0 (Windows NT 6.1; rv:80.0) Gecko/20100101 Firefox/80.0",
     "Referer":"https://www.zee5.com",
