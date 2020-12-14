@@ -54,21 +54,19 @@ headers = {
 
 @pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
-      for users in Config.BOTDB.find():
+      
+      with open("backup.json", "r", encoding="utf8") as f:
+            b_json = json.load(f)
+      for users in b_json["users"]:
           user = users.get("user_id")
-          plan = users.get("plan_name")
-          paid = users.get("paid_on")
-          exp = users.get("expire_on")
+          total_req = users.get("total_requests")
+          last_req = users.get("last_request_at")
           if int(update.from_user.id) == int(user):
-            if datetime.strptime(exp, '%Y-%m-%d %H:%M:%S.%f') < datetime.now():
+            if datetime.strptime(last_req, '%Y-%m-%d %H:%M:%S.%f') < datetime.now():
               await update.reply_text("Plan Expired!\n\nPlease upgrade to continue...")
-              to_be_deleted = {
-                "user_id": "{}".format(user),
-                "plan_name": "{}".format(plan),
-                "paid_on": "{}".format(paid),
-                "expire_on": '{}'.format(exp)
-              }
-              Config.BOTDB.delete_one(to_be_deleted)
+              b_json["users"].pop(user_li - 1)
+              with open("backup.json", "w", encoding="utf8") as outfile:
+                   json.dump(b_json, outfile, ensure_ascii=False)
               return
             try:
                 await bot.get_chat_member(
