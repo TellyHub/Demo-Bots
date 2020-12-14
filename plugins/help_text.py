@@ -58,11 +58,6 @@ async def help_user(bot, update):
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["start"]))
 async def start(bot, update):
-    for users in Config.BOTDB.find():
-          user = users.get("user_id")
-          plan = users.get("plan_name")
-          exp = users.get("expire_on")
-          if int(update.chat.id) == int(user):
             await bot.send_message(
                 chat_id=update.chat.id,
                 text=Translation.START_TEXT,
@@ -80,27 +75,14 @@ async def start(bot, update):
                     ]
                 )
             )
-            return
-    await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
-    return
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["bugs"]))
 async def bugs(bot, update):
-    for users in Config.BOTDB.find():
-          user = users.get("user_id")
-          plan = users.get("plan_name")
-          exp = users.get("expire_on")
-          if int(update.chat.id) == int(user):
             await bot.send_message(
                 chat_id=update.chat.id,
                 text=Translation.TODO,
                 reply_to_message_id=update.message_id
             )
-            return
-    else:
-      await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
-      return
-
 
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["upgrade"]))
@@ -194,20 +176,37 @@ async def errorformat(bot, update):
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["me"]))
 async def me(bot, update):
-    for users in Config.BOTDB.find():
+    with open("backup.json", "r", encoding="utf8") as f:
+            b_json = json.load(f)
+    input_hrs = datetime.strptime(Config.BOT_START_TIME, '%Y-%m-%d %H:%M:%S.%f').strftime('%H')
+            input_mins = datetime.strptime(Config.BOT_START_TIME, '%Y-%m-%d %H:%M:%S.%f').strftime('%M')
+            # Formula for total remaining minutes 
+            # = 1440 - 60h - m 
+            totalMin = 1440 - 60 * input_hrs - input_mins
+            remain_time = "{} Hrs {} Mins".format(totalMin // 60, totalMin % 60)
+    for users in b_json["users"]:
           user = users.get("user_id")
-          plan = users.get("plan_name")
-          exp = users.get("expire_on")
+          total_req = users.get("total_req")
+          exp_req = users.get("exp_req")
           if int(update.chat.id) == int(user):
             await bot.send_message(
               chat_id=update.chat.id,
-              text=Translation.CURENT_PLAN_DETAILS.format(user, plan, datetime.strptime(exp, '%Y-%m-%d %H:%M:%S.%f').strftime('%d/%m/%Y')),
+              text=Translation.CURENT_PLAN_DETAILS.format(user, 3 - total_req, remain_time),
               parse_mode="html",
               disable_web_page_preview=True,
               reply_to_message_id=update.message_id
             )
             return
-    await update.reply_text("🤑 Only Paid Users can use me.\n/upgrade to see Plans and Payment method")
+    user = update.from_user.id
+    total_req = 0
+    await bot.send_message(
+              chat_id=update.chat.id,
+              text=Translation.CURENT_PLAN_DETAILS.format(user, 3 - total_req, remain_time),
+              parse_mode="html",
+              disable_web_page_preview=True,
+              reply_to_message_id=update.message_id
+            )
+    return
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["resetsession"]))
 async def resetsession(bot, update):
