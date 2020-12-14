@@ -54,16 +54,32 @@ headers = {
 
 @pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
-      
       with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
-      for users in b_json["users"]:
+      if update.from_user.id in Config.ONE_BY_ONE:
+        for users in b_json["users"]:
+          user = users.get("user_id")
+          exp_req = users.get("last_request_at")
+          if int(update.from_user.id) == int(user):
+            #if datetime.strptime(last_req, '%Y-%m-%d %H:%M:%S.%f') < datetime.now():
+            await update.reply_text("😴 Please wait {} for next process.".format(datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f').strftime('%H Hours %M Minutes %S Seconds'))
+            return
+      else:
+        if not update.from_user.id in Config.today_users:
+           b_json["users"].append({
+             "user_id": "{}".format(update.from_user.id),
+             "exp_re": "{}".format(act_plan),
+             "paid_on": "{}".format(paid_date),
+             "expire_on": '{}'.format(expiry_date)
+           })
+        for users in b_json["users"]:
           user = users.get("user_id")
           total_req = users.get("total_requests")
-          last_req = users.get("last_request_at")
           if int(update.from_user.id) == int(user):
-            if datetime.strptime(last_req, '%Y-%m-%d %H:%M:%S.%f') < datetime.now():
-              await update.reply_text("Plan Expired!\n\nPlease upgrade to continue...")
+            if total_req > 3:
+              await update.reply_text("😴 You reached per day limit. send /me to know renew time.")
+              return
+        
               b_json["users"].pop(user_li - 1)
               with open("backup.json", "w", encoding="utf8") as outfile:
                    json.dump(b_json, outfile, ensure_ascii=False)
