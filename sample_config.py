@@ -27,6 +27,4 @@ class Config(object):
     BOT_START_TIME = time.time()
     TG_MAX_FILE_SIZE = 2097152000
     DEF_WATER_MARK_FILE = ""
-    myclient = pymongo.MongoClient("mongodb+srv://admin:admin@cluster0.uwnjv.mongodb.net/<dbname>?retryWrites=true&w=majority")
-    mydb = myclient["mydatabase"]
-    BOTDB = mydb["customers"]
+    ONE_BY_ONE = []
