@@ -178,8 +178,8 @@ async def errorformat(bot, update):
 async def me(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
-    input_hrs = time.strftime("%H", time.gmtime(time.time()))
-    input_mins = time.strftime("%M", time.gmtime(time.time()))
+    input_hrs = time.strftime("%H", time.gmtime(time.time() - Config.BOT_START_TIME))
+    input_mins = time.strftime("%M", time.gmtime(time.time() - Config.BOT_START_TIME))
     # Formula for total remaining minutes 
     # = 1440 - 60h - m 
     totalMin = 1440 - 60 * int(input_hrs) - int(input_mins)
