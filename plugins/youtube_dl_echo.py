@@ -65,8 +65,8 @@ async def echo(bot, update):
             await update.reply_text("😴 Please wait {} for next process.".format(datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f').strftime('%H Hours %M Minutes %S Seconds'))
             return
       else:
-            if not update.from_user.id in Config.today_users:
-               Config.today_users.append(update.from_user.id)
+            if not update.from_user.id in Config.TODAY_USERS:
+               Config.TODAY_USERS.append(update.from_user.id)
                b_json["users"].append({
                  "user_id": "{}".format(update.from_user.id),
                  "total_req": int(0),
