@@ -43,9 +43,9 @@ class Translation(object):
     CURENT_PLAN_DETAILS = """Current plan details
 --------
 Telegram ID: <code>{}</code>
-Plan : Free
-Remaining Requests : {}
-Requests will be renewed at {}"""
+Plan : <code>Free</code>
+Remaining Requests : <code>{}</code>
+Requests will be renewed in <code>{}</code>"""
     HELP_USER = """<b>How to use me?</b>
     
 Send Streaming (URL) link from <a href=https://www.zee5.com/>Zee5 website</a>.
