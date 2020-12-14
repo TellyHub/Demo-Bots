@@ -65,6 +65,7 @@ async def echo(bot, update):
             await update.reply_text("😴 Please wait {} for next process.".format(datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f').strftime('%H Hours %M Minutes %S Seconds')))
             return
       else:
+            Config.ONE_BY_ONE.append(update.from_user.id)
             if not update.from_user.id in Config.TODAY_USERS:
                Config.TODAY_USERS.append(update.from_user.id)
                exp_date = datetime.now()
