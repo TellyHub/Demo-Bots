@@ -63,7 +63,7 @@ async def echo(bot, update):
           if int(update.from_user.id) == int(user):
             if datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f') > datetime.now():
               rem = datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f') - datetime.now()
-              await update.reply_text("😴 Please wait {} for next process.".format(datetime.strptime(rem, '%Y-%m-%d %H:%M:%S.%f').strftime('%H Hours %M Minutes %S Seconds')))
+              await update.reply_text("😴 Please wait {} for next process.".format(datetime.strptime(rem, '%Y-%m-%d %H:%M:%S.%f').strftime('%H Hrs %M Mins %S Sec')))
               return
       else:
             Config.ONE_BY_ONE.append(update.from_user.id)
