@@ -80,7 +80,7 @@ async def echo(bot, update):
             user_count = 0
             for users in b_json["users"]:
               user = users.get("user_id")
-              total_req = users.get("total_requests")
+              total_req = users.get("total_req")
               user_count = user_count + 1
               if int(update.from_user.id) == int(user):
                if total_req > 3:
