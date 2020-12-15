@@ -108,6 +108,15 @@ async def echo(bot, update):
                     reply_to_message_id=update.message_id,
                     reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text = '✅ Updates Channel', url = "https://t.me/Super_botz")]])
                 )
+                Config.ONE_BY_ONE.remove(update.from_user.id)
+                b_json["users"].pop(user_count - 1)
+                b_json["users"].append({
+                     "user_id": "{}".format(update.from_user.id),
+                     "total_req": "{}".format(int(total_req) - 1),
+                     "exp_req": "{}".format(datetime.now())
+                })
+                with open("backup.json", "w", encoding="utf8") as outfile:
+                      json.dump(b_json, outfile, ensure_ascii=False)
                 return
             if update.from_user.id in Config.BANNED_USERS:
                 await update.reply_text("You are B A N N E D")
@@ -138,6 +147,14 @@ async def echo(bot, update):
                       disable_web_page_preview=True
                  )
                  Config.ONE_BY_ONE.remove(update.from_user.id)
+                 b_json["users"].pop(user_count - 1)
+                 b_json["users"].append({
+                      "user_id": "{}".format(update.from_user.id),
+                      "total_req": "{}".format(int(total_req) - 1),
+                      "exp_req": "{}".format(datetime.now())
+                 })
+                 with open("backup.json", "w", encoding="utf8") as outfile:
+                       json.dump(b_json, outfile, ensure_ascii=False)
                  return
               elif "tvshows" or "originals" in u:
                  req1 = requests.get("https://useraction.zee5.com/tokennd").json()
@@ -175,6 +192,14 @@ async def echo(bot, update):
             elif "http" in u:
                  await update.reply_text("😐 Unsupported URL...!")
                  Config.ONE_BY_ONE.remove(update.from_user.id)
+                 b_json["users"].pop(user_count - 1)
+                 b_json["users"].append({
+                      "user_id": "{}".format(update.from_user.id),
+                      "total_req": "{}".format(int(total_req) - 1),
+                      "exp_req": "{}".format(datetime.now())
+                 })
+                 with open("backup.json", "w", encoding="utf8") as outfile:
+                       json.dump(b_json, outfile, ensure_ascii=False)
                  return
             if "|" in update.text:
                 file_name = ul_parts[1]
@@ -264,6 +289,14 @@ async def echo(bot, update):
                     disable_web_page_preview=True
                 )
                 Config.ONE_BY_ONE.remove(update.from_user.id)
+                b_json["users"].pop(user_count - 1)
+                b_json["users"].append({
+                     "user_id": "{}".format(update.from_user.id),
+                     "total_req": "{}".format(int(total_req) - 1),
+                     "exp_req": "{}".format(datetime.now())
+                })
+            with open("backup.json", "w", encoding="utf8") as outfile:
+                  json.dump(b_json, outfile, ensure_ascii=False)
                 return False
             if t_response:
                 # logger.info(t_response)
