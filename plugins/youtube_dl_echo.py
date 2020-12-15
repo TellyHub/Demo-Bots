@@ -109,10 +109,11 @@ async def echo(bot, update):
                     reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text = '✅ Updates Channel', url = "https://t.me/Super_botz")]])
                 )
                 Config.ONE_BY_ONE.remove(update.from_user.id)
+                total_req_get = total_req
                 b_json["users"].pop(user_count - 1)
                 b_json["users"].append({
                      "user_id": "{}".format(update.from_user.id),
-                     "total_req": "{}".format(int(total_req) - 1),
+                     "total_req": "{}".format(int(total_req_get) - 1),
                      "exp_req": "{}".format(datetime.now())
                 })
                 with open("backup.json", "w", encoding="utf8") as outfile:
@@ -148,10 +149,11 @@ async def echo(bot, update):
                       disable_web_page_preview=True
                  )
                  Config.ONE_BY_ONE.remove(update.from_user.id)
+                 total_req_get = total_req
                  b_json["users"].pop(user_count - 1)
                  b_json["users"].append({
                       "user_id": "{}".format(update.from_user.id),
-                      "total_req": "{}".format(int(total_req) - 1),
+                      "total_req": "{}".format(int(total_req_get) - 1),
                       "exp_req": "{}".format(datetime.now())
                  })
                  with open("backup.json", "w", encoding="utf8") as outfile:
@@ -193,10 +195,11 @@ async def echo(bot, update):
              except KeyError:
                  await update.reply_text("🙄 Unable to find video, Please Send me a valid zee5 streaming link")
                  Config.ONE_BY_ONE.remove(update.from_user.id)
+                 total_req_get = total_req
                  b_json["users"].pop(user_count - 1)
                  b_json["users"].append({
                       "user_id": "{}".format(update.from_user.id),
-                      "total_req": "{}".format(int(total_req) - 1),
+                      "total_req": "{}".format(int(total_req_get) - 1),
                       "exp_req": "{}".format(datetime.now())
                  })
                  with open("backup.json", "w", encoding="utf8") as outfile:
@@ -205,10 +208,11 @@ async def echo(bot, update):
             elif "http" in u:
                  await update.reply_text("😐 Unsupported URL...!")
                  Config.ONE_BY_ONE.remove(update.from_user.id)
+                 total_req_get = total_req
                  b_json["users"].pop(user_count - 1)
                  b_json["users"].append({
                       "user_id": "{}".format(update.from_user.id),
-                      "total_req": "{}".format(int(total_req) - 1),
+                      "total_req": "{}".format(int(total_req_get) - 1),
                       "exp_req": "{}".format(datetime.now())
                  })
                  with open("backup.json", "w", encoding="utf8") as outfile:
@@ -302,10 +306,11 @@ async def echo(bot, update):
                     disable_web_page_preview=True
                 )
                 Config.ONE_BY_ONE.remove(update.from_user.id)
+                total_req_get = total_req
                 b_json["users"].pop(user_count - 1)
                 b_json["users"].append({
                      "user_id": "{}".format(update.from_user.id),
-                     "total_req": "{}".format(int(total_req) - 1),
+                     "total_req": "{}".format(int(total_req_get) - 1),
                      "exp_req": "{}".format(datetime.now())
                 })
                 with open("backup.json", "w", encoding="utf8") as outfile:
