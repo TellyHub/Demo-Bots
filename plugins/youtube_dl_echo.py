@@ -113,7 +113,7 @@ async def echo(bot, update):
                 b_json["users"].pop(user_count - 1)
                 b_json["users"].append({
                      "user_id": "{}".format(update.from_user.id),
-                     "total_req": "{}".format(int(total_req_get) - 1),
+                     "total_req": "{}".format(int(total_req_get)),
                      "exp_req": "{}".format(datetime.now())
                 })
                 with open("backup.json", "w", encoding="utf8") as outfile:
@@ -153,7 +153,7 @@ async def echo(bot, update):
                  b_json["users"].pop(user_count - 1)
                  b_json["users"].append({
                       "user_id": "{}".format(update.from_user.id),
-                      "total_req": "{}".format(int(total_req_get) - 1),
+                      "total_req": "{}".format(int(total_req_get)),
                       "exp_req": "{}".format(datetime.now())
                  })
                  with open("backup.json", "w", encoding="utf8") as outfile:
@@ -199,7 +199,7 @@ async def echo(bot, update):
                  b_json["users"].pop(user_count - 1)
                  b_json["users"].append({
                       "user_id": "{}".format(update.from_user.id),
-                      "total_req": "{}".format(int(total_req_get) - 1),
+                      "total_req": "{}".format(int(total_req_get)),
                       "exp_req": "{}".format(datetime.now())
                  })
                  with open("backup.json", "w", encoding="utf8") as outfile:
@@ -212,7 +212,7 @@ async def echo(bot, update):
                  b_json["users"].pop(user_count - 1)
                  b_json["users"].append({
                       "user_id": "{}".format(update.from_user.id),
-                      "total_req": "{}".format(int(total_req_get) - 1),
+                      "total_req": "{}".format(int(total_req_get)),
                       "exp_req": "{}".format(datetime.now())
                  })
                  with open("backup.json", "w", encoding="utf8") as outfile:
@@ -310,7 +310,7 @@ async def echo(bot, update):
                 b_json["users"].pop(user_count - 1)
                 b_json["users"].append({
                      "user_id": "{}".format(update.from_user.id),
-                     "total_req": "{}".format(int(total_req_get) - 1),
+                     "total_req": "{}".format(int(total_req_get)),
                      "exp_req": "{}".format(datetime.now())
                 })
                 with open("backup.json", "w", encoding="utf8") as outfile:
