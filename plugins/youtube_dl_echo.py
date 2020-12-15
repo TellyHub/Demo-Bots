@@ -295,8 +295,8 @@ async def echo(bot, update):
                      "total_req": "{}".format(int(total_req) - 1),
                      "exp_req": "{}".format(datetime.now())
                 })
-            with open("backup.json", "w", encoding="utf8") as outfile:
-                  json.dump(b_json, outfile, ensure_ascii=False)
+                with open("backup.json", "w", encoding="utf8") as outfile:
+                      json.dump(b_json, outfile, ensure_ascii=False)
                 return False
             if t_response:
                 # logger.info(t_response)
