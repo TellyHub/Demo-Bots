@@ -40,12 +40,14 @@ class Translation(object):
     NO_CUSTOM_THUMB_NAIL_FOUND = "No Custom ThumbNail found."
     NO_VOID_FORMAT_FOUND = "ERROR...\n<b>PremiumSBBot</b> said: {}"
     USER_ADDED_TO_DB = "User <a href='tg://user?id={}'>{}</a> added to {} till {}."
-    CURENT_PLAN_DETAILS = """Current plan details
+    CURENT_PLAN_DETAILS = """<b>Current plan details</b>
 --------
 Telegram ID: <code>{}</code>
 Plan : <code>Free</code>
 Remaining Requests : <code>{}</code>
-Requests will be renewed in <code>{}</code>"""
+Requests will be renewed in <code>{}</code>
+
+Send /upgrade to know Plan details and payment methods."""
     HELP_USER = """<b>How to use me?</b>
     
 Send Streaming (URL) link from <a href=https://www.zee5.com/>Zee5 website</a>.
