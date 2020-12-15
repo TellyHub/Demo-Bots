@@ -54,18 +54,17 @@ headers = {
 
 @pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
-      with open("backup.json", "r", encoding="utf8") as f:
-            b_json = json.load(f)
-      if update.from_user.id in Config.ONE_BY_ONE:
-        for users in b_json["users"]:
-          user = users.get("user_id")
-          exp_req = users.get("exp_req")
-          if int(update.from_user.id) == int(user):
-            if datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f') > datetime.now():
-              rem = datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f') - datetime.now()
-              await update.reply_text("😴 Please wait {} for next process.".format(datetime.strptime(str(rem), '%H:%M:%S.%f').strftime('%H Hrs %M Mins %S Sec')))
-              return
-      else:
+            with open("backup.json", "r", encoding="utf8") as f:
+                  b_json = json.load(f)
+            if update.from_user.id in Config.ONE_BY_ONE:
+              for users in b_json["users"]:
+                user = users.get("user_id")
+                exp_req = users.get("exp_req")
+                if int(update.from_user.id) == int(user):
+                  if datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f') > datetime.now():
+                    rem = datetime.strptime(exp_req, '%Y-%m-%d %H:%M:%S.%f') - datetime.now()
+                    await update.reply_text("😴 Please wait {} for next process.".format(datetime.strptime(str(rem), '%H:%M:%S.%f').strftime('%H Hrs %M Mins %S Sec')))
+                    return
             Config.ONE_BY_ONE.append(update.from_user.id)
             if not update.from_user.id in Config.TODAY_USERS:
                Config.TODAY_USERS.append(update.from_user.id)
