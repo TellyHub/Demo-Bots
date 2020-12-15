@@ -138,7 +138,8 @@ async def echo(bot, update):
                ul_parts = ul_part.split("|")
                u = ul_parts[0]
             if "zee5" in u:
-              if "zee5vodnd.akamaized.net" in u:
+             try:
+              if "zee5vodnd" in u:
                  await bot.send_message(
                       chat_id=update.chat.id,
                       text=Translation.INVALID_URL,
@@ -189,6 +190,18 @@ async def echo(bot, update):
                  thumb = r1["image_url"]
                  duration = r1["duration"]
                  description = r1["description"]
+             except KeyError:
+                 await update.reply_text("🙄 Unable to find video, Please Send me a valid zee5 streaming link")
+                 Config.ONE_BY_ONE.remove(update.from_user.id)
+                 b_json["users"].pop(user_count - 1)
+                 b_json["users"].append({
+                      "user_id": "{}".format(update.from_user.id),
+                      "total_req": "{}".format(int(total_req) - 1),
+                      "exp_req": "{}".format(datetime.now())
+                 })
+                 with open("backup.json", "w", encoding="utf8") as outfile:
+                       json.dump(b_json, outfile, ensure_ascii=False)
+                 return
             elif "http" in u:
                  await update.reply_text("😐 Unsupported URL...!")
                  Config.ONE_BY_ONE.remove(update.from_user.id)
