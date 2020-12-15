@@ -294,8 +294,6 @@ async def echo(bot, update):
                             "video", format_id, format_ext)
                         cb_string_file = "{}|{}|{}".format(
                             "file", format_id, format_ext)
-                        cb_string_td = "{}|{}|{}".format(
-                            "gdrive", format_id, format_ext)
                         if format_string is not None and not "audio only" in format_string:
                             ikeyboard = [
                                 pyrogram.InlineKeyboardButton(
@@ -305,10 +303,6 @@ async def echo(bot, update):
                                 pyrogram.InlineKeyboardButton(
                                     "📂 File",
                                     callback_data=(cb_string_file).encode("UTF-8")
-                                ),
-                                pyrogram.InlineKeyboardButton(
-                                    "📥 GDrive ",
-                                    callback_data=(cb_string_td).encode("UTF-8")
                                 )
                             ]
                             """if duration is not None:
@@ -330,10 +324,6 @@ async def echo(bot, update):
                                 ),
                                 pyrogram.InlineKeyboardButton(
                                     "📂 - File",
-                                    callback_data="ferror"
-                                ),
-                                pyrogram.InlineKeyboardButton(
-                                    "📥 - GDrive",
                                     callback_data="ferror"
                                 )
                             ]
