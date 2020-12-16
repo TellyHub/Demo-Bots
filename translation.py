@@ -1,9 +1,9 @@
 class Translation(object):
     START_TEXT = """<b>Hai...!</b>
     
-<i>This is a Zee5 URL Upload Bot!</i>
+<i>This is a Mx-Player URL Upload Bot!</i>
 
-<i>Please send me any Zee5 Streaming (URL) Link, Then I will upload to Telegram as File/Video or Team Drive.</i>
+<i>Please send me any Mx-Player Streaming (URL) Link, Then I will upload to Telegram as File/Video.</i>
 
 ℹ️Help <i>for more details...</i>
 
@@ -21,7 +21,7 @@ class Translation(object):
       ℹ️ PhonePe UPI ID    : <code>cvatricks@ybl</code>
       
 <i>3️⃣ Send payment completed Screenshot to @payment_validator_bot</i>"""
-    FORMAT_SELECTION = "🎞 - Telegram Video\n\n📁 - Telegram File\n\n📥 - Team Drive\n\nIf you want to set custom thumbnail, send photo before or quickly after tapping on any of the below buttons.\n\nYou can use /deletethumbnail to delete the auto-generated thumbnail."
+    FORMAT_SELECTION = "🎞 - Telegram Video\n\n📁 - Telegram File\n\nIf you want to set custom thumbnail, send photo before or quickly after tapping on any of the below buttons.\n\nYou can use /deletethumbnail to delete the auto-generated thumbnail."
     SET_CUSTOM_USERNAME_PASSWORD = " "
     NOYES_URL = "URL detected. Please use https://shrtz.me/PtsVnf6 and get me a fast URL so that I can upload to Telegram, without me slowing down for other users."
     DOWNLOAD_START = "📥 Downloading... ⏳"
@@ -50,13 +50,13 @@ Requests will be renewed in <code>{}</code>
 Send /upgrade to know Plan details and payment methods."""
     HELP_USER = """<b>How to use me?</b>
     
-Send Streaming (URL) link from <a href=https://www.zee5.com/>Zee5 website</a>.
+Send Streaming (URL) link from <a href=https://www.mxplayer.in/>Mx-Player website</a>.
    
    <b>Example: (Without Custom File Name)</b>
-       <code>https://www.zee5.com/tvshows/details/sathya/0-6-1339/sathya-september-29-2020-trailer/0-1-323703</code>
+       <code>https://www.mxplayer.in/movie/watch-doctor-love-movie-online-05d4c06a2f96eae0ec707e8b8fa33cc4?utm_source=mx_android_share</code>
        
    <b>Example: (With Custom File Name)</b>
-       <code>https://www.zee5.com/tvshows/details/sathya/0-6-1339/sathya-september-29-2020-trailer/0-1-323703|Sathya_September_29_Trailer</code>
+       <code>https://www.mxplayer.in/movie/watch-doctor-love-movie-online-05d4c06a2f96eae0ec707e8b8fa33cc4?utm_source=mx_android_share|Doctor_Love_Full_Movie</code>
    
 </i>
 --------
