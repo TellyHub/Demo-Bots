@@ -3,7 +3,7 @@ class Translation(object):
     
 <i>This is a Zee5 URL Upload Bot!</i>
 
-<i>Please send me any Zee5 Streaming (URL) Link, Then I will upload to Telegram as File/Video or Team Drive.</i>
+<i>Please send me any Zee5 Streaming (URL) Link, Then I will upload to Telegram as File/Video.</i>
 
 ℹ️Help <i>for more details...</i>
 
@@ -21,7 +21,7 @@ class Translation(object):
       ℹ️ PhonePe UPI ID    : <code>cvatricks@ybl</code>
       
 <i>3️⃣ Send payment completed Screenshot to @payment_validator_bot</i>"""
-    FORMAT_SELECTION = "🎞 - Telegram Video\n\n📁 - Telegram File\n\n📥 - Team Drive\n\nIf you want to set custom thumbnail, send photo before or quickly after tapping on any of the below buttons.\n\nYou can use /deletethumbnail to delete the auto-generated thumbnail."
+    FORMAT_SELECTION = "🎞 - Telegram Video\n\n📁 - Telegram File\n\nIf you want to set custom thumbnail, send photo before or quickly after tapping on any of the below buttons.\n\nYou can use /deletethumbnail to delete the auto-generated thumbnail."
     SET_CUSTOM_USERNAME_PASSWORD = " "
     NOYES_URL = "URL detected. Please use https://shrtz.me/PtsVnf6 and get me a fast URL so that I can upload to Telegram, without me slowing down for other users."
     DOWNLOAD_START = "📥 Downloading... ⏳"
