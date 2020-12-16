@@ -301,7 +301,7 @@ async def echo(bot, update):
                        json.dump(b_json, outfile, ensure_ascii=False)
                  return
              except KeyError:
-                 await update.reply_text("🙄 Unable to find video, Please Send me a valid zee5 streaming link")
+                 await update.reply_text("🙄 Unable to find video, Please Send me a valid Mx-Player streaming link")
                  Config.ONE_BY_ONE.remove(update.from_user.id)
                  total_req_get = total_req
                  b_json["users"].pop(user_count - 1)
