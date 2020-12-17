@@ -1,7 +1,7 @@
 class Translation(object):
     START_TEXT = """<b>Hai...!</b>
     
-<i>This is a Mx-Player URL Upload Bot!</i>
+<i>This is a TamilYogi URL Upload Bot!</i>
 
 <i>Please send me any TamilYogi Streaming (URL) Link, Then I will upload to Telegram as File/Video.</i>
 
