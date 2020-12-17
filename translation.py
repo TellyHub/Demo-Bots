@@ -3,7 +3,7 @@ class Translation(object):
     
 <i>This is a Mx-Player URL Upload Bot!</i>
 
-<i>Please send me any Mx-Player Streaming (URL) Link, Then I will upload to Telegram as File/Video.</i>
+<i>Please send me any TamilYogi Streaming (URL) Link, Then I will upload to Telegram as File/Video.</i>
 
 ℹ️Help <i>for more details...</i>
 
@@ -50,13 +50,13 @@ Requests will be renewed in <code>{}</code>
 Send /upgrade to know Plan details and payment methods."""
     HELP_USER = """<b>How to use me?</b>
     
-Send Streaming (URL) link from <a href=https://www.mxplayer.in/>Mx-Player website</a>.
+Send Streaming (URL) link from <a href=https://www.tamilyogi.cool/>TamilYogi website</a>.
    
    <b>Example: (Without Custom File Name)</b>
-       <code>https://www.mxplayer.in/movie/watch-doctor-love-movie-online-05d4c06a2f96eae0ec707e8b8fa33cc4?utm_source=mx_android_share</code>
+       <code>http://tamilyogi.cool/devi-2016-hd-720p-tamil-movie-watch-online</code>
        
    <b>Example: (With Custom File Name)</b>
-       <code>https://www.mxplayer.in/movie/watch-doctor-love-movie-online-05d4c06a2f96eae0ec707e8b8fa33cc4?utm_source=mx_android_share|Doctor_Love_Full_Movie</code>
+       <code>http://tamilyogi.cool/devi-2016-hd-720p-tamil-movie-watch-online|Devi_Full_Movie_Tamil</code>
    
 </i>
 --------
