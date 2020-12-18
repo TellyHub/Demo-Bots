@@ -1,9 +1,9 @@
 class Translation(object):
     START_TEXT = """<b>Hai...!</b>
     
-<i>This is a TamilYogi URL Upload Bot!</i>
+<i>This is a Aha URL Upload Bot!</i>
 
-<i>Please send me any TamilYogi Streaming (URL) Link, Then I will upload to Telegram as File/Video.</i>
+<i>Please send me any Aha Streaming (URL) Link, Then I will upload to Telegram as File/Video.</i>
 
 ℹ️Help <i>for more details...</i>
 
@@ -50,7 +50,7 @@ Requests will be renewed in <code>{}</code>
 Send /upgrade to know Plan details and payment methods."""
     HELP_USER = """<b>How to use me?</b>
     
-Send Streaming (URL) link from <a href=https://www.tamilyogi.cool/>TamilYogi website</a>.
+Send Streaming (URL) link from <a href=https://www.aha.video/>Aha website</a>.
    
    <b>Example: (Without Custom File Name)</b>
        <code>http://tamilyogi.cool/devi-2016-hd-720p-tamil-movie-watch-online</code>
