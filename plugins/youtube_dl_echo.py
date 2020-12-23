@@ -366,7 +366,8 @@ async def echo(bot, update):
                                             cb_string_video_message).encode("UTF-8")
                                     )
                                 )"""
-                        #else:
+                        else:
+                             ikeyboard = []
                         #    # special weird case :\
                         #    ikeyboard = [
                         #        pyrogram.InlineKeyboardButton(
