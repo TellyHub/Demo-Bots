@@ -101,16 +101,7 @@ async def youtube_dl_call_back(bot, update):
         "_" + youtube_dl_format + "." + youtube_dl_ext
     youtube_dl_username = None
     youtube_dl_password = None
-    if "aha" in youtube_dl_url:
-              if "movies" in youtube_dl_url:
-                ahamovpath = "%2Fmovies%2F" + youtube_dl_url.split("movies/")[-1]
-                ahareq1 = requests.get("https://prod-api-cached-2.viewlift.com/content/pages?path=" + ahamovpath + "&site=aha-tv&includeContent=true&moduleOffset=0&moduleLimit=5&languageCode=default&countryCode=IN").json()["modules"][1]["contentData"][0]["gist"]["id"]
-                youtube_dl_url = requests.get("https://prod-api.viewlift.com/entitlement/video/status?id=" + ahareq1 + "&deviceType=web_browser&contentConsumption=web", headers=hds.aha).json()["video"]["streamingInfo"]["videoAssets"]["hls"]
-              elif "originals" in youtube_dl_url:
-                ahaorgpath = "%2Foriginals%2F" + youtube_dl_url.split("originals/")[-1]
-                ahareq1 = requests.get("https://prod-api-cached-2.viewlift.com/content/pages?path=" + ahaorgpath + "&site=aha-tv&includeContent=true&moduleOffset=0&moduleLimit=5&languageCode=default&countryCode=IN").json()["modules"][1]["contentData"][0]["gist"]["id"]
-                youtube_dl_url = requests.get("https://prod-api.viewlift.com/entitlement/video/status?id=" + ahareq1 + "&deviceType=web_browser&contentConsumption=web", headers=hds.aha).json()["video"]["streamingInfo"]["videoAssets"]["hls"]
-    elif "zee5" in youtube_dl_url:
+    if "zee5" in youtube_dl_url:
       if "tvshows" or "originals" in youtube_dl_url:
          req1 = requests.get("https://useraction.zee5.com/tokennd").json()
          rgx = youtube_dl_url.split("/")[-1:]
@@ -169,118 +160,6 @@ async def youtube_dl_call_back(bot, update):
             audio_issue = "true"
          except IndexError:
           pass
-    elif "mxplayer" in youtube_dl_url:
-      if "movie" in youtube_dl_url:
-         my1 = requests.get(youtube_dl_url, headers=hds.mxplayer)
-         my2 = bs4.BeautifulSoup(my1.content.decode('utf-8'), "html5lib")
-         mt1 = my2.find_all("title")[0].prettify()
-         mt2 = mt1.split("|")
-         try:
-           mt3 = mt2[1].replace(" ", "_")
-         except:
-           mt3 = mt1.replace(" ", "_")
-         cva_file_name = mt3[1:-10] + youtube_dl_format + ".mp4"
-         my3 = my2.find_all("script")[1].prettify()
-         G = []
-         for i in my3.split('"'):
-          if "embed/detail" in i:
-            G.append(i)
-         my4 = G[0]
-         my5 = requests.get(my4[:-1], headers=hds.mxplayer)
-         my6 = bs4.BeautifulSoup(my5.content.decode('utf-8'), "html5lib")
-         my7 = my6.find_all("script")[0].prettify()
-         H = []
-         P = []
-         Q = []
-         R = []
-         for j in my7.split('"'):
-            if ",.mp4" in j:
-              H.append(j)
-            if ".m3u8" in j:
-              P.append(j)
-            if ".mp4" in j:
-              R.append(j)
-         try:
-            youtube_dl_url = H[0]
-         except IndexError:
-            try:
-              sampurl = R[0]
-              youtube_dl_url = "https://llvod.mxplay.com/" + P[0]
-              audio_issue = "true"
-            except IndexError:
-                youtube_dl_url = P[0]
-      elif "show" in youtube_dl_url:
-                 mxs1 = requests.get(youtube_dl_url, headers=hds.mxplayer)
-                 mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
-                 mts1 = mxs2.find_all("title")[0].prettify()
-                 mts2 = mts1.split("|")
-                 try:
-                   mts33 = mts2[1].replace(" ", "_")
-                 except:
-                   mts33 = mts1.replace(" ", "_")
-                 cva_file_name = mts33[1:-10] + youtube_dl_format + ".mp4"
-                 mxs3 = mxs2.find_all("script")[1].prettify()
-                 GSX = []
-                 for ia in mxs3.split('"'):
-                  if "embed/detail" in ia:
-                    GSX.append(ia)
-                 try:
-                   mxs4 = GSX[0]
-                   mxs5 = requests.get(mxs4[:-1], headers=hds.mxplayer)
-                   mxs6 = bs4.BeautifulSoup(mxs5.content.decode('utf-8'), "html5lib")
-                   mxs7 = mxs6.find_all("script")[0].prettify()
-                   HSS2 = []
-                   OSS2 = []
-                   NSS2 = []
-                   for sss2 in mxs7.split('"'):
-                    if ",.mp4" in sss2:
-                      HSS2.append(sss2)
-                   try:
-                      youtube_dl_url = HSS2[0]
-                   except IndexError:
-                      for kss2 in mxs7.split('"'):
-                        if ".mp4" in kss2:
-                          HSS2.append(kss2)
-                        if ".m3u8" in kss2:
-                          OSS2.append(kss2)
-                        if "hlsurl" in kss2:
-                          NSS2.append(kss2)
-                      try:
-                        sssampleurl2 = HSS2[0]
-                        youtube_dl_url = "https://llvod.mxplay.com/" + OSS2[0]
-                        audio_issue = "true"
-                      except IndexError:
-                          sample3urll2 = NSS2[0]
-                          youtube_dl_url = OSS2[0]
-                 except IndexError:
-                   HS = []
-                   OS = []
-                   NS = []
-                   for js in mxs3.split('"'):
-                    if ",.mp4" in js:
-                      HS.append(js)
-                   try:
-                      youtube_dl_url = HS[0]
-                   except IndexError:
-                      for ks in mxs3.split('"'):
-                        if ".mp4" in ks:
-                          HS.append(ks)
-                        if ".m3u8" in ks:
-                          OS.append(ks)
-                        if "hlsurl" in ks:
-                          NS.append(ks)
-                      try:
-                        ssampleurl = HS[0]
-                        youtube_dl_url = "https://llvod.mxplay.com/" + OS[0]
-                        audio_issue = "true"
-                      except IndexError:
-                        sample2url = NS[0]
-                        youtube_dl_url = OS[0]
-    elif "tamilyogi" in youtube_dl_url:
-         ty1 = requests.get(youtube_dl_url)
-         ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
-         ty3 = ty2.find_all("iframe")[1]['src']
-         youtube_dl_url = ty3
     if "|" in youtube_l_url:
           ull_part = youtube_l_url.strip(' ')
           ull_parts = ull_part.split("|")
