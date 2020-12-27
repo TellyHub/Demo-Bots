@@ -133,7 +133,13 @@ async def echo(bot, update):
                  td1 = requests.get(u)
                  td2 = bs4.BeautifulSoup(td1.content.decode('utf-8'), "html5lib")
                  td3 = td2.find_all("iframe")
-                 logger.info(td3)
+                 dhools = []
+                 for frames in td3:
+                  frame = frames.split('"')
+                  for val in frame:
+                    if "thiraifour" in val:
+                      dhools.append(val)
+                 logger.info(dhools[-1])
                  return
              except KeyError:
                  await update.reply_text("🙄 Unable to find video, Please Send me a valid TamilYogi streaming link")
