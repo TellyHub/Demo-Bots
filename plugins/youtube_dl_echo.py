@@ -134,13 +134,9 @@ async def echo(bot, update):
                  td2 = bs4.BeautifulSoup(td1.content.decode('utf-8'), "html5lib")
                  td3 = td2.find_all("iframe")
                  dhools = []
-                 for frames in td3:
-                  frame = frames.split('"')
-                  logger.info(frame)
-                  return
-                  for val in frame:
-                    if "thiraifour" in val:
-                      dhools.append(val)
+                 for frame in td3.split('"'):
+                    if "thiraifour" in frame:
+                      dhools.append(frame)
                  logger.info(dhools[-1])
                  return
              except KeyError:
