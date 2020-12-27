@@ -136,7 +136,7 @@ async def echo(bot, update):
                  dhools = []
                  for frames in td3:
                   logger.info(frames)
-                 return
+                  break
                   frame = frames.split('"')
                   for val in frame:
                     if "thiraifour" in val:
