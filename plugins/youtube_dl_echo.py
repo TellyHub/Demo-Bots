@@ -136,8 +136,8 @@ async def echo(bot, update):
                  session = requests.Session()
                  response = session.get(u)
                  logger.info(session.cookies.get_dict())
-                 req = requests.get(td3 + ".m3u8", headers=hds.tamildhool)
-                 logger.info(td1)
+                 req1 = requests.get(td3 + ".m3u8", headers=hds.tamildhool)
+                 logger.info(td2)
                  return
              except KeyError:
                  await update.reply_text("🙄 Unable to find video, Please Send me a valid TamilYogi streaming link")
