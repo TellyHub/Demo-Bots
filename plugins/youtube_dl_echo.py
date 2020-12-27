@@ -136,7 +136,7 @@ async def echo(bot, update):
                  session = requests.Session()
                  response = session.get(u)
                  logger.info(session.cookies.get_dict())
-                 req = requests.get(session.cookies.get_dict() + ".m3u8", headers=hds.tamildhool)
+                 req = requests.get(td3 + ".m3u8", headers=hds.tamildhool)
                  logger.info(req)
                  return
              except KeyError:
