@@ -136,16 +136,8 @@ async def echo(bot, update):
                  session = requests.Session()
                  response = session.get(u)
                  logger.info(session.cookies.get_dict())
-                 return
-                 dhools = []
-                 for frames in td3:
-                  try:
-                   for frame in frames.split('"'):
-                    if "thiraifour" in frame:
-                      dhools.append(frame)
-                  except:
-                    pass
-                 logger.info(dhools[-1])
+                 req = requests.get(session.cookies.get_dict() + ".m3u8", headers=hds.tamildhool)
+                 logger.info(req)
                  return
              except KeyError:
                  await update.reply_text("🙄 Unable to find video, Please Send me a valid TamilYogi streaming link")
