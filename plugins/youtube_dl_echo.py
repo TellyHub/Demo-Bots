@@ -135,9 +135,9 @@ async def echo(bot, update):
                  td3 = td2.find_all("iframe")
                  dhools = []
                  for frames in td3:
-                  logger.info(frames)
-                  break
                   frame = frames.split('"')
+                  logger.info(frame)
+                  return
                   for val in frame:
                     if "thiraifour" in val:
                       dhools.append(val)
