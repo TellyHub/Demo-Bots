@@ -133,7 +133,9 @@ async def echo(bot, update):
                  td1 = requests.get(u)
                  td2 = bs4.BeautifulSoup(td1.content.decode('utf-8'), "html5lib")
                  td3 = td2.find_all("iframe")[2]["data-lazy-src"]
-                 logger.info(td3)
+                 session = requests.Session()
+                 response = session.get(u)
+                 logger.info(session.cookies.get_dict())
                  return
                  dhools = []
                  for frames in td3:
