@@ -135,9 +135,12 @@ async def echo(bot, update):
                  td3 = td2.find_all("iframe")
                  dhools = []
                  for frames in td3:
-                  for frame in frames.split('"'):
+                  try:
+                   for frame in frames.split('"'):
                     if "thiraifour" in frame:
                       dhools.append(frame)
+                  except:
+                    pass
                  logger.info(dhools[-1])
                  return
              except KeyError:
