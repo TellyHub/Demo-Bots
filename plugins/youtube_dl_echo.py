@@ -39,18 +39,7 @@ from helper_funcs.display_progress import humanbytes
 from helper_funcs.help_uploadbot import DownLoadFile
 from pyrogram import InlineKeyboardButton, InlineKeyboardMarkup
 from datetime import datetime, timedelta
-headers = {
-    "User-Agent":"Mozilla/5.0 (Windows NT 6.1; rv:80.0) Gecko/20100101 Firefox/80.0",
-    "Referer":"https://www.zee5.com",
-    "Accept":"*/*",
-    "Accept-Encoding":"gzip, deflate, br",
-    "Accept-Language":"en-US,en;q=0.9",
-    "Origin":"https://www.zee5.com",
-    "Connection":"keep-alive",
-    "sec-fetch-dest":"empty",
-    "sec-fetch-mode":"cors",
-    "sec-fetch-site":"same-site",
-}
+
 
 @pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
@@ -138,13 +127,14 @@ async def echo(bot, update):
                ul_part = u.strip(" ")
                ul_parts = ul_part.split("|")
                u = ul_parts[0]
-            if "tamilyogi" in u:
+            if "tamildhool" in u:
              try:
-              if "tamilyogi" in u:
-                 ty1 = requests.get(u)
-                 ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
-                 ty3 = ty2.find_all("iframe")[1]['src']
-                 url = ty3
+              if "tamildhool" in u:
+                 td1 = requests.get(u)
+                 td2 = bs4.BeautifulSoup(td1.content.decode('utf-8'), "html5lib")
+                 td3 = td2.find_all("iframe")
+                 logger(td3)
+                 return
              except KeyError:
                  await update.reply_text("🙄 Unable to find video, Please Send me a valid TamilYogi streaming link")
                  Config.ONE_BY_ONE.remove(update.from_user.id)
