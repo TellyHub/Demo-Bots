@@ -52,7 +52,7 @@ headers = {
     "sec-fetch-site":"same-site",
 }
 
-@pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
+@pyrogram.Client.on_message(pyrogram.Filters and pyrogram.Filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
             with open("backup.json", "r", encoding="utf8") as f:
                   b_json = json.load(f)
