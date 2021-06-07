@@ -28,3 +28,6 @@ class Config(object):
     DEF_WATER_MARK_FILE = ""
     ONE_BY_ONE = []
     TODAY_USERS = []
+    myclient = pymongo.MongoClient("mongodb+srv://admin:admin@cluster0.uwnjv.mongodb.net/<dbname>?retryWrites=true&w=majority")
+    mydb = myclient["mydatabase"]
+    BANNED = mydb["banned"]
