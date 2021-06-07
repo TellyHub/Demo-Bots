@@ -119,9 +119,11 @@ async def echo(bot, update):
                 with open("backup.json", "w", encoding="utf8") as outfile:
                       json.dump(b_json, outfile, ensure_ascii=False)
                 return
-            if update.from_user.id in Config.BANNED_USERS:
-                await update.reply_text("You are B A N N E D")
-                return
+            for banned in Config.BANNED.find():
+                banuser = banned.get("user_id")
+                if int(update.from_user.id) == int(banuser):
+                  await update.reply_text("😐 You are B A N N E D")
+                  return
             # logger.info(update)
             #TRChatBase(update.from_user.id, update.text, "/echo")
             await bot.send_chat_action(
