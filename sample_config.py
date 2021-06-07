@@ -1,5 +1,6 @@
 import os
 import time
+import pymongo
 
 class Config(object):
     # get a token from @BotFather
