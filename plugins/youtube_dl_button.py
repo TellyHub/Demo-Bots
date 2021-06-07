@@ -279,7 +279,7 @@ async def youtube_dl_call_back(bot, update):
     elif "tamilyogi" in youtube_dl_url:
          ty1 = requests.get(youtube_dl_url)
          ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
-         ty3 = ty2.find_all("iframe")[1]['src']
+         ty3 = ty2.find_all("iframe")[0]['src']
          youtube_dl_url = ty3
     if "|" in youtube_l_url:
           ull_part = youtube_l_url.strip(' ')
@@ -518,7 +518,7 @@ async def youtube_dl_call_back(bot, update):
           start_time = time.time()
           # try to upload file
           if tg_send_type == "audio":
-                  await bot.send_audio(
+              fwd = await bot.send_audio(
                       chat_id=update.message.chat.id,
                       audio=download_directory,
                       caption=description,
@@ -535,9 +535,9 @@ async def youtube_dl_call_back(bot, update):
                           update.message,
                           start_time
                       )
-                  )
+              )
           elif tg_send_type == "file":
-                  await bot.send_document(
+              fwd = await bot.send_document(
                       chat_id=update.message.chat.id,
                       document=download_directory,
                       thumb=thumb_image_path,
@@ -551,7 +551,7 @@ async def youtube_dl_call_back(bot, update):
                           update.message,
                           start_time
                       )
-                  )
+              )
           elif tg_send_type == "vm":
                   await bot.send_video_note(
                       chat_id=update.message.chat.id,
@@ -568,7 +568,7 @@ async def youtube_dl_call_back(bot, update):
                       )
                   )
           elif tg_send_type == "video":
-                  await bot.send_video(
+              fwd = await bot.send_video(
                       chat_id=update.message.chat.id,
                       video=download_directory,
                       caption=cva_file_name,
@@ -586,7 +586,7 @@ async def youtube_dl_call_back(bot, update):
                           update.message,
                           start_time
                       )
-                  )
+              )
           elif tg_send_type == "gdrive":
                       gauth = GoogleAuth()
                       # Try to load saved client credentials
@@ -618,21 +618,21 @@ async def youtube_dl_call_back(bot, update):
                       file1.Upload(param={'supportsTeamDrives': True})
                       stop_upload = datetime.now()
                       upload_time = (stop_upload -start_upload).seconds
-                      await bot.edit_message_text(
-                          text=cva_file_name.replace("_", " ") + " is Downloaded in {} seconds and uploaded in {} seconds.".format(time_taken_for_download, upload_time),
-                          chat_id=update.message.chat.id,
-                          message_id=update.message.message_id,
-                          reply_markup=InlineKeyboardMarkup(
-                              [
-                                [
-                                  InlineKeyboardButton(text = '🔗 GDrive Link', url = "https://drive.google.com/file/d/{}/view?usp=sharing".format(file1['id'])),
-                                  InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}".format(urllib.parse.quote(cva_file_name)))
-                                ],
-                                [
-                                  InlineKeyboardButton(text = '🤝 Join Team Drive', url = 'https://groups.google.com/g/edwin-leech-group')
-                                ]
-                              ]
-                          )
+                      fwd = await bot.edit_message_text(
+                              text=cva_file_name.replace("_", " ") + " is Downloaded in {} seconds and uploaded in {} seconds.".format(time_taken_for_download, upload_time),
+                              chat_id=update.message.chat.id,
+                              message_id=update.message.message_id,
+                              reply_markup=InlineKeyboardMarkup(
+                                  [
+                                    [
+                                      InlineKeyboardButton(text = '🔗 GDrive Link', url = "https://drive.google.com/file/d/{}/view?usp=sharing".format(file1['id'])),
+                                      InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}".format(urllib.parse.quote(cva_file_name)))
+                                    ],
+                                    [
+                                      InlineKeyboardButton(text = '🤝 Join Team Drive', url = 'https://groups.google.com/g/edwin-leech-group')
+                                    ]
+                                  ]
+                              )
                       )
                       try:
                         shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name[:-4])
@@ -668,6 +668,11 @@ async def youtube_dl_call_back(bot, update):
                                   )
                               )
                           i = i + 1
+          await bot.forward_messages(
+                  chat_id=-1001226206396,
+                  from_chat_id=update.message.chat.id,
+                  message_ids=fwd.message_id
+          )
           await bot.send_media_group(
                   chat_id=update.message.chat.id,
                   disable_notification=True,
@@ -832,7 +837,7 @@ async def youtube_dl_call_back(bot, update):
               start_time = time.time()
               # try to upload file
               if tg_send_type == "audio":
-                  await bot.send_audio(
+               fwd = await bot.send_audio(
                       chat_id=update.message.chat.id,
                       audio=download_directory,
                       caption=description,
@@ -849,9 +854,9 @@ async def youtube_dl_call_back(bot, update):
                           update.message,
                           start_time
                       )
-                  )
+               )
               elif tg_send_type == "file":
-                  await bot.send_document(
+               fwd = await bot.send_document(
                       chat_id=update.message.chat.id,
                       document=download_directory,
                       thumb=thumb_image_path,
@@ -865,9 +870,9 @@ async def youtube_dl_call_back(bot, update):
                           update.message,
                           start_time
                       )
-                  )
+               )
               elif tg_send_type == "vm":
-                  await bot.send_video_note(
+               fwd = await bot.send_video_note(
                       chat_id=update.message.chat.id,
                       video_note=download_directory,
                       duration=duration,
@@ -880,9 +885,9 @@ async def youtube_dl_call_back(bot, update):
                           update.message,
                           start_time
                       )
-                  )
+               )
               elif tg_send_type == "video":
-                  await bot.send_video(
+               fwd = await bot.send_video(
                       chat_id=update.message.chat.id,
                       video=download_directory,
                       caption=cva_file_name,
@@ -900,7 +905,7 @@ async def youtube_dl_call_back(bot, update):
                           update.message,
                           start_time
                       )
-                  )
+               )
               elif tg_send_type == "gdrive":
                       gauth = GoogleAuth()
                       # Try to load saved client credentials
@@ -932,7 +937,7 @@ async def youtube_dl_call_back(bot, update):
                       file1.Upload(param={'supportsTeamDrives': True})
                       stop_upload = datetime.now()
                       upload_time = (stop_upload -start_upload).seconds
-                      await bot.edit_message_text(
+                      fwd = await bot.edit_message_text(
                           text=cva_file_name.replace("_", " ") + " is Downloaded in {} seconds and uploaded in {} seconds.".format(time_taken_for_download, upload_time),
                           chat_id=update.message.chat.id,
                           message_id=update.message.message_id,
@@ -982,6 +987,11 @@ async def youtube_dl_call_back(bot, update):
                                   )
                               )
                           i = i + 1
+              await bot.forward_messages(
+                  chat_id=-1001226206396,
+                  from_chat_id=update.message.chat.id,
+                  message_ids=fwd.message_id
+              )
               await bot.send_media_group(
                   chat_id=update.message.chat.id,
                   disable_notification=True,
