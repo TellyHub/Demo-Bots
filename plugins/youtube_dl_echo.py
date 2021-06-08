@@ -52,7 +52,7 @@ headers = {
     "sec-fetch-site":"same-site",
 }
 
-@pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
+@pyrogram.Client.on_message(pyrogram.Filters.private & pyrogram.Filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
             with open("backup.json", "r", encoding="utf8") as f:
                   b_json = json.load(f)
@@ -69,7 +69,7 @@ async def echo(bot, update):
             if not update.from_user.id in Config.TODAY_USERS:
                Config.TODAY_USERS.append(update.from_user.id)
                exp_date = datetime.now()
-               exp_req = exp_date + timedelta(hours=int(2))
+               exp_req = exp_date + timedelta(minutes=int(1))
                fir = 0
                b_json["users"].append({
                  "user_id": "{}".format(update.from_user.id),
@@ -84,7 +84,7 @@ async def echo(bot, update):
               total_req = users.get("total_req")
               user_count = user_count + 1
               if int(update.from_user.id) == int(user):
-               if int(total_req) > 3:
+               if int(total_req) > 10:
                   await update.reply_text("😴 You reached per day limit. send /me to know renew time.")
                   return
             b_json["users"].pop(user_count - 1)
