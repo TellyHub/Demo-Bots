@@ -191,7 +191,7 @@ async def me(bot, update):
           if int(update.chat.id) == int(user):
             await bot.send_message(
               chat_id=update.chat.id,
-              text=Translation.CURENT_PLAN_DETAILS.format(user, 3 - int(total_req), remain_time),
+              text=Translation.CURENT_PLAN_DETAILS.format(user, 10 - int(total_req), remain_time),
               parse_mode="html",
               disable_web_page_preview=True,
               reply_to_message_id=update.message_id
