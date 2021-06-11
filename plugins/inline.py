@@ -43,8 +43,8 @@ async def inline(bot, inline_query):
     for ty4 in ty3:
       try:
         result = {
-                  "title"="{}".format(ty4['title']),
-                  "href"="{}".format(ty4['href'])
+               "title":"{}".format(ty4['title']),
+               "href":"{}".format(ty4['href'])
         }
         ty5.append(result)
       except:
