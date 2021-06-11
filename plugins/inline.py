@@ -44,7 +44,8 @@ async def inline(bot, inline_query):
       try:
         result = {
                "title":"{}".format(ty4['title']),
-               "href":"{}".format(ty4['href'])
+               "href":"{}".format(ty4['href']),
+               "src":"{}".format(ty4['src'])
         }
         ty5.append(result)
       except:
@@ -54,6 +55,7 @@ async def inline(bot, inline_query):
            results.append(
               InlineQueryResultArticle(
                   title="{}".format(ty6['title']),
+                  thumb_url="{}".format(ty6['src']),
                   input_message_content=InputTextMessageContent(
                       message_text="{}".format(ty6['href'])
                   ),
