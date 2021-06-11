@@ -53,8 +53,7 @@ async def inline(bot, inline_query):
     ty3 = ty2.find_all("a")
     for ty4 in ty3:
          logger.info(ty4)
-         resultt = ty4.split('"')
-         for resulttt in resultt:
+         for resulttt in ts4:
           if "Watch Online" in resulttt:
            results.append(
               InlineQueryResultArticle(
