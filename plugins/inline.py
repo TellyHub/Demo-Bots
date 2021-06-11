@@ -33,13 +33,16 @@ async def inline(bot, inline_query):
        )
        return
     results = []
-    
-    for torrent in client.search(search_string=inline_query.query):
+    u = "http://tamilyogi.best/?s=" + inline_query.query.replace(" ", "+") + "&submit=Search"
+    ty1 = requests.get(u)
+    ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
+    ty3 = ty2.find_all("a")
+    for result in ty3:
            results.append(
               InlineQueryResultArticle(
-                  title="{}".format(torrent),
+                  title="{}".format(result),
                   input_message_content=InputTextMessageContent(
-                      message_text="<b>{}</b>\n\n🧲: <code>{}</code>".format(torrent, torrent.download)
+                      message_text="<b>{}</b>".format(result)
                   ),
                   reply_markup=InlineKeyboardMarkup(
                      [ 
