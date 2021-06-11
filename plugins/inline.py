@@ -40,14 +40,13 @@ async def inline(bot, inline_query):
     ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
     ty3 = ty2.find_all("a")
     for ty4 in ty3:
-      logger.info(ty4)
-      for resultt in ty4:
-           result = resultt.split("\n")
+         resultt = ty4['title']
+         if "Watch Online" in resultt:
            results.append(
               InlineQueryResultArticle(
-                  title="{}".format(result[0]),
+                  title="{}".format(resultt),
                   input_message_content=InputTextMessageContent(
-                      message_text="<b>{}</b>".format(result[0])
+                      message_text="<b>{}</b>".format(resultt)
                   ),
                   reply_markup=InlineKeyboardMarkup(
                      [ 
