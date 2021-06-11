@@ -39,8 +39,9 @@ async def inline(bot, inline_query):
     ty1 = requests.get(u)
     ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
     ty3 = ty2.find_all("a")
-    logger.info(ty3)
-    for result in ty3:
+    for ty4 in ty3:
+        logger.info(ty4)
+    for result in ty4:
            results.append(
               InlineQueryResultArticle(
                   title="{}".format(result),
