@@ -36,7 +36,7 @@ async def inline(bot, inline_query):
        return
     results = []
     u = "http://tamilyogi.best/?s=" + inline_query.query.replace(" ", "+") + "&submit=Search"
-    ty1 = requests.get(u, headers=headers)
+    ty1 = requests.get(u)
     ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
     ty3 = ty2.find_all("a")
     for ty4 in ty3:
