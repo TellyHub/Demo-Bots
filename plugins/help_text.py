@@ -70,6 +70,7 @@ async def start(bot, update):
                             InlineKeyboardButton(text = '🔐 Close ', callback_data="close")
                         ],
                         [
+                            InlineKeyboardButton('🔍 Search', switch_inline_query_current_chat=''),
                             InlineKeyboardButton(text = '💬 Helpline', url="https://t.me/Super_botz_support")
                         ]
                     ]
