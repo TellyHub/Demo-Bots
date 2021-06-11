@@ -46,7 +46,7 @@ async def inline(bot, inline_query):
               InlineQueryResultArticle(
                   title="{}".format(result[0]),
                   input_message_content=InputTextMessageContent(
-                      message_text="<b>{}</b>\n{}".format(result[0], result[1])
+                      message_text="<b>{}</b>".format(result[0])
                   ),
                   reply_markup=InlineKeyboardMarkup(
                      [ 
