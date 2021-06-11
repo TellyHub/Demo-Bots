@@ -40,12 +40,13 @@ async def inline(bot, inline_query):
     ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
     ty3 = ty2.find_all("a")
     for ty4 in ty3:
-      for result in ty4:
+      for resultt in ty4:
+           result = resultt.split("\n")
            results.append(
               InlineQueryResultArticle(
-                  title="{}".format(result),
+                  title="{}".format(result[0]),
                   input_message_content=InputTextMessageContent(
-                      message_text="<b>{}</b>".format(result["src"])
+                      message_text="<b>{}</b>\n{}".format(result[0], result[1])
                   ),
                   reply_markup=InlineKeyboardMarkup(
                      [ 
