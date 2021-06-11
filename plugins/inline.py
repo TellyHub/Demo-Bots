@@ -9,6 +9,8 @@ import random
 import time
 import requests
 import json
+import bs4
+import html5lib
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
