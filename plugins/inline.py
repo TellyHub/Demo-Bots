@@ -43,9 +43,9 @@ async def inline(bot, inline_query):
            logger.info(ty4)
            results.append(
               InlineQueryResultArticle(
-                  title="{}".format(u),
+                  title="{}".format(ty4['title']),
                   input_message_content=InputTextMessageContent(
-                      message_text="<b>{}</b>".format(u)
+                      message_text="<b>{}</b>".format(ty4['href'])
                   ),
                   reply_markup=InlineKeyboardMarkup(
                      [ 
