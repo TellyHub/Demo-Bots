@@ -41,7 +41,7 @@ async def inline(bot, inline_query):
     ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
     ty3 = ty2.find_all("a")
     for ty4 in ty3:
-      img = ty4.find_all("img")['src']
+      img = ty4.find_all("img")[0]['src']
       try:
         result = {
                "title":"{}".format(ty4['title']),
