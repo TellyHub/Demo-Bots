@@ -42,7 +42,7 @@ async def inline(bot, inline_query):
     for ty4 in ty3:
          resultt = ty4.split('"')
          for resulttt in resultt:
-           if "Watch Online" in resulttt:
+          if "Watch Online" in resulttt:
            results.append(
               InlineQueryResultArticle(
                   title="{}".format(resulttt),
