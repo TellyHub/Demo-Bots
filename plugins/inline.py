@@ -41,11 +41,12 @@ async def inline(bot, inline_query):
     ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
     ty3 = ty2.find_all("a")
     for ty4 in ty3:
+      img = ty4.find_all("img")['src']
       try:
         result = {
                "title":"{}".format(ty4['title']),
                "href":"{}".format(ty4['href']),
-               "src":"{}".format(ty4['src'])
+               "src":"{}".format(img)
         }
         ty5.append(result)
       except:
