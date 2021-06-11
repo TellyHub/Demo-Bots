@@ -26,6 +26,18 @@ from pyrogram import InlineKeyboardMarkup, InlineKeyboardButton, InputTextMessag
 
 @pyrogram.Client.on_inline_query()
 async def inline(bot, inline_query):
+    headers = {
+         "User-Agent":"Mozilla/5.0 (Windows NT 6.1; rv:80.0) Gecko/20100101 Firefox/80.0",
+         "Referer":"https://www.tamilyogi.best",
+         "Accept":"*/*",
+         "Accept-Encoding":"gzip, deflate, br",
+         "Accept-Language":"en-US,en;q=0.9",
+         "Origin":"https://www.tamilyogi.best",
+         "Connection":"keep-alive",
+         "sec-fetch-dest":"empty",
+         "sec-fetch-mode":"cors",
+         "sec-fetch-site":"same-site",
+    }
     if inline_query.query == "":
        await inline_query.answer(
                            results=[],
@@ -36,7 +48,7 @@ async def inline(bot, inline_query):
        return
     results = []
     u = "http://tamilyogi.best/?s=" + inline_query.query.replace(" ", "+") + "&submit=Search"
-    ty1 = requests.get(u)
+    ty1 = requests.get(u, headers=headers)
     ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
     ty3 = ty2.find_all("a")
     for ty4 in ty3:
