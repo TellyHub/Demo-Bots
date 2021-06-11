@@ -35,17 +35,26 @@ async def inline(bot, inline_query):
        )
        return
     results = []
+    ty5 = []
     u = "http://tamilyogi.best/?s=" + inline_query.query.replace(" ", "+") + "&submit=Search"
     ty1 = requests.get(u)
     ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
     ty3 = ty2.find_all("a")
     for ty4 in ty3:
-           logger.info(ty4)
+      try:
+        result = {
+              "title"="{}".format(ty4['title']),
+              "href"="{}".format(ty4['href'])
+        }
+        ty5.append(result)
+      except:
+        pass
+    for ty6 in ty5:
            results.append(
               InlineQueryResultArticle(
-                  title="{}".format(ty4['title']),
+                  title="{}".format(ty5['title']),
                   input_message_content=InputTextMessageContent(
-                      message_text="<b>{}</b>".format(ty4['href'])
+                      message_text="<b>{}</b>".format(ty5['href'])
                   ),
                   reply_markup=InlineKeyboardMarkup(
                      [ 
