@@ -49,12 +49,13 @@ async def inline(bot, inline_query):
         ty5.append(result)
       except:
         pass
+    ty5.pop(0)
     for ty6 in ty5:
            results.append(
               InlineQueryResultArticle(
                   title="{}".format(ty6['title']),
                   input_message_content=InputTextMessageContent(
-                      message_text="<b>{}</b>".format(ty6['href'])
+                      message_text="{}".format(ty6['href'])
                   ),
                   reply_markup=InlineKeyboardMarkup(
                      [ 
