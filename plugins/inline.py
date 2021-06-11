@@ -31,7 +31,7 @@ async def inline(bot, inline_query):
                            results=[],
                            cache_time=1,
                            switch_pm_text="🤔🤔🤔 Search anything 👇",
-                           switch_pm_parameter=""
+                           switch_pm_parameter="nosearch"
        )
        return
     results = []
