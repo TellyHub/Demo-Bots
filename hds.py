@@ -1,5 +1,5 @@
 mxplayer = {
-  "Host":"www.mxplayer.in",
+  "Host":"api.mxplay.com",
   "User-Agent":"Mozilla/5.0 (Windows NT 6.1; rv:82.0) Gecko/20100101 Firefox/82.0",
   "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
   "Accept-Language":"en-US,en;q=0.5",
