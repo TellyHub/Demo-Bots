@@ -11,6 +11,8 @@ import requests
 import json
 import bs4
 import html5lib
+import hds
+
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
@@ -35,12 +37,13 @@ async def inline(bot, inline_query):
        )
        return
     results = []
-    ty5 = []
+    mx = []
     u = "https://www.mxplayer.in/?q=" + inline_query.query.replace(" ", "%20") + "&search=true"
-    ty1 = requests.get(u, hds.mxplayer)
-    ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
-    ty3 = ty2.find_all("a")
-    for ty4 in ty3:
+    mx1 = requests.get(u, headers=hds.mxplayer)
+    mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
+    mx3 = mx2.find_all("script")[0]
+    logger.info(mx3)
+    for mx4 in mx3:
       try:
         img = ty4.find_all("img")[0]['src']
         result = {
@@ -51,14 +54,14 @@ async def inline(bot, inline_query):
         ty5.append(result)
       except:
         pass
-    ty5.pop(0)
-    for ty6 in ty5:
+    mx5.pop(0)
+    for mx6 in ty5:
            results.append(
               InlineQueryResultArticle(
-                  title="{}".format(ty6['title']),
-                  thumb_url="{}".format(ty6['src']),
+                  title="{}".format(mx6['title']),
+                  thumb_url="{}".format(mx6['src']),
                   input_message_content=InputTextMessageContent(
-                      message_text="{}".format(ty6['href'])
+                      message_text="{}".format(mx6['href'])
                   ),
                   reply_markup=InlineKeyboardMarkup(
                      [ 
