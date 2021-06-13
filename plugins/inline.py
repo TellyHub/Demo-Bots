@@ -37,7 +37,7 @@ async def inline(bot, inline_query):
        )
        return
     results = []
-    mx = []
+    mx5 = []
     u = "https://www.mxplayer.in/?q=" + inline_query.query.replace(" ", "%20") + "&search=true"
     mx1 = requests.get(u, headers=hds.mxplayer)
     mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
