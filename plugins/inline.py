@@ -41,7 +41,7 @@ async def inline(bot, inline_query):
     u = "https://www.mxplayer.in/?q=" + inline_query.query.replace(" ", "%20") + "&search=true"
     mx1 = requests.get(u, headers=hds.mxplayer)
     mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
-    mx3 = mx2.find_all("script")[1]
+    mx3 = mx2.find_all("body")[0]
     logger.info(mx3)
     for mx4 in mx3:
       try:
