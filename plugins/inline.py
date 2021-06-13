@@ -59,7 +59,7 @@ async def inline(bot, inline_query):
            results.append(
               InlineQueryResultArticle(
                   title="{}".format(mx6['title']),
-                  thumb_url="{}".format(mx6['src']),
+                  thumb_url="{}".format(mx6['img']),
                   input_message_content=InputTextMessageContent(
                       message_text="{}".format(mx6['href'])
                   ),
