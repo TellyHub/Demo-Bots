@@ -40,7 +40,7 @@ async def inline(bot, inline_query):
     mx5 = []
     u = "https://api.mxplay.com/v1/web/search/resultv2?query=" + inline_query.query.replace(" ", "%20") + "&device-density=2&userid=4901999d-0965-4ad7-945e-b34b0ace7234&platform=com.mxplay.mobile&content-languages=hi,en&kids-mode-enabled=false"
     mx1 = requests.get(u).json()
-    mx2 = mx1.sections[0].items
+    mx2 = mx1['sections'][0]['items']
     logger.info(mx2)
     return
     mx3 = mx2.find_all("body")[0].find_all("a")
