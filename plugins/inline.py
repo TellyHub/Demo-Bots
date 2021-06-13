@@ -55,7 +55,7 @@ async def inline(bot, inline_query):
       except:
         pass
     #mx5.pop(0)
-    for mx6 in ty5:
+    for mx6 in mx5:
            results.append(
               InlineQueryResultArticle(
                   title="{}".format(mx6['title']),
