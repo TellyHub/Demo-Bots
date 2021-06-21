@@ -46,7 +46,7 @@ async def inline(bot, inline_query):
         logger.info(mx1)
       except:
         pass
-      if retry == 3
+      if retry == 3:
          return
       retry = retry + 1
     return
