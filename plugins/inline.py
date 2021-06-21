@@ -37,7 +37,7 @@ async def inline(bot, inline_query):
        )
        return
     retry = 0
-    while retry<3:
+    while retry < 3:
       results = []
       mx5 = []
       u = "https://api.mxplay.com/v1/web/search/resultv2?query=" + inline_query.query.replace(" ", "%20") + "&device-density=2&userid=4901999d-0965-4ad7-945e-b34b0ace7234&platform=com.mxplay.mobile&content-languages=hi,en&kids-mode-enabled=false"
@@ -46,6 +46,8 @@ async def inline(bot, inline_query):
         logger.info(mx1)
       except:
         pass
+      if retry == 3
+         return
       retry = retry + 1
     return
     mx2 = mx1['sections'][0]['items']
