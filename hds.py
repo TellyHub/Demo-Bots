@@ -1,7 +1,7 @@
 mxplayer = {
    "Host":"api.mxplay.com",
    "content-length":"2",
-   "sec-ch-ua":"" Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"",
+   "sec-ch-ua":" Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91",
    "accept":"application/json, text/plain, */*",
    "sec-ch-ua-mobile":"?1",
    "user-agent":"Mozilla/5.0 (Linux; Android 9; LLD-AL20) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Mobile Safari/537.36",
