@@ -36,37 +36,10 @@ async def inline(bot, inline_query):
                            switch_pm_parameter="nosearch"
        )
        return
-    retry = 0
-    while retry < 3:
-      results = []
-      mx5 = []
-      u = "https://api.mxplay.com/v1/web/search/resultv2?query=" + inline_query.query.replace("%20", " ") + "&device-density=2&userid=4901999d-0965-4ad7-945e-b34b0ace7234&platform=com.mxplay.mobile&content-languages=hi,en,ta&kids-mode-enabled=false"
-      try:
-        mx1 = requests.post(u, headers=hds.mxplayer).json()
-        logger.info(mx1)
-      except:
-        pass
-      if retry == 3:
-         return
-      retry = retry + 1
-    return
-    mx2 = mx1['sections'][0]['items']
-    mx3 = mx2.find_all("body")[0].find_all("a")
-    for mx4 in mx3:
-      try:
-        img = mx4.find_all("img")[0]['src']
-        title = mx4.find_all("img")[0]['title']
-        result = {
-               "title":"{}".format(title),
-               "img":"{}".format(img),
-               "href":"{}".format(mx4['href'])
-        }
-        mx5.append(result)
-      except:
-        pass
-    #mx5.pop(0)
-    for mx6 in mx5:
-           results.append(
+    u = "https://api.mxplay.com/v1/web/search/resultv2?query=" + inline_query.query.replace("%20", " ") + "&device-density=2&userid=4901999d-0965-4ad7-945e-b34b0ace7234&platform=com.mxplay.mobile&content-languages=hi,en,ta&kids-mode-enabled=false"
+    req2 = requests.get("https://useraction.zee5.com/token/platform_tokens.php?platform_name=web_app").json()["token"]
+    headers["X-Access-Token"] = req2
+    results.append(
               InlineQueryResultArticle(
                   title="{}".format(mx6['title']),
                   thumb_url="{}".format(mx6['img']),
