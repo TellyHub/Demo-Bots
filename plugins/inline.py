@@ -39,12 +39,15 @@ async def inline(bot, inline_query):
     u = "https://gwapi.zee5.com/content/getContent/search?q=" + inline_query.query.replace(" ", "%20") + "&start=0&limit=24&asset_type=0,6,1,9,9,101&country=IN&languages=en,ta&translation=en&version=5&page=1"
     req2 = requests.get("https://useraction.zee5.com/token/platform_tokens.php?platform_name=web_app").json()["token"]
     headers["X-Access-Token"] = req2
+    req1 = requests.get(u, headers=headers).json()
+    logger.info(req1)
+    return
     results.append(
               InlineQueryResultArticle(
-                  title="{}".format(mx6['title']),
-                  thumb_url="{}".format(mx6['img']),
+                  title="{}".format(req1),
+                  thumb_url="{}".format(req1),
                   input_message_content=InputTextMessageContent(
-                      message_text="{}".format(mx6['href'])
+                      message_text="{}".format(req1)
                   ),
                   reply_markup=InlineKeyboardMarkup(
                      [ 
