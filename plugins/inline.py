@@ -54,7 +54,10 @@ async def inline(bot, inline_query):
     headers["X-Access-Token"] = req2
     req1 = requests.get(u, headers=headers).json()
     logger.info(req1)
-    return
+    results = []
+    try:
+        for shows in req1['tvshows']:
+            shows = {
     results.append(
               InlineQueryResultArticle(
                   title="{}".format(req1),
