@@ -71,7 +71,7 @@ async def inline(bot, inline_query):
             movies = {
                   "thumb":"{}".format(movies.get("image_url")),
                   "title":"{}".format(movies.get("original_title")),
-                  "link":"https://www.zee5.com/movies/details/{}/{}".format(movies.get("original_title").replace("-", " "), movies.get("id"))
+                  "link":"https://www.zee5.com/movies/details/{}/{}".format(movies.get("original_title").replace(" ", "-"), movies.get("id"))
             }
             detail.append(movies)
     except:
