@@ -74,7 +74,7 @@ async def inline(bot, inline_query):
             detail.append(movies)
     except:
         pass
-    for result in results:
+    for result in detail:
            results.append(
               InlineQueryResultArticle(
                   title="{}".format(result['title']),
