@@ -59,7 +59,10 @@ async def inline(bot, inline_query):
     try:
         for shows in req1['tvshows']:
             shows = {
-                 "thumb":"{}".format(shows.get(
+                 "thumb":""
+            }
+    except:
+        pass
     results.append(
               InlineQueryResultArticle(
                   title="{}".format(req1),
