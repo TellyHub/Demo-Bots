@@ -41,6 +41,19 @@ headers = {
 
 @pyrogram.Client.on_inline_query()
 async def inline(bot, inline_query):
+    try:
+            await bot.get_chat_member(
+                chat_id=Config.AUTH_CHANNEL,
+                user_id=inline_query.from_user.id
+                )
+    except pyrogram.errors.exceptions.bad_request_400.UserNotParticipant:
+            await inline_query.answer(
+                           results=[InlineQueryResultArticle(title="Please Join my updates Channel to use me", thumb_url="https://images.app.goo.gl/rDh6knXpka5kEAnF6", input_message_content=InputTextMessageContent(message_text="Please Join my updates channel (@Super_botz) to use me"))],
+                           cache_time=1,
+                           switch_pm_text="Join my Updates channel 👇",
+                           switch_pm_parameter="nosearch"
+            )
+            return
     if inline_query.query == "":
        await inline_query.answer(
                            results=[],
