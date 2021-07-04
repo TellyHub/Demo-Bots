@@ -49,7 +49,7 @@ async def inline(bot, inline_query):
                            switch_pm_parameter="nosearch"
        )
        return
-    u = "https://gwapi.zee5.com/content/getContent/search?q=" + inline_query.query.replace(" ", "%20") + "&start=0&limit=24&asset_type=0,6,1,9,9,101&country=IN&languages=en,ta&translation=en&version=5&page=1"
+    u = "https://gwapi.zee5.com/content/getContent/search?q=" + inline_query.query.replace(" ", "%20") + "&start=0&limit=24&asset_type=0&country=IN&languages=en,ta&translation=en&version=5&page=1"
     req2 = requests.get("https://useraction.zee5.com/token/platform_tokens.php?platform_name=web_app").json()["token"]
     headers["X-Access-Token"] = req2
     req1 = requests.get(u, headers=headers).json()
