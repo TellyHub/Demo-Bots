@@ -57,10 +57,10 @@ async def inline(bot, inline_query):
     results = []
     detail = []
     try:
-        for shows in req1['tvshows']:
+        for shows in req1['episodes']:
             shows = {
                  "thumb":"{}".format(shows.get("image_url")),
-                 "title":"{}".format(shows.get("original_title"))
+                 "title":"{}".format(shows.get("title"))
             }
             detail.append(shows)
     except:
