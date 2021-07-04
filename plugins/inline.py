@@ -53,22 +53,34 @@ async def inline(bot, inline_query):
     req2 = requests.get("https://useraction.zee5.com/token/platform_tokens.php?platform_name=web_app").json()["token"]
     headers["X-Access-Token"] = req2
     req1 = requests.get(u, headers=headers).json()
-    logger.info(req1['movies'][0])
+    #logger.info(req1['movies'][0])
     results = []
-    return
+    detail = []
     try:
         for shows in req1['tvshows']:
             shows = {
-                 "thumb":""
+                 "thumb":"{}".format(shows.get("image_url")),
+                 "title":"{}".format(shows.get("original_title"))
             }
+            detail.append(shows)
     except:
         pass
-    results.append(
+    try:
+        for movies in req1['movies']:
+            movies = {
+                  "thumb":"{}".format(movies.get("image_url")),
+                  "title":"{}".format(movies.get("original_title"))
+            }
+            detail.append(movies)
+    except:
+        pass
+    for result in results:
+           results.append(
               InlineQueryResultArticle(
-                  title="{}".format(req1),
-                  thumb_url="{}".format(req1),
+                  title="{}".format(result['title']),
+                  thumb_url="{}".format(result['thumb']),
                   input_message_content=InputTextMessageContent(
-                      message_text="{}".format(req1)
+                      message_text="testing"
                   ),
                   reply_markup=InlineKeyboardMarkup(
                      [ 
