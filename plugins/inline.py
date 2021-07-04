@@ -60,7 +60,8 @@ async def inline(bot, inline_query):
         for shows in req1['episodes']:
             shows = {
                  "thumb":"{}".format(shows.get("image_url")),
-                 "title":"{}".format(shows.get("title"))
+                 "title":"{}".format(shows.get("title")),
+                 "link":"https://www.zee5.com/embed/{}".format(shows.get("id"))
             }
             detail.append(shows)
     except:
@@ -69,7 +70,8 @@ async def inline(bot, inline_query):
         for movies in req1['movies']:
             movies = {
                   "thumb":"{}".format(movies.get("image_url")),
-                  "title":"{}".format(movies.get("original_title"))
+                  "title":"{}".format(movies.get("original_title")),
+                  "link":"https://www.zee5.com/movies/details/{}/{}".format(movies.get("original_title").replace("-", " "), movies.get("id"))
             }
             detail.append(movies)
     except:
@@ -80,7 +82,7 @@ async def inline(bot, inline_query):
                   title="{}".format(result['title']),
                   thumb_url="{}".format(result['thumb']),
                   input_message_content=InputTextMessageContent(
-                      message_text="testing"
+                      message_text="{}".format(result['link'])
                   ),
                   reply_markup=InlineKeyboardMarkup(
                      [ 
