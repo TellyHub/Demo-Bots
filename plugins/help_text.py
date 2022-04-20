@@ -25,7 +25,7 @@ from helper_funcs.display_progress import humanbytes, TimeFormatter
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
-from pyrogram import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 async def help_user(bot, update):
@@ -56,7 +56,11 @@ async def help_user(bot, update):
         )
     )
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["start"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["rate"]))
+async def rate(bot, update):
+  await bot.forward_messages(update.chat.id, "@Super_botz", 131)
+    
+@pyrogram.Client.on_message(pyrogram.filters.command(["start"]))
 async def start(bot, update):
             await bot.send_message(
                 chat_id=update.chat.id,
@@ -77,7 +81,7 @@ async def start(bot, update):
                 )
             )
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["bugs"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["bugs"]))
 async def bugs(bot, update):
             await bot.send_message(
                 chat_id=update.chat.id,
@@ -86,7 +90,7 @@ async def bugs(bot, update):
             )
 
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["upgrade"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["upgrade"]))
 async def upgrade(bot, update):
     await bot.send_message(
         chat_id=update.chat.id,
@@ -124,7 +128,7 @@ async def free_req(bot, update):
             ]
         )
     )
-@pyrogram.Client.on_message(pyrogram.Filters.command(["status"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["status"]))
 async def status_message_f(client, message):
     currentTime = time.strftime("%H:%M:%S", time.gmtime(time.time() - Config.BOT_START_TIME))
     total, used, free = shutil.disk_usage(".")
@@ -175,7 +179,7 @@ async def errorformat(bot, update):
   )
 
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["me"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["me"]))
 async def me(bot, update):
     with open("backup.json", "r", encoding="utf8") as f:
             b_json = json.load(f)
@@ -209,7 +213,7 @@ async def me(bot, update):
             )
     return
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["resetsession"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["resetsession"]))
 async def resetsession(bot, update):
     tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     thumb_image_path = Config.DOWNLOAD_LOCATION + \
