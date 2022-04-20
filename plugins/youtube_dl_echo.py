@@ -37,7 +37,7 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 from helper_funcs.display_progress import humanbytes
 from helper_funcs.help_uploadbot import DownLoadFile
-from pyrogram import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from datetime import datetime, timedelta
 headers = {
     "User-Agent":"Mozilla/5.0 (Windows NT 6.1; rv:80.0) Gecko/20100101 Firefox/80.0",
@@ -52,7 +52,7 @@ headers = {
     "sec-fetch-site":"same-site",
 }
 
-@pyrogram.Client.on_message(pyrogram.Filters.private & pyrogram.Filters.regex(pattern=".*http.*"))
+@pyrogram.Client.on_message(pyrogram.filters.private & pyrogram.filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
             with open("backup.json", "r", encoding="utf8") as f:
                   b_json = json.load(f)
@@ -302,11 +302,11 @@ async def echo(bot, update):
                             "file", format_id, format_ext)
                         if format_string is not None and not "audio only" in format_string:
                             ikeyboard = [
-                                pyrogram.InlineKeyboardButton(
+                                pyrogram.types.InlineKeyboardButton(
                                     "🎞 " + format_string + " video " + approx_file_size + " ",
                                     callback_data=(cb_string_video).encode("UTF-8")
                                 ),
-                                pyrogram.InlineKeyboardButton(
+                                pyrogram.types.InlineKeyboardButton(
                                     "📂 File",
                                     callback_data=(cb_string_file).encode("UTF-8")
                                 )
@@ -324,11 +324,11 @@ async def echo(bot, update):
                         else:
                             # special weird case :\
                             ikeyboard = [
-                                pyrogram.InlineKeyboardButton(
+                                pyrogram.types.InlineKeyboardButton(
                                     "🎞 - Video",
                                     callback_data="ferror"
                                 ),
-                                pyrogram.InlineKeyboardButton(
+                                pyrogram.types.InlineKeyboardButton(
                                     "📂 - File",
                                     callback_data="ferror"
                                 )
@@ -356,11 +356,11 @@ async def echo(bot, update):
                     cb_string_video = "{}|{}|{}".format(
                         "video", format_id, format_ext)
                     inline_keyboard.append([
-                        pyrogram.InlineKeyboardButton(
+                        pyrogram.types.InlineKeyboardButton(
                             "SVideo",
                             callback_data=(cb_string_video).encode("UTF-8")
                         ),
-                        pyrogram.InlineKeyboardButton(
+                        pyrogram.types.InlineKeyboardButton(
                             "DFile",
                             callback_data=(cb_string_file).encode("UTF-8")
                         )
@@ -370,16 +370,16 @@ async def echo(bot, update):
                     cb_string_video = "{}={}={}".format(
                         "video", format_id, format_ext)
                     inline_keyboard.append([
-                        pyrogram.InlineKeyboardButton(
+                        pyrogram.types.InlineKeyboardButton(
                             "video",
                             callback_data=(cb_string_video).encode("UTF-8")
                         ),
-                        pyrogram.InlineKeyboardButton(
+                        pyrogram.types.InlineKeyboardButton(
                             "file",
                             callback_data=(cb_string_file).encode("UTF-8")
                         )
                     ])
-                reply_markup = pyrogram.InlineKeyboardMarkup(inline_keyboard)
+                reply_markup = pyrogram.types.InlineKeyboardMarkup(inline_keyboard)
                 # logger.info(reply_markup)
                 #thumbnail = Config.DEF_THUMB_NAIL_VID_S
                 #thumbnail_image = Config.DEF_THUMB_NAIL_VID_S
@@ -412,16 +412,16 @@ async def echo(bot, update):
                 cb_string_video = "{}={}={}".format(
                     "video", "OFL", "ENON")
                 inline_keyboard.append([
-                    pyrogram.InlineKeyboardButton(
+                    pyrogram.types.InlineKeyboardButton(
                         "SVideo",
                         callback_data=(cb_string_video).encode("UTF-8")
                     ),
-                    pyrogram.InlineKeyboardButton(
+                    pyrogram.types.InlineKeyboardButton(
                         "DFile",
                         callback_data=(cb_string_file).encode("UTF-8")
                     )
                 ])
-                reply_markup = pyrogram.InlineKeyboardMarkup(inline_keyboard)
+                reply_markup = pyrogram.types.InlineKeyboardMarkup(inline_keyboard)
                 await bot.send_message(
                     chat_id=update.chat.id,
                     text=Translation.FORMAT_SELECTION.format(""),
