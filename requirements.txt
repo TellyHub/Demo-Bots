@@ -3,7 +3,8 @@ beautifulsoup4
 hachoir
 numpy
 Pillow
-https://github.com/mahesh0253/pyrogram/archive/asyncio.zip
+#https://github.com/mahesh0253/pyrogram/archive/asyncio.zip
+pyrogram
 requests
 tgcrypto
 #youtube-dl
