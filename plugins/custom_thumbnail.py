@@ -26,7 +26,7 @@ import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["generatecustomthumbnail"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["generatecustomthumbnail"]))
 async def generate_custom_thumbnail(bot, update):
     if update.from_user.id in Config.BANNED_USERS:
         await bot.delete_messages(
@@ -35,7 +35,7 @@ async def generate_custom_thumbnail(bot, update):
             revoke=True
         )
         return
-   # TRChatBase(update.from_user.id, update.text, "generatecustomthumbnail")
+    # TRChatBase(update.from_user.id, update.text, "generatecustomthumbnail")
     if update.reply_to_message is not None:
         reply_message = update.reply_to_message
         if reply_message.media_group_id is not None:
@@ -82,7 +82,7 @@ async def generate_custom_thumbnail(bot, update):
         )
 
 
-@pyrogram.Client.on_message(pyrogram.Filters.photo)
+@pyrogram.Client.on_message(pyrogram.filters.photo)
 async def save_photo(bot, update):
     if update.from_user.id in Config.BANNED_USERS:
         await bot.delete_messages(
@@ -91,7 +91,7 @@ async def save_photo(bot, update):
             revoke=True
         )
         return
-   # TRChatBase(update.from_user.id, update.text, "save_photo")
+    # TRChatBase(update.from_user.id, update.text, "save_photo")
     if update.media_group_id is not None:
         # album is sent
         download_location = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/" + str(update.media_group_id) + "/"
@@ -115,7 +115,7 @@ async def save_photo(bot, update):
             reply_to_message_id=update.message_id
         )
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["showthumbnail"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["showthumbnail"]))
 async def show_thumbnail(bot, update):
     if update.from_user.id in Config.BANNED_USERS:
         await bot.delete_messages(
@@ -134,7 +134,7 @@ async def show_thumbnail(bot, update):
     else:
       await update.reply_text("Custom Thumbnail Not Available.\nDefault Thumbnail will be used.")
     
-@pyrogram.Client.on_message(pyrogram.Filters.command(["deletethumbnail"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["deletethumbnail"]))
 async def delete_thumbnail(bot, update):
     if update.from_user.id in Config.BANNED_USERS:
         await bot.delete_messages(
@@ -143,7 +143,7 @@ async def delete_thumbnail(bot, update):
             revoke=True
         )
         return
-   # TRChatBase(update.from_user.id, update.text, "deletethumbnail")
+    # TRChatBase(update.from_user.id, update.text, "deletethumbnail")
     download_location = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     try:
         os.remove(download_location + ".jpg")
