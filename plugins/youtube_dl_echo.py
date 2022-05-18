@@ -323,16 +323,16 @@ async def echo(bot, update):
                                 )"""
                         else:
                             # special weird case :\
-                            ikeyboard = [
-                                pyrogram.types.InlineKeyboardButton(
-                                    "🎞 - Video",
-                                    callback_data="ferror"
-                                ),
-                                pyrogram.types.InlineKeyboardButton(
-                                    "📂 - File",
-                                    callback_data="ferror"
-                                )
-                            ]
+                            #ikeyboard = [
+                            #    pyrogram.types.InlineKeyboardButton(
+                            #        "🎞 - Video",
+                            #        callback_data="ferror"
+                            #    ),
+                            #    pyrogram.types.InlineKeyboardButton(
+                            #        "📂 - File",
+                            #        callback_data="ferror"
+                            #    )
+                            #]
                         inline_keyboard.append(ikeyboard)
                     #if duration is not None:
                     #    cb_string_64 = "{}|{}|{}".format("audio", "64k", "mp3")
