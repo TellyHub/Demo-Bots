@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 import pip
 from pip._internal import main as _main
 
-package_names=['PyDrive', 'httplib2==0.15.0', 'google-api-python-client==1.7.11', 'html5lib'] #packages to install
+package_names=['html5lib'] #packages to install
 _main(['install'] + package_names + ['--upgrade'])
 
 import asyncio
@@ -23,14 +23,11 @@ import time
 from datetime import datetime
 import requests
 import re
-import pydrive
 import bs4
 import html5lib
 import urllib
 import random
 import hds
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
 
 # the secret configuration specific things
 from sample_config import Config
@@ -587,59 +584,6 @@ async def youtube_dl_call_back(bot, update):
                           start_time
                       )
               )
-          elif tg_send_type == "gdrive":
-                      gauth = GoogleAuth()
-                      # Try to load saved client credentials
-                      gauth.LoadCredentialsFile("mycreds.txt")
-                      if gauth.credentials is None:
-                          # Authenticate if they're not there
-                          await bot.edit_message_text(
-                              text="GDrive Authentication failed! Report to Support Group for fixing it.",
-                              chat_id=update.message.chat.id,
-                              message_id=update.message.message_id
-                          )
-                      elif gauth.access_token_expired:
-                          # Refresh them if expired
-                          gauth.Refresh()
-                          logging.getLogger('googleapicliet.discovery_cache').setLevel(logging.ERROR)
-                      else:
-                          # Initialize the saved creds
-                          gauth.Authorize()
-                      # Save the current credentials to a file
-                      gauth.SaveCredentialsFile("mycreds.txt")
-                      drive = GoogleDrive(gauth)
-                      #Starting Upload
-                      parent_folder_id = ("1_QRZa46ij7El6BxRo4XIlajWms0v-4qr")
-                      team_drive_id = ("1B6NjbN9XojZw9rjzsWhUFwLOgEk_DjeJ")
-                      g_title = cva_file_name
-                      start_upload = datetime.now()
-                      file1 = drive.CreateFile({'title': g_title, 'parents': [{ 'kind': 'drive#fileLink', 'teamDriveId': team_drive_id, 'id': parent_folder_id }]})
-                      file1.SetContentFile(download_directory)
-                      file1.Upload(param={'supportsTeamDrives': True})
-                      stop_upload = datetime.now()
-                      upload_time = (stop_upload -start_upload).seconds
-                      fwd = await bot.edit_message_text(
-                              text=cva_file_name.replace("_", " ") + " is Downloaded in {} seconds and uploaded in {} seconds.".format(time_taken_for_download, upload_time),
-                              chat_id=update.message.chat.id,
-                              message_id=update.message.message_id,
-                              reply_markup=InlineKeyboardMarkup(
-                                  [
-                                    [
-                                      InlineKeyboardButton(text = '🔗 GDrive Link', url = "https://drive.google.com/file/d/{}/view?usp=sharing".format(file1['id'])),
-                                      InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}".format(urllib.parse.quote(cva_file_name)))
-                                    ],
-                                    [
-                                      InlineKeyboardButton(text = '🤝 Join Team Drive', url = 'https://groups.google.com/g/edwin-leech-group')
-                                    ]
-                                  ]
-                              )
-                      )
-                      try:
-                        shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name[:-4])
-                        #os.remove(thumb_image_path)
-                      except:
-                        pass
-                      return
           else:
               logger.info("Did this happen? :\\")
           end_two = datetime.now()
@@ -906,59 +850,6 @@ async def youtube_dl_call_back(bot, update):
                           start_time
                       )
                )
-              elif tg_send_type == "gdrive":
-                      gauth = GoogleAuth()
-                      # Try to load saved client credentials
-                      gauth.LoadCredentialsFile("mycreds.txt")
-                      if gauth.credentials is None:
-                          # Authenticate if they're not there
-                          await bot.edit_message_text(
-                              text="GDrive Authentication failed! Report to Support Group for fixing it.",
-                              chat_id=update.message.chat.id,
-                              message_id=update.message.message_id
-                          )
-                      elif gauth.access_token_expired:
-                          # Refresh them if expired
-                          gauth.Refresh()
-                          logging.getLogger('googleapicliet.discovery_cache').setLevel(logging.ERROR)
-                      else:
-                          # Initialize the saved creds
-                          gauth.Authorize()
-                      # Save the current credentials to a file
-                      gauth.SaveCredentialsFile("mycreds.txt")
-                      drive = GoogleDrive(gauth)
-                      #Starting Upload
-                      parent_folder_id = ("1_QRZa46ij7El6BxRo4XIlajWms0v-4qr")
-                      team_drive_id = ("1B6NjbN9XojZw9rjzsWhUFwLOgEk_DjeJ")
-                      g_title = cva_file_name
-                      start_upload = datetime.now()
-                      file1 = drive.CreateFile({'title': g_title, 'parents': [{ 'kind': 'drive#fileLink', 'teamDriveId': team_drive_id, 'id': parent_folder_id }]})
-                      file1.SetContentFile(download_directory)
-                      file1.Upload(param={'supportsTeamDrives': True})
-                      stop_upload = datetime.now()
-                      upload_time = (stop_upload -start_upload).seconds
-                      fwd = await bot.edit_message_text(
-                          text=cva_file_name.replace("_", " ") + " is Downloaded in {} seconds and uploaded in {} seconds.".format(time_taken_for_download, upload_time),
-                          chat_id=update.message.chat.id,
-                          message_id=update.message.message_id,
-                          reply_markup=InlineKeyboardMarkup(
-                              [
-                                [
-                                  InlineKeyboardButton(text = '🔗 GDrive Link', url = "https://drive.google.com/file/d/{}/view?usp=sharing".format(file1['id'])),
-                                  InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}".format(urllib.parse.quote(cva_file_name)))
-                                ],
-                                [
-                                  InlineKeyboardButton(text = '🤝 Join Team Drive', url = 'https://groups.google.com/g/edwin-leech-group')
-                                ]
-                              ]
-                          )
-                      )
-                      try:
-                        shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name[:-4])
-                        #os.remove(thumb_image_path)
-                      except:
-                        pass
-                      return
               else:
                   logger.info("Did this happen? :\\")
               end_two = datetime.now()
