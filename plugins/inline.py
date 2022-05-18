@@ -77,7 +77,7 @@ async def inline(bot, inline_query):
                         cache_time=5,
                         switch_pm_text=pm_text,
                         switch_pm_parameter="results",
-                        next_offset=str(10)
+                        next_offset=""
      )
      return
     else:
