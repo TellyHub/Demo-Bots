@@ -323,7 +323,7 @@ async def echo(bot, update):
                                 )"""
                         else:
                             # special weird case :\
-                            #ikeyboard = [
+                            ikeyboard = []
                             #    pyrogram.types.InlineKeyboardButton(
                             #        "🎞 - Video",
                             #        callback_data="ferror"
