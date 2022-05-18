@@ -4,7 +4,7 @@ hachoir
 numpy
 Pillow
 #https://github.com/mahesh0253/pyrogram/archive/asyncio.zip
-pyrogram
+pyrogram==1.4.16
 requests
 tgcrypto
 #youtube-dl
