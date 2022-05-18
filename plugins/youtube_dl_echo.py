@@ -292,6 +292,8 @@ async def echo(bot, update):
                         format_string = formats.get("format_note")
                         if format_string is None:
                             format_string = formats.get("format")
+                            if len(format_string) == 1:
+                              continue
                         format_ext = formats.get("ext")
                         approx_file_size = ""
                         if "filesize" in formats:
