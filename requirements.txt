@@ -1,14 +1,13 @@
 aiohttp
-beautifulsoup4
 hachoir
 numpy
 Pillow
 https://github.com/mahesh0253/pyrogram/archive/asyncio.zip
-requests
 tgcrypto
 #youtube-dl
 #git+https://github.com/TGExplore/youtube-dl.git
 #git+https://github.com/cvatricks/cvatricks-dl.git
 youtube_dl==2020.9.14
+git+https://github.com/yt-dlp/yt-dlp.git
 git+https://github.com/rthalley/dnspython.git
 pymongo
