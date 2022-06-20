@@ -128,14 +128,11 @@ async def echo(bot, update):
             youtube_dl_password = None
             file_name = None
             url = None
-            if not "mxplayer" in u:
-               await update.reply_text("😐 Unsupported URL...!")
-               return
             if "|" in u:
                ul_part = u.strip(" ")
                ul_parts = ul_part.split("|")
                u = ul_parts[0]
-            elif "http" in u:
+            if not "mxplayer" in u:
                  await update.reply_text("😐 Unsupported URL...!")
                  Config.ONE_BY_ONE.remove(update.from_user.id)
                  total_req_get = total_req
@@ -152,13 +149,13 @@ async def echo(bot, update):
                 file_name = ul_parts[1]
                 #url_parts = url.split("|")
                 #if len(url_parts) == 2:
-                    #url = url_parts[0]
-                    #file_name = url_parts[1]
+                #    #url = url_parts[0]
+                #    #file_name = url_parts[1]
                 #elif len(url_parts) == 4:
-                    #url = url_parts[0]
-                    #file_name = url_parts[1]
-                    #youtube_dl_username = url_parts[2]
-                    #youtube_dl_password = url_parts[3]
+                #    #url = url_parts[0]
+                #    #file_name = url_parts[1]
+                #    #youtube_dl_username = url_parts[2]
+                #    #youtube_dl_password = url_parts[3]
                 #else:
                 #    for entity in update.entities:
                 #        if entity.type == "text_link":
@@ -186,13 +183,13 @@ async def echo(bot, update):
              #            o = entity.offset
              #            l = entity.length
              #            url = url[o:o + l]
-            if "mxplayer" in url:
+            if "mxplayer" in u:
                 command_to_exec = [
                     "yt-dlp",
                     "--no-warnings",
                     "--youtube-skip-dash-manifest",
                     "-j",
-                    url
+                    u
                 ]
             else:
                 command_to_exec = [
@@ -200,7 +197,7 @@ async def echo(bot, update):
                     "--no-warnings",
                     "--youtube-skip-dash-manifest",
                     "-j",
-                    url
+                    u
                 ]
             if youtube_dl_username is not None:
                 command_to_exec.append("--username")
