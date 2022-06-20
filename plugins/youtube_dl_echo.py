@@ -11,8 +11,6 @@ logger = logging.getLogger(__name__)
 import pip
 from pip._internal import main as _main
 
-package_names=['html5lib'] #packages to install
-_main(['install'] + package_names + ['--upgrade'])
 
 import asyncio
 import json
@@ -20,9 +18,6 @@ import math
 import os
 import time
 import re
-import requests
-import bs4
-import html5lib
 import datetime
 import hds
 
@@ -134,185 +129,13 @@ async def echo(bot, update):
             youtube_dl_password = None
             file_name = None
             url = None
+            if not "mxplayer" in u:
+               await update.reply_text("😐 Unsupported URL...!")
+               return
             if "|" in u:
                ul_part = u.strip(" ")
                ul_parts = ul_part.split("|")
                u = ul_parts[0]
-            if "mxplayer" in u:
-             try:
-              if "movie" in u:
-                 mx1 = requests.get(u, headers=hds.mxplayer)
-                 mx2 = bs4.BeautifulSoup(mx1.content.decode('utf-8'), "html5lib")
-                 mx3 = mx2.find_all("script")[1].prettify()
-                 G = []
-                 for i in mx3.split('"'):
-                  if "embed/detail" in i:
-                    G.append(i)
-                 mx4 = G[0]
-                 mx5 = requests.get(mx4[:-1], headers=hds.mxplayer)
-                 mx6 = bs4.BeautifulSoup(mx5.content.decode('utf-8'), "html5lib")
-                 mx7 = mx6.find_all("script")[0].prettify()
-                 H = []
-                 O = []
-                 N = []
-                 for j in mx7.split('"'):
-                    if ",.mp4" in j:
-                      H.append(j)
-                 try:
-                    url = H[0]
-                 except IndexError:
-                    for k in mx7.split('"'):
-                      if ".mp4" in k:
-                        H.append(k)
-                      if ".m3u8" in k:
-                        O.append(k)
-                      if "hlsurl" in k:
-                        N.append(k)
-                    try:
-                      sampleurl = H[0]
-                      url = "https://llvod.mxplay.com/" + O[0]
-                    except IndexError:
-                      try:
-                        sample2url = N[0]
-                        url = O[0]
-                      except IndexError:
-                        await update.reply_text("🔒 DRM Protected...!")
-                        Config.ONE_BY_ONE.remove(update.from_user.id)
-                        total_req_get = total_req
-                        b_json["users"].pop(user_count - 1)
-                        b_json["users"].append({
-                             "user_id": "{}".format(update.from_user.id),
-                             "total_req": "{}".format(int(total_req_get)),
-                             "exp_req": "{}".format(datetime.now())
-                        })
-                        with open("backup.json", "w", encoding="utf8") as outfile:
-                              json.dump(b_json, outfile, ensure_ascii=False)
-                        return
-                 if "voot" in url:
-                   await update.reply_text("🔒 Voot Videos Temporarily Disabled...!")
-                   Config.ONE_BY_ONE.remove(update.from_user.id)
-                   total_req_get = total_req
-                   b_json["users"].pop(user_count - 1)
-                   b_json["users"].append({
-                        "user_id": "{}".format(update.from_user.id),
-                        "total_req": "{}".format(int(total_req_get)),
-                        "exp_req": "{}".format(datetime.now())
-                   })
-                   with open("backup.json", "w", encoding="utf8") as outfile:
-                         json.dump(b_json, outfile, ensure_ascii=False)
-                   return
-              elif "show" in u:
-                 mxs1 = requests.get(u, headers=hds.mxplayer)
-                 mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
-                 mxs3 = mxs2.find_all("script")[1].prettify()
-                 GS = []
-                 for ia in mxs3.split('"'):
-                  if "embed/detail" in ia:
-                    GS.append(ia)
-                 try:
-                  mxs4 = GS[0]
-                  mxs5 = requests.get(mxs4[:-1], headers=hds.mxplayer)
-                  mxs6 = bs4.BeautifulSoup(mxs5.content.decode('utf-8'), "html5lib")
-                  mxs7 = mxs6.find_all("script")[0].prettify()
-                  HSS = []
-                  OSS = []
-                  NSS = []
-                  for sss in mxs7.split('"'):
-                    if ",.mp4" in sss:
-                      HSS.append(sss)
-                  try:
-                      url = HSS[0]
-                  except IndexError:
-                      for kss in mxs7.split('"'):
-                        if ".mp4" in kss:
-                          HSS.append(kss)
-                        if ".m3u8" in kss:
-                          OSS.append(kss)
-                        if "hlsurl" in kss:
-                          NSS.append(kss)
-                      try:
-                        sssampleurl = HSS[0]
-                        url = "https://llvod.mxplay.com/" + OSS[0]
-                      except IndexError:
-                        try:
-                          sample3urll = NSS[0]
-                          url = OSS[0]
-                        except IndexError:
-                          await update.reply_text("🔒 DRM Protected...!")
-                          Config.ONE_BY_ONE.remove(update.from_user.id)
-                          total_req_get = total_req
-                          b_json["users"].pop(user_count - 1)
-                          b_json["users"].append({
-                               "user_id": "{}".format(update.from_user.id),
-                               "total_req": "{}".format(int(total_req_get)),
-                               "exp_req": "{}".format(datetime.now())
-                          })
-                          with open("backup.json", "w", encoding="utf8") as outfile:
-                                json.dump(b_json, outfile, ensure_ascii=False)
-                          return
-                 except IndexError:
-                  HS = []
-                  OS = []
-                  NS = []
-                  for js in mxs3.split('"'):
-                    if ",.mp4" in js:
-                      HS.append(js)
-                  try:
-                    url = HS[0]
-                  except IndexError:
-                    for ks in mxs3.split('"'):
-                      if ".mp4" in ks:
-                        HS.append(ks)
-                      if ".m3u8" in ks:
-                        OS.append(ks)
-                      if "hlsurl" in ks:
-                        NS.append(ks)
-                    try:
-                      ssampleurl = HS[0]
-                      url = "https://llvod.mxplay.com/" + OS[0]
-                    except IndexError:
-                      try:
-                        sample2url = NS[0]
-                        url = OS[0]
-                      except IndexError:
-                        await update.reply_text("🔒 DRM Protected...!")
-                        Config.ONE_BY_ONE.remove(update.from_user.id)
-                        total_req_get = total_req
-                        b_json["users"].pop(user_count - 1)
-                        b_json["users"].append({
-                             "user_id": "{}".format(update.from_user.id),
-                             "total_req": "{}".format(int(total_req_get)),
-                             "exp_req": "{}".format(datetime.now())
-                        })
-                        with open("backup.json", "w", encoding="utf8") as outfile:
-                              json.dump(b_json, outfile, ensure_ascii=False)
-                        return
-              elif "live-tv" or "music-online" in u:
-                 await update.reply_text("😐 Now only Support Movies & Shows...!")
-                 Config.ONE_BY_ONE.remove(update.from_user.id)
-                 total_req_get = total_req
-                 b_json["users"].pop(user_count - 1)
-                 b_json["users"].append({
-                      "user_id": "{}".format(update.from_user.id),
-                      "total_req": "{}".format(int(total_req_get)),
-                      "exp_req": "{}".format(datetime.now())
-                 })
-                 with open("backup.json", "w", encoding="utf8") as outfile:
-                       json.dump(b_json, outfile, ensure_ascii=False)
-                 return
-             except KeyError:
-                 await update.reply_text("🙄 Unable to find video, Please Send me a valid Mx-Player streaming link")
-                 Config.ONE_BY_ONE.remove(update.from_user.id)
-                 total_req_get = total_req
-                 b_json["users"].pop(user_count - 1)
-                 b_json["users"].append({
-                      "user_id": "{}".format(update.from_user.id),
-                      "total_req": "{}".format(int(total_req_get)),
-                      "exp_req": "{}".format(datetime.now())
-                 })
-                 with open("backup.json", "w", encoding="utf8") as outfile:
-                       json.dump(b_json, outfile, ensure_ascii=False)
-                 return
             elif "http" in u:
                  await update.reply_text("😐 Unsupported URL...!")
                  Config.ONE_BY_ONE.remove(update.from_user.id)
@@ -364,14 +187,13 @@ async def echo(bot, update):
              #            o = entity.offset
              #            l = entity.length
              #            url = url[o:o + l]
-            if Config.HTTP_PROXY != "":
+            if "mxplayer" in url:
                 command_to_exec = [
-                    "youtube-dl",
+                    "yt-dlp",
                     "--no-warnings",
                     "--youtube-skip-dash-manifest",
                     "-j",
-                    url,
-                    "--proxy", Config.HTTP_PROXY
+                    url
                 ]
             else:
                 command_to_exec = [
