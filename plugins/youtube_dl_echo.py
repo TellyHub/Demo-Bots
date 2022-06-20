@@ -31,7 +31,6 @@ import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 from helper_funcs.display_progress import humanbytes
-from helper_funcs.help_uploadbot import DownLoadFile
 from pyrogram import InlineKeyboardButton, InlineKeyboardMarkup
 from datetime import datetime, timedelta
 headers = {
