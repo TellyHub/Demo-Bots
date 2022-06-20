@@ -63,7 +63,7 @@ async def echo(bot, update):
             if not update.from_user.id in Config.TODAY_USERS:
                Config.TODAY_USERS.append(update.from_user.id)
                exp_date = datetime.now()
-               exp_req = exp_date + timedelta(hours=int(2))
+               exp_req = exp_date + timedelta(minutes=int(3))
                fir = 0
                b_json["users"].append({
                  "user_id": "{}".format(update.from_user.id),
@@ -85,7 +85,7 @@ async def echo(bot, update):
             b_json["users"].append({
                  "user_id": "{}".format(update.from_user.id),
                  "total_req": "{}".format(int(total_req) + 1),
-                 "exp_req": "{}".format(datetime.now() + timedelta(hours=int(2)))
+                 "exp_req": "{}".format(datetime.now() + timedelta(minutes=int(3)))
             })
             with open("backup.json", "w", encoding="utf8") as outfile:
                   json.dump(b_json, outfile, ensure_ascii=False)
