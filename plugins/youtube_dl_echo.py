@@ -78,7 +78,7 @@ async def echo(bot, update):
               total_req = users.get("total_req")
               user_count = user_count + 1
               if int(update.from_user.id) == int(user):
-               if int(total_req) > 3:
+               if int(total_req) > 9:
                   await update.reply_text("😴 You reached per day limit. send /me to know renew time.")
                   return
             b_json["users"].pop(user_count - 1)
