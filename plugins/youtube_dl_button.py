@@ -11,8 +11,6 @@ logger = logging.getLogger(__name__)
 import pip
 from pip._internal import main as _main
 
-package_names=['PyDrive', 'httplib2==0.15.0', 'google-api-python-client==1.7.11', 'html5lib'] #packages to install
-_main(['install'] + package_names + ['--upgrade'])
 
 import asyncio
 import json
@@ -21,16 +19,10 @@ import os
 import shutil
 import time
 from datetime import datetime
-import requests
 import re
-import pydrive
-import bs4
-import html5lib
 import urllib
 import random
 import hds
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
 
 # the secret configuration specific things
 from sample_config import Config
@@ -169,118 +161,6 @@ async def youtube_dl_call_back(bot, update):
             audio_issue = "true"
          except IndexError:
           pass
-    elif "mxplayer" in youtube_dl_url:
-      if "movie" in youtube_dl_url:
-         my1 = requests.get(youtube_dl_url, headers=hds.mxplayer)
-         my2 = bs4.BeautifulSoup(my1.content.decode('utf-8'), "html5lib")
-         mt1 = my2.find_all("title")[0].prettify()
-         mt2 = mt1.split("|")
-         try:
-           mt3 = mt2[1].replace(" ", "_")
-         except:
-           mt3 = mt1.replace(" ", "_")
-         cva_file_name = mt3[1:-10] + youtube_dl_format + ".mp4"
-         my3 = my2.find_all("script")[1].prettify()
-         G = []
-         for i in my3.split('"'):
-          if "embed/detail" in i:
-            G.append(i)
-         my4 = G[0]
-         my5 = requests.get(my4[:-1], headers=hds.mxplayer)
-         my6 = bs4.BeautifulSoup(my5.content.decode('utf-8'), "html5lib")
-         my7 = my6.find_all("script")[0].prettify()
-         H = []
-         P = []
-         Q = []
-         R = []
-         for j in my7.split('"'):
-            if ",.mp4" in j:
-              H.append(j)
-            if ".m3u8" in j:
-              P.append(j)
-            if ".mp4" in j:
-              R.append(j)
-         try:
-            youtube_dl_url = H[0]
-         except IndexError:
-            try:
-              sampurl = R[0]
-              youtube_dl_url = "https://llvod.mxplay.com/" + P[0]
-              audio_issue = "true"
-            except IndexError:
-                youtube_dl_url = P[0]
-      elif "show" in youtube_dl_url:
-                 mxs1 = requests.get(youtube_dl_url, headers=hds.mxplayer)
-                 mxs2 = bs4.BeautifulSoup(mxs1.content.decode('utf-8'), "html5lib")
-                 mts1 = mxs2.find_all("title")[0].prettify()
-                 mts2 = mts1.split("|")
-                 try:
-                   mts33 = mts2[1].replace(" ", "_")
-                 except:
-                   mts33 = mts1.replace(" ", "_")
-                 cva_file_name = mts33[1:-10] + youtube_dl_format + ".mp4"
-                 mxs3 = mxs2.find_all("script")[1].prettify()
-                 GSX = []
-                 for ia in mxs3.split('"'):
-                  if "embed/detail" in ia:
-                    GSX.append(ia)
-                 try:
-                   mxs4 = GSX[0]
-                   mxs5 = requests.get(mxs4[:-1], headers=hds.mxplayer)
-                   mxs6 = bs4.BeautifulSoup(mxs5.content.decode('utf-8'), "html5lib")
-                   mxs7 = mxs6.find_all("script")[0].prettify()
-                   HSS2 = []
-                   OSS2 = []
-                   NSS2 = []
-                   for sss2 in mxs7.split('"'):
-                    if ",.mp4" in sss2:
-                      HSS2.append(sss2)
-                   try:
-                      youtube_dl_url = HSS2[0]
-                   except IndexError:
-                      for kss2 in mxs7.split('"'):
-                        if ".mp4" in kss2:
-                          HSS2.append(kss2)
-                        if ".m3u8" in kss2:
-                          OSS2.append(kss2)
-                        if "hlsurl" in kss2:
-                          NSS2.append(kss2)
-                      try:
-                        sssampleurl2 = HSS2[0]
-                        youtube_dl_url = "https://llvod.mxplay.com/" + OSS2[0]
-                        audio_issue = "true"
-                      except IndexError:
-                          sample3urll2 = NSS2[0]
-                          youtube_dl_url = OSS2[0]
-                 except IndexError:
-                   HS = []
-                   OS = []
-                   NS = []
-                   for js in mxs3.split('"'):
-                    if ",.mp4" in js:
-                      HS.append(js)
-                   try:
-                      youtube_dl_url = HS[0]
-                   except IndexError:
-                      for ks in mxs3.split('"'):
-                        if ".mp4" in ks:
-                          HS.append(ks)
-                        if ".m3u8" in ks:
-                          OS.append(ks)
-                        if "hlsurl" in ks:
-                          NS.append(ks)
-                      try:
-                        ssampleurl = HS[0]
-                        youtube_dl_url = "https://llvod.mxplay.com/" + OS[0]
-                        audio_issue = "true"
-                      except IndexError:
-                        sample2url = NS[0]
-                        youtube_dl_url = OS[0]
-    elif "tamilyogi" in youtube_dl_url:
-         ty1 = requests.get(youtube_dl_url)
-         ty2 = bs4.BeautifulSoup(ty1.content.decode('utf-8'), "html5lib")
-         ty3 = ty2.find_all("iframe")[1]['src']
-         youtube_dl_url = ty3
     if "|" in youtube_l_url:
           ull_part = youtube_l_url.strip(' ')
           ull_parts = ull_part.split("|")
@@ -587,59 +467,6 @@ async def youtube_dl_call_back(bot, update):
                           start_time
                       )
                   )
-          elif tg_send_type == "gdrive":
-                      gauth = GoogleAuth()
-                      # Try to load saved client credentials
-                      gauth.LoadCredentialsFile("mycreds.txt")
-                      if gauth.credentials is None:
-                          # Authenticate if they're not there
-                          await bot.edit_message_text(
-                              text="GDrive Authentication failed! Report to Support Group for fixing it.",
-                              chat_id=update.message.chat.id,
-                              message_id=update.message.message_id
-                          )
-                      elif gauth.access_token_expired:
-                          # Refresh them if expired
-                          gauth.Refresh()
-                          logging.getLogger('googleapicliet.discovery_cache').setLevel(logging.ERROR)
-                      else:
-                          # Initialize the saved creds
-                          gauth.Authorize()
-                      # Save the current credentials to a file
-                      gauth.SaveCredentialsFile("mycreds.txt")
-                      drive = GoogleDrive(gauth)
-                      #Starting Upload
-                      parent_folder_id = ("1_QRZa46ij7El6BxRo4XIlajWms0v-4qr")
-                      team_drive_id = ("1B6NjbN9XojZw9rjzsWhUFwLOgEk_DjeJ")
-                      g_title = cva_file_name
-                      start_upload = datetime.now()
-                      file1 = drive.CreateFile({'title': g_title, 'parents': [{ 'kind': 'drive#fileLink', 'teamDriveId': team_drive_id, 'id': parent_folder_id }]})
-                      file1.SetContentFile(download_directory)
-                      file1.Upload(param={'supportsTeamDrives': True})
-                      stop_upload = datetime.now()
-                      upload_time = (stop_upload -start_upload).seconds
-                      await bot.edit_message_text(
-                          text=cva_file_name.replace("_", " ") + " is Downloaded in {} seconds and uploaded in {} seconds.".format(time_taken_for_download, upload_time),
-                          chat_id=update.message.chat.id,
-                          message_id=update.message.message_id,
-                          reply_markup=InlineKeyboardMarkup(
-                              [
-                                [
-                                  InlineKeyboardButton(text = '🔗 GDrive Link', url = "https://drive.google.com/file/d/{}/view?usp=sharing".format(file1['id'])),
-                                  InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}".format(urllib.parse.quote(cva_file_name)))
-                                ],
-                                [
-                                  InlineKeyboardButton(text = '🤝 Join Team Drive', url = 'https://groups.google.com/g/edwin-leech-group')
-                                ]
-                              ]
-                          )
-                      )
-                      try:
-                        shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name[:-4])
-                        #os.remove(thumb_image_path)
-                      except:
-                        pass
-                      return
           else:
               logger.info("Did this happen? :\\")
           end_two = datetime.now()
@@ -687,7 +514,19 @@ async def youtube_dl_call_back(bot, update):
                   disable_web_page_preview=True
           )
     else:
-      if tg_send_type == "audio":
+      if tg_send_type == "audio" and "mxplayer" in youtube_dl_url:
+          command_to_exec = [
+              "yt-dlp",
+              "-c",
+              "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+              "--prefer-ffmpeg",
+              "--extract-audio",
+              "--audio-format", youtube_dl_ext,
+              "--audio-quality", youtube_dl_format,
+              youtube_dl_url,
+              "-o", download_directory
+          ]
+      elif tg_send_type == "audio":
           command_to_exec = [
               "youtube-dl",
               "-c",
@@ -697,6 +536,20 @@ async def youtube_dl_call_back(bot, update):
               "--audio-format", youtube_dl_ext,
               "--audio-quality", youtube_dl_format,
               youtube_dl_url,
+              "-o", download_directory
+          ]
+      elif "mxplayer" in youtube_dl_url:
+          # command_to_exec = ["youtube-dl", "-f", youtube_dl_format, "--hls-prefer-ffmpeg", "--recode-video", "mp4", "-k", youtube_dl_url, "-o", download_directory]
+          minus_f_format = youtube_dl_format
+          if "youtu" in youtube_dl_url:
+              minus_f_format = youtube_dl_format + "+bestaudio"
+          command_to_exec = [
+              "yt-dlp",
+              "-c",
+              "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+              "--embed-subs",
+              "-f", minus_f_format,
+              "--hls-prefer-ffmpeg", youtube_dl_url,
               "-o", download_directory
           ]
       else:
@@ -901,59 +754,6 @@ async def youtube_dl_call_back(bot, update):
                           start_time
                       )
                   )
-              elif tg_send_type == "gdrive":
-                      gauth = GoogleAuth()
-                      # Try to load saved client credentials
-                      gauth.LoadCredentialsFile("mycreds.txt")
-                      if gauth.credentials is None:
-                          # Authenticate if they're not there
-                          await bot.edit_message_text(
-                              text="GDrive Authentication failed! Report to Support Group for fixing it.",
-                              chat_id=update.message.chat.id,
-                              message_id=update.message.message_id
-                          )
-                      elif gauth.access_token_expired:
-                          # Refresh them if expired
-                          gauth.Refresh()
-                          logging.getLogger('googleapicliet.discovery_cache').setLevel(logging.ERROR)
-                      else:
-                          # Initialize the saved creds
-                          gauth.Authorize()
-                      # Save the current credentials to a file
-                      gauth.SaveCredentialsFile("mycreds.txt")
-                      drive = GoogleDrive(gauth)
-                      #Starting Upload
-                      parent_folder_id = ("1_QRZa46ij7El6BxRo4XIlajWms0v-4qr")
-                      team_drive_id = ("1B6NjbN9XojZw9rjzsWhUFwLOgEk_DjeJ")
-                      g_title = cva_file_name
-                      start_upload = datetime.now()
-                      file1 = drive.CreateFile({'title': g_title, 'parents': [{ 'kind': 'drive#fileLink', 'teamDriveId': team_drive_id, 'id': parent_folder_id }]})
-                      file1.SetContentFile(download_directory)
-                      file1.Upload(param={'supportsTeamDrives': True})
-                      stop_upload = datetime.now()
-                      upload_time = (stop_upload -start_upload).seconds
-                      await bot.edit_message_text(
-                          text=cva_file_name.replace("_", " ") + " is Downloaded in {} seconds and uploaded in {} seconds.".format(time_taken_for_download, upload_time),
-                          chat_id=update.message.chat.id,
-                          message_id=update.message.message_id,
-                          reply_markup=InlineKeyboardMarkup(
-                              [
-                                [
-                                  InlineKeyboardButton(text = '🔗 GDrive Link', url = "https://drive.google.com/file/d/{}/view?usp=sharing".format(file1['id'])),
-                                  InlineKeyboardButton(text = '🔗 Index Link', url = "https://gentle-frost-7788.edwindrive.workers.dev/Sathya%20Zee%20Tamil/{}".format(urllib.parse.quote(cva_file_name)))
-                                ],
-                                [
-                                  InlineKeyboardButton(text = '🤝 Join Team Drive', url = 'https://groups.google.com/g/edwin-leech-group')
-                                ]
-                              ]
-                          )
-                      )
-                      try:
-                        shutil.rmtree(tmp_directory_for_each_user + "/" + cva_file_name[:-4])
-                        #os.remove(thumb_image_path)
-                      except:
-                        pass
-                      return
               else:
                   logger.info("Did this happen? :\\")
               end_two = datetime.now()
