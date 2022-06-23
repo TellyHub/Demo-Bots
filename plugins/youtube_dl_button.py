@@ -342,7 +342,7 @@ async def youtube_dl_call_back(bot, update):
       )
       a_download_location = tmp_directory_for_each_user + "/" + cva_file_name[:-4] + "/" + "audio" + ".mp3"
       command_to_exec = [
-              "youtube-dl",
+              "yt-dlp",
               "-c",
               "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
               "--prefer-ffmpeg",
@@ -378,7 +378,7 @@ async def youtube_dl_call_back(bot, update):
       )
       v_download_location = tmp_directory_for_each_user + "/" + cva_file_name[:-4] + "/" + "video" + ".mp4"
       command_to_exec = [
-              "youtube-dl",
+              "yt-dlp",
               "-c",
               "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
               "--embed-subs",
