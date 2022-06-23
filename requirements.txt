@@ -12,3 +12,5 @@ tgcrypto
 youtube_dl==2020.9.14
 git+https://github.com/rthalley/dnspython.git
 pymongo
+yt-dlp
+pyrogram==1.4.16
